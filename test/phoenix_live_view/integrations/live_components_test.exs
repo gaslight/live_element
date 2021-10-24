@@ -1,10 +1,10 @@
-defmodule Phoenix.LiveView.LiveComponentsTest do
+defmodule LiveElement.LiveComponentsTest do
   use ExUnit.Case, async: false
   import Phoenix.ConnTest
 
-  import Phoenix.LiveViewTest
-  import Phoenix.LiveView.TelemetryTestHelpers
-  alias Phoenix.LiveViewTest.{Endpoint, DOM, StatefulComponent}
+  import LiveElementTest
+  import LiveElement.TelemetryTestHelpers
+  alias LiveElementTest.{Endpoint, DOM, StatefulComponent}
 
   @endpoint Endpoint
   @moduletag session: %{names: ["chris", "jose"], from: nil}
@@ -259,7 +259,7 @@ defmodule Phoenix.LiveView.LiveComponentsTest do
 
       assert metadata.socket.transport_pid
       assert metadata.event == "transform"
-      assert metadata.component == Phoenix.LiveViewTest.StatefulComponent
+      assert metadata.component == LiveElementTest.StatefulComponent
       assert metadata.params == %{"op" => "upcase"}
 
       assert_receive {:event, [:phoenix, :live_component, :handle_event, :stop], %{duration: _},
@@ -267,7 +267,7 @@ defmodule Phoenix.LiveView.LiveComponentsTest do
 
       assert metadata.socket.transport_pid
       assert metadata.event == "transform"
-      assert metadata.component == Phoenix.LiveViewTest.StatefulComponent
+      assert metadata.component == LiveElementTest.StatefulComponent
       assert metadata.params == %{"op" => "upcase"}
     end
 
@@ -284,7 +284,7 @@ defmodule Phoenix.LiveView.LiveComponentsTest do
 
       assert metadata.socket.transport_pid
       assert metadata.event == "transform"
-      assert metadata.component == Phoenix.LiveViewTest.StatefulComponent
+      assert metadata.component == LiveElementTest.StatefulComponent
       assert metadata.params == %{"op" => "boom"}
 
       assert_receive {:event, [:phoenix, :live_component, :handle_event, :exception],
@@ -294,7 +294,7 @@ defmodule Phoenix.LiveView.LiveComponentsTest do
       assert metadata.reason == {:case_clause, "boom"}
       assert metadata.socket.transport_pid
       assert metadata.event == "transform"
-      assert metadata.component == Phoenix.LiveViewTest.StatefulComponent
+      assert metadata.component == LiveElementTest.StatefulComponent
       assert metadata.params == %{"op" => "boom"}
     end
   end
@@ -333,8 +333,8 @@ defmodule Phoenix.LiveView.LiveComponentsTest do
     test "updates child from independent pid", %{conn: conn} do
       {:ok, view, _html} = live(conn, "/components")
 
-      Phoenix.LiveView.send_update(view.pid, StatefulComponent, [id: "chris", name: "NEW-chris", from: self()])
-      Phoenix.LiveView.send_update_after(view.pid, StatefulComponent, [id: "jose", name: "NEW-jose", from: self()], 10)
+      LiveElement.send_update(view.pid, StatefulComponent, [id: "chris", name: "NEW-chris", from: self()])
+      LiveElement.send_update_after(view.pid, StatefulComponent, [id: "jose", name: "NEW-jose", from: self()], 10)
       assert_receive {:updated, %{id: "chris", name: "NEW-chris"}}
       assert_receive {:updated, %{id: "jose", name: "NEW-jose"}}
       refute_receive {:updated, _}
@@ -359,7 +359,7 @@ defmodule Phoenix.LiveView.LiveComponentsTest do
                render(view)
                refute_received {:updated, _}
              end) =~
-               "send_update failed because component Phoenix.LiveViewTest.StatefulComponent with ID \"nemo\" does not exist or it has been removed"
+               "send_update failed because component LiveElementTest.StatefulComponent with ID \"nemo\" does not exist or it has been removed"
     end
 
     test "raises if component module is not available", %{conn: conn} do
@@ -512,7 +512,7 @@ defmodule Phoenix.LiveView.LiveComponentsTest do
     end
 
     test "loads unloaded component" do
-      module = Phoenix.LiveViewTest.ComponentInLive.Component
+      module = LiveElementTest.ComponentInLive.Component
       :code.purge(module)
       :code.delete(module)
       assert render_component(module, %{}) =~ "<div>Hello World</div>"

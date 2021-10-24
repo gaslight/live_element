@@ -1,5 +1,5 @@
-defmodule Phoenix.LiveViewTest.UploadLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.UploadLive do
+  use LiveElement
 
   def render(%{uploads: _} = assigns) do
     ~H"""
@@ -12,7 +12,7 @@ defmodule Phoenix.LiveViewTest.UploadLive do
     <form phx-change="validate" phx-submit="save">
       <%= for entry <- @uploads.avatar.entries do %>
         lv:<%= entry.client_name %>:<%= entry.progress %>%
-        channel:<%= inspect(Phoenix.LiveView.UploadConfig.entry_pid(@uploads.avatar, entry)) %>
+        channel:<%= inspect(LiveElement.UploadConfig.entry_pid(@uploads.avatar, entry)) %>
         <%= for msg <- upload_errors(@uploads.avatar, entry) do %>
           error:<%= inspect(msg) %>
         <% end %>
@@ -73,7 +73,7 @@ defmodule Phoenix.LiveViewTest.UploadLive do
   def proxy_pid(%{proxy: {_ref, _topic, pid}}), do: pid
 end
 
-defmodule Phoenix.LiveViewTest.UploadComponent do
+defmodule LiveElementTest.UploadComponent do
   use Phoenix.LiveComponent
 
   def render(%{uploads: _} = assigns) do
@@ -88,7 +88,7 @@ defmodule Phoenix.LiveViewTest.UploadComponent do
       <form phx-change="validate" id={@id} phx-submit="save" phx-target={@myself}>
         <%= for entry <- @uploads.avatar.entries do %>
           component:<%= entry.client_name %>:<%= entry.progress %>%
-          channel:<%= inspect(Phoenix.LiveView.UploadConfig.entry_pid(@uploads.avatar, entry)) %>
+          channel:<%= inspect(LiveElement.UploadConfig.entry_pid(@uploads.avatar, entry)) %>
           <%= for msg <- upload_errors(@uploads.avatar, entry) do %>
             error:<%= inspect(msg) %>
           <% end %>
@@ -134,15 +134,15 @@ defmodule Phoenix.LiveViewTest.UploadComponent do
   end
 end
 
-defmodule Phoenix.LiveViewTest.UploadLiveWithComponent do
-  use Phoenix.LiveView
+defmodule LiveElementTest.UploadLiveWithComponent do
+  use LiveElement
 
   def render(assigns) do
     ~H"""
     <div>
       <%= if @uploads_count > 0 do %>
         <%= for i <- 0..@uploads_count do %>
-          <%= live_component Phoenix.LiveViewTest.UploadComponent, id: "upload#{i}" %>
+          <%= live_component LiveElementTest.UploadComponent, id: "upload#{i}" %>
         <% end %>
       <% end %>
     </div>
@@ -162,7 +162,7 @@ defmodule Phoenix.LiveViewTest.UploadLiveWithComponent do
   end
 
   def handle_call({:run, func}, from, socket) do
-    send_update(Phoenix.LiveViewTest.UploadComponent, id: "upload0", run: {func, from})
+    send_update(LiveElementTest.UploadComponent, id: "upload0", run: {func, from})
     {:noreply, socket}
   end
 end

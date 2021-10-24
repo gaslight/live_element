@@ -28,7 +28,7 @@ defmodule Phoenix.ComponentTest do
   end
 
   describe "change tracking" do
-    defp eval(%Phoenix.LiveView.Rendered{dynamic: dynamic}), do: Enum.map(dynamic.(true), &eval/1)
+    defp eval(%LiveElement.Rendered{dynamic: dynamic}), do: Enum.map(dynamic.(true), &eval/1)
     defp eval(other), do: other
 
     defp changed(assigns) do
@@ -231,7 +231,7 @@ defmodule Phoenix.ComponentTest do
   end
 
   describe "testing" do
-    import Phoenix.LiveViewTest
+    import LiveElementTest
 
     test "render_component/1" do
       assert render_component(&hello/1, name: "World!") == "Hello World!"

@@ -1,7 +1,7 @@
-defmodule Phoenix.LiveViewTest.LayoutView do
+defmodule LiveElementTest.LayoutView do
   use Phoenix.View, root: ""
-  alias Phoenix.LiveViewTest.Router.Helpers, as: Routes
-  import Phoenix.LiveView.Helpers
+  alias LiveElementTest.Router.Helpers, as: Routes
+  import LiveElement.Helpers
 
   def render("app.html", assigns) do
     # Assert those assigns are always available
@@ -25,19 +25,19 @@ defmodule Phoenix.LiveViewTest.LayoutView do
 
   def render("widget.html", assigns) do
     ~H"""
-    WIDGET:<%= live_render(@conn, Phoenix.LiveViewTest.ClockLive) %>
+    WIDGET:<%= live_render(@conn, LiveElementTest.ClockLive) %>
     """
   end
 
   def render("with-function-component.html", assigns) do
     ~H"""
-    RENDER:<%= component(&Phoenix.LiveViewTest.FunctionComponent.render/1, value: "from component") %>
+    RENDER:<%= component(&LiveElementTest.FunctionComponent.render/1, value: "from component") %>
     """
   end
 
   def render("layout-with-function-component.html", assigns) do
     ~H"""
-    LAYOUT:<%= component(&Phoenix.LiveViewTest.FunctionComponent.render/1, value: "from layout") %>
+    LAYOUT:<%= component(&LiveElementTest.FunctionComponent.render/1, value: "from layout") %>
     <%= @inner_content %>
     """
   end
@@ -68,7 +68,7 @@ defmodule Phoenix.LiveViewTest.LayoutView do
   end
 end
 
-defmodule Phoenix.LiveViewTest.AssignsLayoutView do
+defmodule LiveElementTest.AssignsLayoutView do
   use Phoenix.View, root: ""
 
   def render("app.html", assigns) do

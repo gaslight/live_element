@@ -1,4 +1,4 @@
-defmodule Phoenix.LiveView.JS do
+defmodule LiveElement.JS do
   @moduledoc ~S'''
   Provides commands for executing JavaScript utility operations on the client.
 
@@ -25,7 +25,7 @@ defmodule Phoenix.LiveView.JS do
   Imagine you need to target your current component, and apply a loading state
   to the parent container while the client awaits the server acknowledgement:
 
-      alias Phoenix.LiveView.JS
+      alias LiveElement.JS
 
       <div phx-click={JS.push("inc", loading: ".thermo", target: @myself)}>+</div>
 
@@ -52,7 +52,7 @@ defmodule Phoenix.LiveView.JS do
   For example, the following modal component can be shown or hidden on the
   client without a trip to the server:
 
-      alias Phoenix.LiveView.JS
+      alias LiveElement.JS
 
       def hide_modal(js \\ %JS{}) do
         js
@@ -77,14 +77,14 @@ defmodule Phoenix.LiveView.JS do
         """
       end
   '''
-  alias Phoenix.LiveView.JS
+  alias LiveElement.JS
 
   defstruct ops: []
 
   @default_transition_time 200
 
-  defimpl Phoenix.HTML.Safe, for: Phoenix.LiveView.JS do
-    def to_iodata(%Phoenix.LiveView.JS{} = cmd) do
+  defimpl Phoenix.HTML.Safe, for: LiveElement.JS do
+    def to_iodata(%LiveElement.JS{} = cmd) do
       Phoenix.HTML.Engine.html_escape(Phoenix.json_library().encode!(cmd.ops))
     end
   end

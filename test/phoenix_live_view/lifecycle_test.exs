@@ -1,10 +1,10 @@
-defmodule Phoenix.LiveView.HookTest do
+defmodule LiveElement.HookTest do
   use ExUnit.Case, async: true
 
-  alias Phoenix.LiveView
-  alias Phoenix.LiveView.Lifecycle
+  alias LiveElement
+  alias LiveElement.Lifecycle
 
-  defp build_socket(router \\ Phoenix.LiveViewTest.Router) do
+  defp build_socket(router \\ LiveElementTest.Router) do
     %LiveView.Socket{
       private: %{lifecycle: %Lifecycle{}},
       router: router

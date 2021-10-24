@@ -1,12 +1,12 @@
-defmodule Phoenix.LiveView.UploadExternalTest do
+defmodule LiveElement.UploadExternalTest do
   use ExUnit.Case, async: true
 
-  @endpoint Phoenix.LiveViewTest.Endpoint
+  @endpoint LiveElementTest.Endpoint
 
-  import Phoenix.LiveViewTest
+  import LiveElementTest
 
-  alias Phoenix.LiveView
-  alias Phoenix.LiveViewTest.UploadLive
+  alias LiveElement
+  alias LiveElementTest.UploadLive
 
   def inspect_html_safe(term) do
     term
@@ -45,14 +45,14 @@ defmodule Phoenix.LiveView.UploadExternalTest do
           opts
       end
 
-    {:ok, lv} = mount_lv(fn socket -> Phoenix.LiveView.allow_upload(socket, :avatar, opts) end)
+    {:ok, lv} = mount_lv(fn socket -> LiveElement.allow_upload(socket, :avatar, opts) end)
 
     {:ok, lv: lv}
   end
 
   def preflight(%LiveView.UploadEntry{} = entry, socket) do
     new_socket =
-      Phoenix.LiveView.update(socket, :preflights, fn preflights ->
+      LiveElement.update(socket, :preflights, fn preflights ->
         [entry.client_name | preflights]
       end)
 
@@ -61,7 +61,7 @@ defmodule Phoenix.LiveView.UploadExternalTest do
 
   def consume(%LiveView.UploadEntry{} = entry, socket) do
     if entry.done? do
-      Phoenix.LiveView.consume_uploaded_entry(socket, entry, fn _ -> :ok end)
+      LiveElement.consume_uploaded_entry(socket, entry, fn _ -> :ok end)
     end
 
     {:noreply, socket}
@@ -127,7 +127,7 @@ defmodule Phoenix.LiveView.UploadExternalTest do
     assert render_upload(avatar, "foo.jpeg", 100) =~ upload_complete
 
     run(lv, fn socket ->
-      Phoenix.LiveView.consume_uploaded_entries(socket, :avatar, fn meta, entry ->
+      LiveElement.consume_uploaded_entries(socket, :avatar, fn meta, entry ->
         send(parent, {:consume, meta, entry.client_name})
       end)
       {:reply, :ok, socket}
@@ -147,8 +147,8 @@ defmodule Phoenix.LiveView.UploadExternalTest do
     assert render_upload(avatar, "foo.jpeg", 100) =~ upload_complete
 
     run(lv, fn socket ->
-      {[entry], []} = Phoenix.LiveView.uploaded_entries(socket, :avatar)
-      Phoenix.LiveView.consume_uploaded_entry(socket, entry, fn meta ->
+      {[entry], []} = LiveElement.uploaded_entries(socket, :avatar)
+      LiveElement.consume_uploaded_entry(socket, entry, fn meta ->
         send(parent, {:individual_consume, meta, entry.client_name})
       end)
       {:reply, :ok, socket}
@@ -181,7 +181,7 @@ defmodule Phoenix.LiveView.UploadExternalTest do
     [_ | _] = Task.yield_many(tasks, 5000)
 
     run(lv, fn socket ->
-      entries = Phoenix.LiveView.uploaded_entries(socket, :avatar)
+      entries = LiveElement.uploaded_entries(socket, :avatar)
       send(parent, {:consistent_consume, :avatar, entries})
       {:reply, :ok, socket}
     end)

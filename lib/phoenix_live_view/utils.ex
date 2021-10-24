@@ -1,9 +1,9 @@
-defmodule Phoenix.LiveView.Utils do
+defmodule LiveElement.Utils do
   # Shared helpers used mostly by Channel and Diff,
   # but also Static, and LiveViewTest.
   @moduledoc false
 
-  alias Phoenix.LiveView.{Rendered, Socket, Lifecycle}
+  alias LiveElement.{Rendered, Socket, Lifecycle}
 
   # All available mount options
   @mount_opts [:temporary_assigns, :layout]
@@ -152,9 +152,11 @@ defmodule Phoenix.LiveView.Utils do
 
   defp check_rendered!(%Rendered{} = rendered, _view), do: rendered
 
+  defp check_rendered!(%Phoenix.LiveView.Rendered{} = rendered, _view), do: rendered
+
   defp check_rendered!(other, view) do
     raise RuntimeError, """
-    expected #{inspect(view)} to return a %Phoenix.LiveView.Rendered{} struct
+    expected #{inspect(view)} to return a %LiveElement.Rendered{} struct
 
     Ensure your render function uses ~H, or your template uses the .heex extension.
 
@@ -285,7 +287,7 @@ defmodule Phoenix.LiveView.Utils do
   end
 
   @doc """
-  Calls the `c:Phoenix.LiveView.mount/3` callback, otherwise returns the socket as is.
+  Calls the `c:LiveElement.mount/3` callback, otherwise returns the socket as is.
   """
   def maybe_call_live_view_mount!(%Socket{} = socket, view, params, session) do
     %{any?: any?, exported?: exported?} = Lifecycle.stage_info(socket, view, :mount, 3)

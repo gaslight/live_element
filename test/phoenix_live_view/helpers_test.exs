@@ -1,7 +1,7 @@
-defmodule Phoenix.LiveView.HelpersTest do
+defmodule LiveElement.HelpersTest do
   use ExUnit.Case, async: true
 
-  import Phoenix.LiveView.Helpers
+  import LiveElement.Helpers
   import Phoenix.HTML
   import Phoenix.HTML.Form
 
@@ -122,7 +122,7 @@ defmodule Phoenix.LiveView.HelpersTest do
     template
     |> Phoenix.HTML.Safe.to_iodata()
     |> IO.iodata_to_binary()
-    |> Phoenix.LiveViewTest.DOM.parse()
+    |> LiveElementTest.DOM.parse()
   end
 
   describe "form" do

@@ -3,7 +3,7 @@
 To enable LiveView client/server interaction, we instantiate a LiveSocket. For example:
 
     import {Socket} from "phoenix"
-    import {LiveSocket} from "phoenix_live_view"
+    import {LiveSocket} from "live_element"
 
     let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
     let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
@@ -150,7 +150,7 @@ The above life-cycle callbacks have in-scope access to the following attributes:
   * `handleEvent(event, (payload) => ...)` - method to handle an event pushed from the server
   * `upload(name, files)` - method to inject a list of file-like objects into an uploader.
   * `uploadTo(selectorOrTarget, name, files)` - method to inject a list of file-like objects into an uploader.
-    The hook will send the files to the uploader with `name` defined by [`allow_upload/3`](`Phoenix.LiveView.allow_upload/3`)
+    The hook will send the files to the uploader with `name` defined by [`allow_upload/3`](`LiveElement.allow_upload/3`)
     on the server-side. Dispatching new uploads triggers an input change event which will be sent to the
     LiveComponent or LiveView the `selectorOrTarget` is defined in, where it's value can be either a query selector or an
     actual DOM element. If the query selector returns more than one live file input, an error will be logged.
@@ -204,7 +204,7 @@ reply from the server via a `{:reply, map, socket}` return value. The reply payl
 passed to the optional `pushEvent` response callback.
 
 Communication with the hook from the server can be done by reading data attributes on the
-hook element or by using `Phoenix.LiveView.push_event/3` on the server and `handleEvent` on the client.
+hook element or by using `LiveElement.push_event/3` on the server and `handleEvent` on the client.
 
 For example, to implement infinite scrolling, one can pass the current page using data attributes:
 
@@ -273,7 +273,7 @@ document.getElementById("my-form").dispatchEvent(
 
 ## Executing JS Commands for custom attributes
 
-The `Phoenix.LiveView.JS` commands execute when `phx-` bindings are triggered, such as `phx-click`, or `phx-change` bindings. Custom scripts may also execute a command by using the `execJS` function of the `LiveSocket` instance. For example, imagine the following template where you want to highlight an existing element from the server to draw the user's attention:
+The `LiveElement.JS` commands execute when `phx-` bindings are triggered, such as `phx-click`, or `phx-change` bindings. Custom scripts may also execute a command by using the `execJS` function of the `LiveSocket` instance. For example, imagine the following template where you want to highlight an existing element from the server to draw the user's attention:
 
 ```heex
 <div id={"item-#{item.id}"} class="item" data-handle-highlight={JS.transition("highlight")}>

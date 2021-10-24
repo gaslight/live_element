@@ -1,5 +1,5 @@
-defmodule Phoenix.LiveViewTest.FunctionComponent do
-  import Phoenix.LiveView.Helpers
+defmodule LiveElementTest.FunctionComponent do
+  import LiveElement.Helpers
 
   def render(assigns) do
     ~H"""
@@ -14,7 +14,7 @@ defmodule Phoenix.LiveViewTest.FunctionComponent do
   end
 end
 
-defmodule Phoenix.LiveViewTest.StatefulComponent do
+defmodule LiveElementTest.StatefulComponent do
   use Phoenix.LiveComponent
 
   def mount(socket) do
@@ -83,8 +83,8 @@ defmodule Phoenix.LiveViewTest.StatefulComponent do
   end
 end
 
-defmodule Phoenix.LiveViewTest.WithComponentLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.WithComponentLive do
+  use LiveElement
 
   def render(%{disabled: :all} = assigns) do
     ~H"""
@@ -96,7 +96,7 @@ defmodule Phoenix.LiveViewTest.WithComponentLive do
     ~H"""
     Redirect: <%= @redirect %>
     <%= for name <- @names do %>
-      <%= live_component Phoenix.LiveViewTest.StatefulComponent,
+      <%= live_component LiveElementTest.StatefulComponent,
             id: name, name: name, from: @from, disabled: name in @disabled, parent_id: nil  %>
     <% end %>
     """
@@ -130,8 +130,8 @@ defmodule Phoenix.LiveViewTest.WithComponentLive do
   end
 end
 
-defmodule Phoenix.LiveViewTest.WithMultipleTargets do
-  use Phoenix.LiveView
+defmodule LiveElementTest.WithMultipleTargets do
+  use LiveElement
 
   def mount(_params, %{"names" => names, "from" => from} = session, socket) do
     {
@@ -151,7 +151,7 @@ defmodule Phoenix.LiveViewTest.WithMultipleTargets do
     <div id="parent_id" class="parent">
       <%= @message %>
       <%= for name <- @names do %>
-        <%= live_component Phoenix.LiveViewTest.StatefulComponent,
+        <%= live_component LiveElementTest.StatefulComponent,
               id: name, name: name, from: @from, disabled: name in @disabled, parent_id: @parent_selector %>
       <% end %>
     </div>

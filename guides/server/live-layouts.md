@@ -22,7 +22,7 @@ considered:
 
   * the live layout - this is the layout which wraps a LiveView and
     is rendered as part of the LiveView life-cycle. It must be opt-in
-    by passing the `:layout` option on `use Phoenix.LiveView`. It is
+    by passing the `:layout` option on `use LiveElement`. It is
     typically set to "live.html.heex"in your `MyAppWeb.LayoutView`.
 
 Overall, those layouts are found in `templates/layout` with the
@@ -60,9 +60,9 @@ of the actual template will be placed at:
     <%= @inner_content %>
 
 To use the live layout, update your LiveView to pass the `:layout`
-option to `use Phoenix.LiveView`:
+option to `use LiveElement`:
 
-    use Phoenix.LiveView, layout: {MyAppWeb.LayoutView, "live.html"}
+    use LiveElement, layout: {MyAppWeb.LayoutView, "live.html"}
 
 If you are using Phoenix v1.5, the layout is automatically set
 when generating apps with the `mix phx.new --live` flag.
@@ -98,7 +98,7 @@ Then access `@page_title` in the root layout:
 
     <title><%= @page_title %></title>
 
-You can also use `Phoenix.LiveView.Helpers.live_title_tag/2` to support
+You can also use `LiveElement.Helpers.live_title_tag/2` to support
 adding automatic prefix and suffix to the page title when rendered and
 on subsequent updates:
 

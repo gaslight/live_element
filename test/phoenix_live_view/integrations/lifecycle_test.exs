@@ -1,11 +1,11 @@
-defmodule Phoenix.LiveView.LifecycleTest do
+defmodule LiveElement.LifecycleTest do
   use ExUnit.Case
 
   import Phoenix.ConnTest
-  import Phoenix.LiveViewTest
+  import LiveElementTest
 
-  alias Phoenix.LiveView
-  alias Phoenix.LiveViewTest.{Endpoint, HooksLive}
+  alias LiveElement
+  alias LiveElementTest.{Endpoint, HooksLive}
 
   @endpoint Endpoint
 
@@ -15,7 +15,7 @@ defmodule Phoenix.LiveView.LifecycleTest do
 
   test "on_mount hook raises when hook result is invalid", %{conn: conn} do
     assert_raise Plug.Conn.WrapperError,
-                 ~r(invalid return from hook {Phoenix.LiveViewTest.HooksLive.BadMount, :default}),
+                 ~r(invalid return from hook {LiveElementTest.HooksLive.BadMount, :default}),
                  fn ->
                    live(conn, "/lifecycle/bad-mount")
                  end
@@ -33,7 +33,7 @@ defmodule Phoenix.LiveView.LifecycleTest do
 
   test "on_mount hook raises when :halt is returned without a redirected socket", %{conn: conn} do
     assert_raise Plug.Conn.WrapperError,
-                 ~r(the hook {Phoenix.LiveViewTest.HooksLive.HaltMount, :hook} for lifecycle event :mount attempted to halt without redirecting.),
+                 ~r(the hook {LiveElementTest.HooksLive.HaltMount, :hook} for lifecycle event :mount attempted to halt without redirecting.),
                  fn ->
                    live(conn, "/lifecycle/halt-mount")
                  end
@@ -41,7 +41,7 @@ defmodule Phoenix.LiveView.LifecycleTest do
 
   test "on_mount hook raises when :cont is returned with a redirected socket", %{conn: conn} do
     assert_raise Plug.Conn.WrapperError,
-                 ~r(the hook {Phoenix.LiveViewTest.HooksLive.RedirectMount, :default} for lifecycle event :mount attempted to redirect without halting.),
+                 ~r(the hook {LiveElementTest.HooksLive.RedirectMount, :default} for lifecycle event :mount attempted to redirect without halting.),
                  fn ->
                    live(conn, "/lifecycle/redirect-cont-mount")
                  end
@@ -152,7 +152,7 @@ defmodule Phoenix.LiveView.LifecycleTest do
                :exit, _ -> :ok
              end
            end) =~
-             "** (UndefinedFunctionError) function Phoenix.LiveViewTest.HooksLive.handle_params/3 is undefined"
+             "** (UndefinedFunctionError) function LiveElementTest.HooksLive.handle_params/3 is undefined"
   end
 
   test "handle_info/2 raises when hook result is invalid", %{conn: conn} do
@@ -214,7 +214,7 @@ defmodule Phoenix.LiveView.LifecycleTest do
   end
 
   test "stage_info", %{conn: conn} do
-    alias Phoenix.LiveView.Lifecycle
+    alias LiveElement.Lifecycle
     {:ok, lv, _html} = live(conn, "/lifecycle")
 
     socket = HooksLive.run(lv, fn socket -> {:reply, socket, socket} end)

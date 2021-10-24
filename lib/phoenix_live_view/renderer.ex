@@ -1,7 +1,8 @@
-defmodule Phoenix.LiveView.Renderer do
+defmodule LiveElement.Renderer do
   @moduledoc false
 
   defmacro __before_compile__(env) do
+    IO.inspect("in before compile livelement renderer")
     render? = Module.defines?(env.module, {:render, 1})
     root = Path.dirname(env.file)
     filename = template_filename(env)
@@ -23,6 +24,7 @@ defmodule Phoenix.LiveView.Renderer do
       {false, [template]} ->
         ext = template |> Path.extname() |> String.trim_leading(".") |> String.to_atom()
         engine = Map.fetch!(Phoenix.Template.engines(), ext)
+        IO.inspect(engine)
         ast = engine.compile(template, filename)
 
         quote do

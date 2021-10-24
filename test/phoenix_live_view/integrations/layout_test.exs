@@ -1,9 +1,9 @@
-defmodule Phoenix.LiveView.LayoutTest do
+defmodule LiveElement.LayoutTest do
   use ExUnit.Case, async: true
   import Phoenix.ConnTest
 
-  import Phoenix.LiveViewTest
-  alias Phoenix.LiveViewTest.{Endpoint, LayoutView}
+  import LiveElementTest
+  alias LiveElementTest.{Endpoint, LayoutView}
 
   @endpoint Endpoint
 

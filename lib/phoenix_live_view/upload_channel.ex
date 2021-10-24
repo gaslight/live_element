@@ -1,11 +1,11 @@
-defmodule Phoenix.LiveView.UploadChannel do
+defmodule LiveElement.UploadChannel do
   @moduledoc false
   use Phoenix.Channel, log_handle_in: false
   @timeout :infinity
 
   require Logger
 
-  alias Phoenix.LiveView.{Static, Channel}
+  alias LiveElement.{Static, Channel}
 
   def cancel(pid) do
     GenServer.call(pid, :cancel, @timeout)

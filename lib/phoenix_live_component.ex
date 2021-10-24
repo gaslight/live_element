@@ -4,7 +4,7 @@ defmodule Phoenix.LiveComponent do
   events in LiveView.
 
   Components are defined by using `Phoenix.LiveComponent` and are used
-  by calling `Phoenix.LiveView.Helpers.live_component/1` in a parent LiveView.
+  by calling `LiveElement.Helpers.live_component/1` in a parent LiveView.
   Components run inside the LiveView process but have their own state and
   life-cycle. For this reason, they are also often called "stateful components".
   This is a contrast to `Phoenix.Component`, also known as "function components",
@@ -41,10 +41,10 @@ defmodule Phoenix.LiveComponent do
 
       <.live_component module={UserComponent} id={@user.id} user={@user} />
 
-  When [`live_component/1`](`Phoenix.LiveView.Helpers.live_component/1`) is called,
+  When [`live_component/1`](`LiveElement.Helpers.live_component/1`) is called,
   `c:mount/1` is called once, when the component is first added to the page. `c:mount/1`
   receives the `socket` as argument. Then `c:update/2` is invoked with all of the
-  assigns given to [`live_component/1`](`Phoenix.LiveView.Helpers.live_component/1`).
+  assigns given to [`live_component/1`](`LiveElement.Helpers.live_component/1`).
   If `c:update/2` is not defined all assigns are simply merged into the socket.
   After the component is updated, `c:render/1` is called with all assigns.
   On first render, we get:
@@ -176,9 +176,9 @@ defmodule Phoenix.LiveComponent do
 
   ## Live patches and live redirects
 
-  A template rendered inside a component can use `Phoenix.LiveView.Helpers.live_patch/2`
-  and `Phoenix.LiveView.Helpers.live_redirect/2` calls. The
-  [`live_patch/2`](`Phoenix.LiveView.Helpers.live_patch/2`) is always handled
+  A template rendered inside a component can use `LiveElement.Helpers.live_patch/2`
+  and `LiveElement.Helpers.live_redirect/2` calls. The
+  [`live_patch/2`](`LiveElement.Helpers.live_patch/2`) is always handled
   by the parent`LiveView`, as components do not provide `handle_params`.
 
   ## Managing state
@@ -218,7 +218,7 @@ defmodule Phoenix.LiveComponent do
 
   If the board LiveView is the source of truth, it will be responsible
   for fetching all of the cards in a board. Then it will call
-  [`live_component/1`](`Phoenix.LiveView.Helpers.live_component/1`)
+  [`live_component/1`](`LiveElement.Helpers.live_component/1`)
   for each card, passing the card struct as argument to `CardComponent`:
 
       <%= for card <- @cards do %>
@@ -244,7 +244,7 @@ defmodule Phoenix.LiveComponent do
         end
       end
 
-  The LiveView then receives this event using `c:Phoenix.LiveView.handle_info/2`:
+  The LiveView then receives this event using `c:LiveElement.handle_info/2`:
 
       defmodule BoardView do
         ...
@@ -300,7 +300,7 @@ defmodule Phoenix.LiveComponent do
   Once the card components are started, they can each manage their own
   card, without concerning themselves with the parent LiveView.
 
-  However, note that components do not have a `c:Phoenix.LiveView.handle_info/2`
+  However, note that components do not have a `c:LiveElement.handle_info/2`
   callback. Therefore, if you want to track distributed changes on a card,
   you must have the parent LiveView receive those events and redirect them
   to the appropriate card. For example, assuming card updates are sent
@@ -312,7 +312,7 @@ defmodule Phoenix.LiveComponent do
         {:noreply, socket}
       end
 
-  With `Phoenix.LiveView.send_update/3`, the `CardComponent` given by `id`
+  With `LiveElement.send_update/3`, the `CardComponent` given by `id`
   will be invoked, triggering both preload and update callbacks, which will
   load the most up to date data from the database.
 
@@ -459,15 +459,15 @@ defmodule Phoenix.LiveComponent do
     end
   end
 
-  alias Phoenix.LiveView.Socket
+  alias LiveElement.Socket
 
   defmacro __using__(_) do
     quote do
       @behaviour Phoenix.LiveComponent
       use Phoenix.Component
 
-      require Phoenix.LiveView.Renderer
-      @before_compile Phoenix.LiveView.Renderer
+      require LiveElement.Renderer
+      @before_compile LiveElement.Renderer
 
       @doc false
       def __live__, do: %{kind: :component, module: __MODULE__}
@@ -483,11 +483,11 @@ defmodule Phoenix.LiveComponent do
   @callback update(assigns :: Socket.assigns(), socket :: Socket.t()) ::
               {:ok, Socket.t()}
 
-  @callback render(assigns :: Socket.assigns()) :: Phoenix.LiveView.Rendered.t()
+  @callback render(assigns :: Socket.assigns()) :: LiveElement.Rendered.t()
 
   @callback handle_event(
               event :: binary,
-              unsigned_params :: Phoenix.LiveView.unsigned_params(),
+              unsigned_params :: LiveElement.unsigned_params(),
               socket :: Socket.t()
             ) ::
               {:noreply, Socket.t()} | {:reply, map, Socket.t()}

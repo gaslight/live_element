@@ -1,4 +1,4 @@
-import Rendered from "phoenix_live_view/rendered"
+import Rendered from "live_element/rendered"
 
 const STATIC = "s"
 const DYNAMICS = "d"

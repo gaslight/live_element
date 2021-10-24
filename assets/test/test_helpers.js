@@ -1,4 +1,4 @@
-import View from "phoenix_live_view/view"
+import View from "live_element/view"
 
 export let appendTitle = opts => {
   let title = document.createElement("title")

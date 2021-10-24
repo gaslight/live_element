@@ -1,8 +1,8 @@
-defmodule Phoenix.LiveView.Static do
+defmodule LiveElement.Static do
   # Holds the logic for static rendering.
   @moduledoc false
 
-  alias Phoenix.LiveView.{Socket, Utils, Diff, Route, Lifecycle}
+  alias LiveElement.{Socket, Utils, Diff, Route, Lifecycle}
 
   # Token version. Should be changed whenever new data is stored.
   @token_vsn 5
@@ -35,7 +35,7 @@ defmodule Phoenix.LiveView.Static do
   end
 
   defp live_session(%Plug.Conn{} = conn) do
-    case conn.private[:phoenix_live_view] do
+    case conn.private[:live_element] do
       {_view, _opts, %{name: _name, extra: _extra, vsn: _vsn} = lv_session} -> lv_session
       nil -> nil
     end
@@ -137,7 +137,7 @@ defmodule Phoenix.LiveView.Static do
   @doc """
   Renders a nested live view without spawning a server.
 
-    * `parent` - the parent `%Phoenix.LiveView.Socket{}`
+    * `parent` - the parent `%LiveElement.Socket{}`
     * `view` - the child LiveView module
 
   Accepts the same options as `render/3`.

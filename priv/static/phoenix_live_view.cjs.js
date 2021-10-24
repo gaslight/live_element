@@ -6,12 +6,12 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// js/phoenix_live_view/index.js
+// js/live_element/index.js
 __export(exports, {
   LiveSocket: () => LiveSocket
 });
 
-// js/phoenix_live_view/constants.js
+// js/live_element/constants.js
 var CONSECUTIVE_RELOADS = "consecutive-reloads";
 var MAX_RELOADS = 10;
 var RELOAD_JITTER = [1e3, 3e3];
@@ -90,7 +90,7 @@ var REPLY = "r";
 var TITLE = "t";
 var TEMPLATES = "p";
 
-// js/phoenix_live_view/entry_uploader.js
+// js/live_element/entry_uploader.js
 var EntryUploader = class {
   constructor(entry, chunkSize, liveSocket) {
     this.liveSocket = liveSocket;
@@ -138,7 +138,7 @@ var EntryUploader = class {
   }
 };
 
-// js/phoenix_live_view/utils.js
+// js/live_element/utils.js
 var logError = (msg, obj) => console.error && console.error(msg, obj);
 var isCid = (cid) => typeof cid === "number";
 function detectDuplicateIds() {
@@ -190,7 +190,7 @@ var channelUploader = function(entries, onError, resp, liveSocket) {
   });
 };
 
-// js/phoenix_live_view/browser.js
+// js/live_element/browser.js
 var Browser = {
   canPushState() {
     return typeof history.pushState !== "undefined";
@@ -260,7 +260,7 @@ var Browser = {
 };
 var browser_default = Browser;
 
-// js/phoenix_live_view/dom.js
+// js/live_element/dom.js
 var DOM = {
   byId(id) {
     return document.getElementById(id) || logError(`no id found for ${id}`);
@@ -639,7 +639,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
 };
 var dom_default = DOM;
 
-// js/phoenix_live_view/upload_entry.js
+// js/live_element/upload_entry.js
 var UploadEntry = class {
   static isActive(fileEl, file) {
     let isNew = file._phxRef === void 0;
@@ -736,7 +736,7 @@ var UploadEntry = class {
   }
 };
 
-// js/phoenix_live_view/live_uploader.js
+// js/live_element/live_uploader.js
 var liveUploaderFileRef = 0;
 var LiveUploader = class {
   static genFileRef(file) {
@@ -840,7 +840,7 @@ var LiveUploader = class {
   }
 };
 
-// js/phoenix_live_view/hooks.js
+// js/live_element/hooks.js
 var Hooks = {
   LiveFileUpload: {
     activeRefs() {
@@ -882,7 +882,7 @@ var Hooks = {
 };
 var hooks_default = Hooks;
 
-// js/phoenix_live_view/dom_post_morph_restorer.js
+// js/live_element/dom_post_morph_restorer.js
 var DOMPostMorphRestorer = class {
   constructor(containerBefore, containerAfter, updateType) {
     let idsBefore = new Set();
@@ -1403,7 +1403,7 @@ function morphdomFactory(morphAttrs2) {
 var morphdom = morphdomFactory(morphAttrs);
 var morphdom_esm_default = morphdom;
 
-// js/phoenix_live_view/dom_patch.js
+// js/live_element/dom_patch.js
 var DOMPatch = class {
   static patchEl(fromEl, toEl, activeElement) {
     morphdom_esm_default(fromEl, toEl, {
@@ -1651,7 +1651,7 @@ var DOMPatch = class {
   }
 };
 
-// js/phoenix_live_view/rendered.js
+// js/live_element/rendered.js
 var Rendered = class {
   static extract(diff) {
     let { [REPLY]: reply, [EVENTS]: events, [TITLE]: title } = diff;
@@ -1865,7 +1865,7 @@ within:
   }
 };
 
-// js/phoenix_live_view/view_hook.js
+// js/live_element/view_hook.js
 var viewHookID = 1;
 var ViewHook = class {
   static makeID() {
@@ -1940,7 +1940,7 @@ var ViewHook = class {
   }
 };
 
-// js/phoenix_live_view/js.js
+// js/live_element/js.js
 var JS = {
   exec(eventType, phxEvent, view, el, defaults) {
     let [defaultKind, defaultArgs] = defaults || [null, {}];
@@ -2090,7 +2090,7 @@ var JS = {
 };
 var js_default = JS;
 
-// js/phoenix_live_view/view.js
+// js/live_element/view.js
 var serializeForm = (form, meta = {}) => {
   let formData = new FormData(form);
   let toRemove = [];
@@ -3054,7 +3054,7 @@ var View = class {
   }
 };
 
-// js/phoenix_live_view/live_socket.js
+// js/live_element/live_socket.js
 var LiveSocket = class {
   constructor(url, phxSocket, opts = {}) {
     this.unloaded = false;
@@ -3063,7 +3063,7 @@ var LiveSocket = class {
       a phoenix Socket must be provided as the second argument to the LiveSocket constructor. For example:
 
           import {Socket} from "phoenix"
-          import LiveSocket from "phoenix_live_view"
+          import LiveSocket from "live_element"
           let liveSocket = new LiveSocket("/live", Socket, {...})
       `);
     }
@@ -3745,4 +3745,4 @@ var TransitionSet = class {
     this.pendingOps = [];
   }
 };
-//# sourceMappingURL=phoenix_live_view.cjs.js.map
+//# sourceMappingURL=live_element.cjs.js.map

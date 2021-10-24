@@ -1,4 +1,4 @@
-defmodule Phoenix.LiveView.HTMLTokenizer do
+defmodule LiveElement.HTMLTokenizer do
   @moduledoc false
   @space_chars '\s\t\f'
   @quote_chars '"\''

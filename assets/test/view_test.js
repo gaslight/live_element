@@ -1,7 +1,7 @@
 import {Socket} from "phoenix"
-import LiveSocket from "phoenix_live_view/live_socket"
-import DOM from "phoenix_live_view/dom"
-import View from "phoenix_live_view/view"
+import LiveSocket from "live_element/live_socket"
+import DOM from "live_element/dom"
+import View from "live_element/view"
 
 import {tag, simulateJoinedView, stubChannel, rootContainer, liveViewDOM} from "./test_helpers"
 

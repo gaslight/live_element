@@ -13,7 +13,7 @@ If installing from Hex, use the latest version from there:
 ```elixir
 def deps do
   [
-    {:phoenix_live_view, "~> 0.17.2"},
+    {:live_element, "~> 0.17.2"},
     {:floki, ">= 0.30.0", only: :test}
   ]
 end
@@ -24,7 +24,7 @@ If you want the latest features, install from GitHub:
 ```elixir
 def deps do
   [
-    {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
+    {:live_element, github: "phoenixframework/live_element"},
     {:floki, ">= 0.30.0", only: :test}
   ]
 ```
@@ -47,19 +47,19 @@ Next, add the following imports to your web file in `lib/my_app_web.ex`:
 def view do
   quote do
     ...
-    import Phoenix.LiveView.Helpers
+    import LiveElement.Helpers
   end
 end
 
 def router do
   quote do
     ...
-    import Phoenix.LiveView.Router
+    import LiveElement.Router
   end
 end
 ```
 
-Then add the `Phoenix.LiveView.Router.fetch_live_flash/2` plug to your browser pipeline, in place of `:fetch_flash`:
+Then add the `LiveElement.Router.fetch_live_flash/2` plug to your browser pipeline, in place of `:fetch_flash`:
 
 ```diff
 # lib/my_app_web/router.ex
@@ -82,7 +82,7 @@ defmodule MyAppWeb.Endpoint do
 
   # ...
 
-  socket "/live", Phoenix.LiveView.Socket,
+  socket "/live", LiveElement.Socket,
     websocket: [connect_info: [session: @session_options]]
 
   # ...
@@ -128,7 +128,7 @@ and enable connecting to a LiveView socket in your `app.js` file.
 ```javascript
 // assets/js/app.js
 import {Socket} from "phoenix"
-import {LiveSocket} from "phoenix_live_view"
+import {LiveSocket} from "live_element"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
@@ -145,7 +145,7 @@ liveSocket.connect()
 window.liveSocket = liveSocket
 ```
 
-The JavaScript above expects `phoenix_live_view` to be available as a JavaScript dependency. Let's do that.
+The JavaScript above expects `live_element` to be available as a JavaScript dependency. Let's do that.
 
 ## npm dependencies
 
@@ -156,19 +156,19 @@ If using `npm`, you need to add LiveView to your `assets/package.json`. For a re
   "dependencies": {
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
-    "phoenix_live_view": "file:../deps/phoenix_live_view"
+    "live_element": "file:../deps/live_element"
   }
 }
 ```
 
-However, if you're adding `phoenix_live_view` to an umbrella project, the dependency paths should be modified appropriately:
+However, if you're adding `live_element` to an umbrella project, the dependency paths should be modified appropriately:
 
 ```json
 {
   "dependencies": {
     "phoenix": "file:../../../deps/phoenix",
     "phoenix_html": "file:../../../deps/phoenix_html",
-    "phoenix_live_view": "file:../../../deps/phoenix_live_view"
+    "live_element": "file:../../../deps/live_element"
   }
 }
 ```
@@ -179,11 +179,11 @@ Now run the next commands from your web app root:
 npm install --prefix assets
 ```
 
-If you had previously installed `phoenix_live_view` and want to get the
+If you had previously installed `live_element` and want to get the
 latest javascript, then force an install with:
 
 ```bash
-npm install --force phoenix_live_view --prefix assets
+npm install --force live_element --prefix assets
 ```
 
 ## Layouts
@@ -218,7 +218,7 @@ The layout given to `put_root_layout` must use `<%= @inner_content %>` instead o
 
 Once you have specified a root layout, "app.html.heex" will be rendered within your root layout for all non-LiveViews. You may also optionally define a "live.html.heex" layout to be used across all LiveViews, as we will describe in the next section.
 
-Optionally, you can add a [`phx-track-static`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#static_changed?/1) to all `script` and `link` elements in your layout that use `src` and `href`. This way you can detect when new assets have been deployed by calling `static_changed?`.
+Optionally, you can add a [`phx-track-static`](https://hexdocs.pm/live_element/LiveElement.html#static_changed?/1) to all `script` and `link` elements in your layout that use `src` and `href`. This way you can detect when new assets have been deployed by calling `static_changed?`.
 
 ```elixir
 <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/css/app.css")} />
@@ -249,7 +249,7 @@ The change is to define the `live_view` and `live_component` functions in your `
 
   def live_view do
     quote do
-      use Phoenix.LiveView,
+      use LiveElement,
         layout: {<%= web_namespace %>.LayoutView, "live.html"}
 
       unquote(view_helpers())
@@ -270,7 +270,7 @@ The change is to define the `live_view` and `live_component` functions in your `
       use Phoenix.HTML
 
       # Import LiveView helpers (live_render, live_component, live_patch, etc)
-      import Phoenix.LiveView.Helpers
+      import LiveElement.Helpers
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
@@ -285,7 +285,7 @@ The change is to define the `live_view` and `live_component` functions in your `
 Note that LiveViews are automatically configured to use a "live.html.heex" layout in this line:
 
 ```elixir
-use Phoenix.LiveView,
+use LiveElement,
   layout: {<%= web_namespace %>.LayoutView, "live.html"}
 ```
 

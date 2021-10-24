@@ -1,4 +1,4 @@
-defmodule Phoenix.LiveViewTest.View do
+defmodule LiveElementTest.View do
   @moduledoc """
   The struct for testing LiveViews.
 
@@ -10,7 +10,7 @@ defmodule Phoenix.LiveViewTest.View do
     * `endpoint` - The endpoint for the LiveView
     * `target` - The target to scope events to
 
-  See the `Phoenix.LiveViewTest` documentation for usage.
+  See the `LiveElementTest` documentation for usage.
   """
   if Version.match?(System.version(), ">= 1.8.0") do
     @derive {Inspect, only: [:id, :module, :pid, :endpoint]}
@@ -24,16 +24,16 @@ defmodule Phoenix.LiveViewTest.View do
             target: nil
 end
 
-defmodule Phoenix.LiveViewTest.Element do
+defmodule LiveElementTest.Element do
   @moduledoc """
-  The struct returned by `Phoenix.LiveViewTest.element/3`.
+  The struct returned by `LiveElementTest.element/3`.
 
   The following public fields represent the element:
 
     * `selector` - The query selector
     * `text_filter` - The text to further filter the element
 
-  See the `Phoenix.LiveViewTest` documentation for usage.
+  See the `LiveElementTest` documentation for usage.
   """
   if Version.match?(System.version(), ">= 1.8.0") do
     @derive {Inspect, only: [:selector, :text_filter]}
@@ -47,19 +47,19 @@ defmodule Phoenix.LiveViewTest.Element do
             meta: %{}
 end
 
-defmodule Phoenix.LiveViewTest.Upload do
+defmodule LiveElementTest.Upload do
   @moduledoc """
-  The struct returned by `Phoenix.LiveViewTest.file_input/4`.
+  The struct returned by `LiveElementTest.file_input/4`.
 
   The following public fields represent the element:
 
     * `selector` - The query selector
     * `entries` - The list of selected file entries
 
-  See the `Phoenix.LiveViewTest` documentation for usage.
+  See the `LiveElementTest` documentation for usage.
   """
 
-  alias Phoenix.LiveViewTest.{Upload, Element}
+  alias LiveElementTest.{Upload, Element}
 
   if Version.match?(System.version(), ">= 1.8.0") do
     @derive {Inspect, only: [:selector, :entries]}
@@ -75,7 +75,7 @@ defmodule Phoenix.LiveViewTest.Upload do
             cid: nil
 
   @doc false
-  def new(pid, %Phoenix.LiveViewTest.View{} = view, form_selector, name, entries, cid) do
+  def new(pid, %LiveElementTest.View{} = view, form_selector, name, entries, cid) do
     populated_entries = Enum.map(entries, fn entry -> populate_entry(entry) end)
     selector = "#{form_selector} input[type=\"file\"][name=\"#{name}\"]"
 

@@ -1,11 +1,11 @@
-defmodule Phoenix.LiveView.EventTest do
+defmodule LiveElement.EventTest do
   use ExUnit.Case
 
   import Phoenix.ConnTest
-  import Phoenix.LiveViewTest
+  import LiveElementTest
 
-  alias Phoenix.LiveView
-  alias Phoenix.LiveViewTest.{Endpoint}
+  alias LiveElement
+  alias LiveElementTest.{Endpoint}
 
   @endpoint Endpoint
 

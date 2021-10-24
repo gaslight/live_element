@@ -1,9 +1,9 @@
-defmodule Phoenix.LiveView.CollocatedTest do
+defmodule LiveElement.CollocatedTest do
   use ExUnit.Case, async: true
   import Phoenix.ConnTest
 
-  import Phoenix.LiveViewTest
-  alias Phoenix.LiveViewTest.{Endpoint, CollocatedLive, CollocatedComponent}
+  import LiveElementTest
+  alias LiveElementTest.{Endpoint, CollocatedLive, CollocatedComponent}
 
   @endpoint Endpoint
 

@@ -6,7 +6,7 @@
  * @param {Phoenix.Socket} socket - the required Phoenix Socket class imported from "phoenix". For example:
  *
  *     import {Socket} from "phoenix"
- *     import {LiveSocket} from "phoenix_live_view"
+ *     import {LiveSocket} from "live_element"
  *     let liveSocket = new LiveSocket("/live", Socket, {...})
  *
  * @param {Object} [opts] - Optional configuration. Outside of keys listed below, all
@@ -118,7 +118,7 @@ export default class LiveSocket {
       a phoenix Socket must be provided as the second argument to the LiveSocket constructor. For example:
 
           import {Socket} from "phoenix"
-          import LiveSocket from "phoenix_live_view"
+          import LiveSocket from "live_element"
           let liveSocket = new LiveSocket("/live", Socket, {...})
       `)
     }

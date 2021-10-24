@@ -1,5 +1,5 @@
-defmodule Phoenix.LiveViewTest.TZLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.TZLive do
+  use LiveElement
 
   def render(%{name: "NestedAppend"} = assigns) do
     ~H"""
@@ -24,15 +24,15 @@ defmodule Phoenix.LiveViewTest.TZLive do
   def handle_call({:append, items}, _, socket), do: {:reply, :ok, assign(socket, items: items)}
 end
 
-defmodule Phoenix.LiveViewTest.AppendLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.AppendLive do
+  use LiveElement
 
   def render(assigns) do
     ~L"""
     <div <%= @id && {:safe, "id=#{inspect(@id)}"} %> phx-update="<%= @update_type %>">
       <%= for %{id: id, name: name} <- @time_zones do %>
         <h1 <%= id && {:safe, "id=title-#{id}"} %>><%= name %></h1>
-        <%= live_render(@socket, Phoenix.LiveViewTest.TZLive, id: "tz-#{id}", session: %{"name" => name}) %>
+        <%= live_render(@socket, LiveElementTest.TZLive, id: "tz-#{id}", session: %{"name" => name}) %>
       <% end %>
     </div>
     """
@@ -52,14 +52,14 @@ defmodule Phoenix.LiveViewTest.AppendLive do
   end
 end
 
-defmodule Phoenix.LiveViewTest.ShuffleLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.ShuffleLive do
+  use LiveElement
 
   def render(assigns) do
     ~H"""
     <%= for zone <- @time_zones do %>
       <div id={"score-" <> zone["id"]}>
-        <%= live_render(@socket, Phoenix.LiveViewTest.TZLive, id: "tz-#{zone["id"]}", session: %{"name" => zone["name"]}) %>
+        <%= live_render(@socket, LiveElementTest.TZLive, id: "tz-#{zone["id"]}", session: %{"name" => zone["name"]}) %>
       </div>
     <% end %>
     """

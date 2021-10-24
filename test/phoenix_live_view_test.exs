@@ -1,21 +1,21 @@
-defmodule Phoenix.LiveViewUnitTest do
+defmodule LiveElementUnitTest do
   use ExUnit.Case, async: true
 
-  import Phoenix.LiveView
+  import LiveElement
 
-  alias Phoenix.LiveView.{Utils, Socket}
-  alias Phoenix.LiveViewTest.Endpoint
+  alias LiveElement.{Utils, Socket}
+  alias LiveElementTest.Endpoint
 
   @socket Utils.configure_socket(
             %Socket{
               endpoint: Endpoint,
-              router: Phoenix.LiveViewTest.Router,
-              view: Phoenix.LiveViewTest.ParamCounterLive
+              router: LiveElementTest.Router,
+              view: LiveElementTest.ParamCounterLive
             },
             %{
               connect_params: %{},
               connect_info: %{},
-              root_view: Phoenix.LiveViewTest.ParamCounterLive,
+              root_view: LiveElementTest.ParamCounterLive,
               __changed__: %{}
             },
             nil,
@@ -370,7 +370,7 @@ defmodule Phoenix.LiveViewUnitTest do
                      push_patch(put_in(@socket.private.root_view, __MODULE__), to: "/counter/123")
                    end
 
-      socket = %{@socket | view: Phoenix.LiveViewTest.ParamCounterLive}
+      socket = %{@socket | view: LiveElementTest.ParamCounterLive}
 
       assert push_patch(socket, to: "/counter/123").redirected ==
                {:live, {%{"id" => "123"}, nil}, %{kind: :push, to: "/counter/123"}}

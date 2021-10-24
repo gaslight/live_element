@@ -1,14 +1,14 @@
-defmodule Phoenix.LiveViewTest.FlashLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.FlashLive do
+  use LiveElement
 
   def render(assigns) do
     ~H"""
     uri[<%= @uri %>]
     root[<%= live_flash(@flash, :info) %>]:info
     root[<%= live_flash(@flash, :error) %>]:error
-    <%= live_component Phoenix.LiveViewTest.FlashComponent, id: "flash-component" %>
-    child[<%= live_render @socket, Phoenix.LiveViewTest.FlashChildLive, id: "flash-child" %>]
-    <%= live_component Phoenix.LiveViewTest.StatelessFlashComponent, flash: @flash %>
+    <%= live_component LiveElementTest.FlashComponent, id: "flash-component" %>
+    child[<%= live_render @socket, LiveElementTest.FlashChildLive, id: "flash-child" %>]
+    <%= live_component LiveElementTest.StatelessFlashComponent, flash: @flash %>
     """
   end
 
@@ -43,7 +43,7 @@ defmodule Phoenix.LiveViewTest.FlashLive do
   end
 end
 
-defmodule Phoenix.LiveViewTest.FlashComponent do
+defmodule LiveElementTest.FlashComponent do
   use Phoenix.LiveComponent
 
   def render(assigns) do
@@ -77,10 +77,10 @@ defmodule Phoenix.LiveViewTest.FlashComponent do
   end
 end
 
-defmodule Phoenix.LiveViewTest.StatelessFlashComponent do
+defmodule LiveElementTest.StatelessFlashComponent do
   use Phoenix.LiveComponent
 
-  @spec render(any) :: Phoenix.LiveView.Rendered.t()
+  @spec render(any) :: LiveElement.Rendered.t()
   def render(assigns) do
     ~H"""
     <div id={@id}>
@@ -91,8 +91,8 @@ defmodule Phoenix.LiveViewTest.StatelessFlashComponent do
   end
 end
 
-defmodule Phoenix.LiveViewTest.FlashChildLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.FlashChildLive do
+  use LiveElement
 
   def render(assigns) do
     ~H"""

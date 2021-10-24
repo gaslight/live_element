@@ -1,15 +1,15 @@
-defmodule Phoenix.LiveView.LiveViewTest do
+defmodule LiveElement.LiveViewTest do
   use ExUnit.Case, async: false
 
   import Plug.Conn
   import Phoenix.ConnTest
 
-  import Phoenix.LiveViewTest
-  import Phoenix.LiveView.TelemetryTestHelpers
+  import LiveElementTest
+  import LiveElement.TelemetryTestHelpers
   alias Phoenix.HTML
-  alias Phoenix.LiveView
-  alias Phoenix.LiveView.Socket
-  alias Phoenix.LiveViewTest.{Endpoint, DOM, ClockLive, ClockControlsLive, LiveInComponent}
+  alias LiveElement
+  alias LiveElement.Socket
+  alias LiveElementTest.{Endpoint, DOM, ClockLive, ClockControlsLive, LiveInComponent}
 
   @endpoint Endpoint
   @moduletag :capture_log
@@ -27,7 +27,7 @@ defmodule Phoenix.LiveView.LiveViewTest do
   defp simulate_outdated_token_on_page(conn) do
     html = html_response(conn, 200)
     [{_id, session_token, _static} | _] = html |> DOM.parse() |> DOM.find_live_views()
-    salt = Phoenix.LiveView.Utils.salt!(@endpoint)
+    salt = LiveElement.Utils.salt!(@endpoint)
     outdated_token = Phoenix.Token.sign(@endpoint, salt, {0, %{}})
     %Plug.Conn{conn | resp_body: String.replace(html, session_token, outdated_token)}
   end
@@ -35,10 +35,10 @@ defmodule Phoenix.LiveView.LiveViewTest do
   defp simulate_expired_token_on_page(conn) do
     html = html_response(conn, 200)
     [{_id, session_token, _static} | _] = html |> DOM.parse() |> DOM.find_live_views()
-    salt = Phoenix.LiveView.Utils.salt!(@endpoint)
+    salt = LiveElement.Utils.salt!(@endpoint)
 
     expired_token =
-      Phoenix.Token.sign(@endpoint, salt, {Phoenix.LiveView.Static.token_vsn(), %{}}, signed_at: 0)
+      Phoenix.Token.sign(@endpoint, salt, {LiveElement.Static.token_vsn(), %{}}, signed_at: 0)
 
     %Plug.Conn{conn | resp_body: String.replace(html, session_token, expired_token)}
   end
@@ -297,7 +297,7 @@ defmodule Phoenix.LiveView.LiveViewTest do
   describe "live_isolated" do
     test "renders a live view with custom session", %{conn: conn} do
       {:ok, view, _} =
-        live_isolated(conn, Phoenix.LiveViewTest.DashboardLive, session: %{"hello" => "world"})
+        live_isolated(conn, LiveElementTest.DashboardLive, session: %{"hello" => "world"})
 
       assert render(view) =~ "session: %{&quot;hello&quot; =&gt; &quot;world&quot;}"
     end
@@ -305,7 +305,7 @@ defmodule Phoenix.LiveView.LiveViewTest do
     test "renders a live view with custom session and a router", %{conn: conn} do
       conn = %Plug.Conn{conn | request_path: "/router/thermo_defaults/123"}
       {:ok, view, _} =
-        live_isolated(conn, Phoenix.LiveViewTest.DashboardLive,
+        live_isolated(conn, LiveElementTest.DashboardLive,
           session: %{"hello" => "world"}
         )
 
@@ -315,12 +315,12 @@ defmodule Phoenix.LiveView.LiveViewTest do
     test "raises if handle_params is implemented", %{conn: conn} do
       assert_raise ArgumentError,
                    ~r/it is not mounted nor accessed through the router live\/3 macro/,
-                   fn -> live_isolated(conn, Phoenix.LiveViewTest.ParamCounterLive) end
+                   fn -> live_isolated(conn, LiveElementTest.ParamCounterLive) end
     end
 
     test "works without an initialized session" do
       {:ok, view, _} =
-        live_isolated(Phoenix.ConnTest.build_conn(), Phoenix.LiveViewTest.DashboardLive,
+        live_isolated(Phoenix.ConnTest.build_conn(), LiveElementTest.DashboardLive,
           session: %{"hello" => "world"}
         )
 
@@ -329,7 +329,7 @@ defmodule Phoenix.LiveView.LiveViewTest do
 
     test "raises on session with atom keys" do
       assert_raise ArgumentError, ~r"LiveView :session must be a map with string keys,", fn ->
-        live_isolated(Phoenix.ConnTest.build_conn(), Phoenix.LiveViewTest.DashboardLive,
+        live_isolated(Phoenix.ConnTest.build_conn(), LiveElementTest.DashboardLive,
           session: %{hello: "world"}
         )
       end
@@ -380,7 +380,7 @@ defmodule Phoenix.LiveView.LiveViewTest do
 
     test "live render with socket.assigns", %{conn: conn} do
       assert_raise Plug.Conn.WrapperError,
-                   ~r/\(KeyError\) key :boom not found in: #Phoenix.LiveView.Socket.AssignsNotInSocket<>/,
+                   ~r/\(KeyError\) key :boom not found in: #LiveElement.Socket.AssignsNotInSocket<>/,
                    fn ->
                      live(conn, "/assigns-not-in-socket")
                    end

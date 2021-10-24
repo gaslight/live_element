@@ -1,9 +1,9 @@
-defmodule Phoenix.LiveView.Socket.AssignsNotInSocket do
+defmodule LiveElement.Socket.AssignsNotInSocket do
   @moduledoc false
 
   defimpl Inspect do
     def inspect(_, _) do
-      "#Phoenix.LiveView.Socket.AssignsNotInSocket<>"
+      "#LiveElement.Socket.AssignsNotInSocket<>"
     end
   end
 
@@ -11,13 +11,13 @@ defmodule Phoenix.LiveView.Socket.AssignsNotInSocket do
   @type t :: %__MODULE__{}
 end
 
-defmodule Phoenix.LiveView.Socket do
+defmodule LiveElement.Socket do
   @moduledoc """
   The LiveView socket for Phoenix Endpoints.
 
   This is typically mounted directly in your endpoint.
 
-      socket "/live", Phoenix.LiveView.Socket
+      socket "/live", LiveElement.Socket
 
   """
   use Phoenix.Socket
@@ -46,13 +46,13 @@ defmodule Phoenix.LiveView.Socket do
             router: nil,
             assigns: %{__changed__: %{}},
             private: %{__changed__: %{}},
-            fingerprints: Phoenix.LiveView.Diff.new_fingerprints(),
+            fingerprints: LiveElement.Diff.new_fingerprints(),
             redirected: nil,
             host_uri: nil,
             transport_pid: nil
 
   @typedoc "Struct returned when `assigns` is not in the socket."
-  @opaque assigns_not_in_socket :: Phoenix.LiveView.Socket.AssignsNotInSocket.t()
+  @opaque assigns_not_in_socket :: LiveElement.Socket.AssignsNotInSocket.t()
 
   @typedoc "The data in a LiveView as stored in the socket."
   @type assigns :: map | assigns_not_in_socket()
@@ -74,8 +74,8 @@ defmodule Phoenix.LiveView.Socket do
           transport_pid: pid() | nil
         }
 
-  channel "lvu:*", Phoenix.LiveView.UploadChannel
-  channel "lv:*", Phoenix.LiveView.Channel
+  channel "lveu:*", LiveElement.UploadChannel
+  channel "lve:*", LiveElement.Channel
 
   @impl Phoenix.Socket
   def connect(_params, %Phoenix.Socket{} = socket, connect_info) do

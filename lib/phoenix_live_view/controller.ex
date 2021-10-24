@@ -1,10 +1,10 @@
-defmodule Phoenix.LiveView.Controller do
+defmodule LiveElement.Controller do
   @moduledoc """
   Helpers for rendering LiveViews from a controller.
   """
 
-  alias Phoenix.LiveView
-  alias Phoenix.LiveView.Socket
+  alias LiveElement
+  alias LiveElement.Socket
 
   @doc """
   Renders a live view from a Plug request and sends an HTML response.
@@ -14,16 +14,16 @@ defmodule Phoenix.LiveView.Controller do
 
   ## Options
 
-  See `Phoenix.LiveView.Helpers.live_render/3` for all supported options.
+  See `LiveElement.Helpers.live_render/3` for all supported options.
 
   ## Examples
 
       defmodule ThermostatController do
         use MyAppWeb, :controller
 
-        # "use MyAppWeb, :controller" should import Phoenix.LiveView.Controller.
+        # "use MyAppWeb, :controller" should import LiveElement.Controller.
         # If it does not, you can either import it there or uncomment the line below:
-        # import Phoenix.LiveView.Controller
+        # import LiveElement.Controller
 
         def show(conn, %{"id" => thermostat_id}) do
           live_render(conn, ThermostatLive, session: %{

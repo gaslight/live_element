@@ -1,4 +1,4 @@
-defmodule Phoenix.LiveView.Plug do
+defmodule LiveElement.Plug do
   @moduledoc false
 
   @behaviour Plug
@@ -7,7 +7,7 @@ defmodule Phoenix.LiveView.Plug do
   def init(view) when is_atom(view), do: view
 
   @impl Plug
-  def call(%Plug.Conn{private: %{phoenix_live_view: {view, opts, live_session}}} = conn, _) do
+  def call(%Plug.Conn{private: %{live_element: {view, opts, live_session}}} = conn, _) do
     %{extra: live_session_extra} = live_session
 
     session = live_session(live_session_extra, conn)
@@ -17,7 +17,7 @@ defmodule Phoenix.LiveView.Plug do
     conn
     |> Phoenix.Controller.put_layout(false)
     |> put_root_layout_from_router(live_session_extra)
-    |> Phoenix.LiveView.Controller.live_render(view, opts)
+    |> LiveElement.Controller.live_render(view, opts)
   end
 
   defp live_session(opts, conn) do

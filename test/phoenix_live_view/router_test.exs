@@ -1,11 +1,11 @@
-defmodule Phoenix.LiveView.RouterTest do
+defmodule LiveElement.RouterTest do
   use ExUnit.Case, async: true
   import Phoenix.ConnTest
-  import Phoenix.LiveViewTest
+  import LiveElementTest
 
-  alias Phoenix.LiveView.{Route, Session}
-  alias Phoenix.LiveViewTest.{Endpoint, DashboardLive, DOM}
-  alias Phoenix.LiveViewTest.Router.Helpers, as: Routes
+  alias LiveElement.{Route, Session}
+  alias LiveElementTest.{Endpoint, DashboardLive, DOM}
+  alias LiveElementTest.Router.Helpers, as: Routes
 
   @endpoint Endpoint
 
@@ -48,7 +48,7 @@ defmodule Phoenix.LiveView.RouterTest do
     conn = get(conn, "/router/thermo_container/123")
 
     assert conn.resp_body =~
-             ~r/<span[^>]*class="Phoenix.LiveViewTest.DashboardLive"[^>]*style="flex-grow">/
+             ~r/<span[^>]*class="LiveElementTest.DashboardLive"[^>]*style="flex-grow">/
   end
 
   test "live non-action helpers", %{conn: conn} do
@@ -68,7 +68,7 @@ defmodule Phoenix.LiveView.RouterTest do
   end
 
   test "user-defined metadata is available inside of metadata key" do
-    assert Phoenix.LiveViewTest.Router
+    assert LiveElementTest.Router
            |> Phoenix.Router.route_info("GET", "/thermo-with-metadata", nil)
            |> Map.get(:route_name) == "opts"
   end
@@ -78,7 +78,7 @@ defmodule Phoenix.LiveView.RouterTest do
       path = "/thermo-live-session"
 
       assert {:internal, route} =
-               Route.live_link_info(@endpoint, Phoenix.LiveViewTest.Router, path)
+               Route.live_link_info(@endpoint, LiveElementTest.Router, path)
 
       assert route.live_session.name == :test
       assert route.live_session.vsn
@@ -90,7 +90,7 @@ defmodule Phoenix.LiveView.RouterTest do
       path = "/thermo-live-session-admin"
 
       assert {:internal, route} =
-               Route.live_link_info(@endpoint, Phoenix.LiveViewTest.Router, path)
+               Route.live_link_info(@endpoint, LiveElementTest.Router, path)
 
       assert route.live_session.name == :admin
       assert route.live_session.vsn
@@ -103,7 +103,7 @@ defmodule Phoenix.LiveView.RouterTest do
       path = "/thermo-live-session-mfa"
 
       assert {:internal, route} =
-               Route.live_link_info(@endpoint, Phoenix.LiveViewTest.Router, path)
+               Route.live_link_info(@endpoint, LiveElementTest.Router, path)
 
       assert route.live_session.name == :mfa
       assert route.live_session.vsn
@@ -116,22 +116,22 @@ defmodule Phoenix.LiveView.RouterTest do
       path = "/lifecycle/halt-connected-mount"
 
       assert {:internal, route} =
-               Route.live_link_info(@endpoint, Phoenix.LiveViewTest.Router, path)
+               Route.live_link_info(@endpoint, LiveElementTest.Router, path)
 
       assert route.live_session.extra == %{
                on_mount: [
                  %{
-                   id: {Phoenix.LiveViewTest.HaltConnectedMount, :default},
+                   id: {LiveElementTest.HaltConnectedMount, :default},
                    stage: :mount,
                    function:
-                     Function.capture(Phoenix.LiveViewTest.HaltConnectedMount, :on_mount, 4)
+                     Function.capture(LiveElementTest.HaltConnectedMount, :on_mount, 4)
                  }
                ],
                session: %{}
              }
 
       assert conn |> get(path) |> html_response(200) =~
-               "last_on_mount:Phoenix.LiveViewTest.HaltConnectedMount"
+               "last_on_mount:LiveElementTest.HaltConnectedMount"
 
       assert {:error, {:live_redirect, %{to: "/lifecycle"}}} = live(conn, path)
     end
@@ -140,14 +140,14 @@ defmodule Phoenix.LiveView.RouterTest do
       path = "/lifecycle/mount-mod-arg"
 
       assert {:internal, route} =
-               Route.live_link_info(@endpoint, Phoenix.LiveViewTest.Router, path)
+               Route.live_link_info(@endpoint, LiveElementTest.Router, path)
 
       assert route.live_session.extra == %{
                on_mount: [
                  %{
-                   id: {Phoenix.LiveViewTest.MountArgs, :inlined},
+                   id: {LiveElementTest.MountArgs, :inlined},
                    stage: :mount,
-                   function: Function.capture(Phoenix.LiveViewTest.MountArgs, :on_mount, 4)
+                   function: Function.capture(LiveElementTest.MountArgs, :on_mount, 4)
                  }
                ],
                session: %{}
@@ -161,19 +161,19 @@ defmodule Phoenix.LiveView.RouterTest do
       path = "/lifecycle/mount-mods"
 
       assert {:internal, route} =
-               Route.live_link_info(@endpoint, Phoenix.LiveViewTest.Router, path)
+               Route.live_link_info(@endpoint, LiveElementTest.Router, path)
 
       assert route.live_session.extra == %{
                on_mount: [
                  %{
-                   id: {Phoenix.LiveViewTest.OnMount, :default},
+                   id: {LiveElementTest.OnMount, :default},
                    stage: :mount,
-                   function: Function.capture(Phoenix.LiveViewTest.OnMount, :on_mount, 4)
+                   function: Function.capture(LiveElementTest.OnMount, :on_mount, 4)
                  },
                  %{
-                   id: {Phoenix.LiveViewTest.OtherOnMount, :default},
+                   id: {LiveElementTest.OtherOnMount, :default},
                    stage: :mount,
-                   function: Function.capture(Phoenix.LiveViewTest.OtherOnMount, :on_mount, 4)
+                   function: Function.capture(LiveElementTest.OtherOnMount, :on_mount, 4)
                  }
                ],
                session: %{}
@@ -186,19 +186,19 @@ defmodule Phoenix.LiveView.RouterTest do
       path = "/lifecycle/mount-mods-args"
 
       assert {:internal, route} =
-               Route.live_link_info(@endpoint, Phoenix.LiveViewTest.Router, path)
+               Route.live_link_info(@endpoint, LiveElementTest.Router, path)
 
       assert route.live_session.extra == %{
                on_mount: [
                  %{
-                   id: {Phoenix.LiveViewTest.OnMount, :other},
+                   id: {LiveElementTest.OnMount, :other},
                    stage: :mount,
-                   function: Function.capture(Phoenix.LiveViewTest.OnMount, :on_mount, 4)
+                   function: Function.capture(LiveElementTest.OnMount, :on_mount, 4)
                  },
                  %{
-                   id: {Phoenix.LiveViewTest.OtherOnMount, :other},
+                   id: {LiveElementTest.OtherOnMount, :other},
                    stage: :mount,
-                   function: Function.capture(Phoenix.LiveViewTest.OtherOnMount, :on_mount, 4)
+                   function: Function.capture(LiveElementTest.OtherOnMount, :on_mount, 4)
                  }
                ],
                session: %{}
@@ -212,7 +212,7 @@ defmodule Phoenix.LiveView.RouterTest do
         Code.eval_quoted(
           quote do
             defmodule NestedRouter do
-              import Phoenix.LiveView.Router
+              import LiveElement.Router
 
               live_session :ok do
                 live_session :invalid do
@@ -229,7 +229,7 @@ defmodule Phoenix.LiveView.RouterTest do
         Code.eval_quoted(
           quote do
             defmodule DupRouter do
-              import Phoenix.LiveView.Router
+              import LiveElement.Router
 
               live_session :one do
               end

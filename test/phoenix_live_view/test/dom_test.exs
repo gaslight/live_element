@@ -1,7 +1,7 @@
-defmodule Phoenix.LiveViewTest.DOMTest do
+defmodule LiveElementTest.DOMTest do
   use ExUnit.Case, async: true
 
-  alias Phoenix.LiveViewTest.DOM
+  alias LiveElementTest.DOM
 
   describe "find_live_views" do
     # >= 4432 characters

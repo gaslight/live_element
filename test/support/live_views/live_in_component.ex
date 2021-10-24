@@ -1,29 +1,29 @@
-defmodule Phoenix.LiveViewTest.LiveInComponent.Root do
-  use Phoenix.LiveView
+defmodule LiveElementTest.LiveInComponent.Root do
+  use LiveElement
 
   def mount(_params, _session, socket) do
     {:ok, socket}
   end
 
   def render(assigns) do
-    ~H"<%= live_component Phoenix.LiveViewTest.LiveInComponent.Component, id: :nested_component %>"
+    ~H"<%= live_component LiveElementTest.LiveInComponent.Component, id: :nested_component %>"
   end
 end
 
-defmodule Phoenix.LiveViewTest.LiveInComponent.Component do
+defmodule LiveElementTest.LiveInComponent.Component do
   use Phoenix.LiveComponent
 
   def render(assigns) do
     ~H"""
     <div>
-      <%= live_render @socket, Phoenix.LiveViewTest.LiveInComponent.Live, id: :nested_live %>"
+      <%= live_render @socket, LiveElementTest.LiveInComponent.Live, id: :nested_live %>"
     </div>
     """
   end
 end
 
-defmodule Phoenix.LiveViewTest.LiveInComponent.Live do
-  use Phoenix.LiveView
+defmodule LiveElementTest.LiveInComponent.Live do
+  use LiveElement
 
   def mount(_params, _session, socket) do
     {:ok, socket}

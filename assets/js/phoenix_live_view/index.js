@@ -3,7 +3,7 @@
 Phoenix LiveView JavaScript Client
 ================================================================================
 
-See the hexdocs at `https://hexdocs.pm/phoenix_live_view` for documentation.
+See the hexdocs at `https://hexdocs.pm/live_element` for documentation.
 
 */
 

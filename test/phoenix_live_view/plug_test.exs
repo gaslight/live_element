@@ -1,18 +1,18 @@
-defmodule Phoenix.LiveView.PlugTest do
+defmodule LiveElement.PlugTest do
   use ExUnit.Case, async: true
   import Plug.Conn
   import Phoenix.ConnTest
 
-  alias Phoenix.LiveView.Plug, as: LiveViewPlug
-  alias Phoenix.LiveViewTest.{ThermostatLive, DashboardLive, Endpoint}
+  alias LiveElement.Plug, as: LiveViewPlug
+  alias LiveElementTest.{ThermostatLive, DashboardLive, Endpoint}
 
   defp call(conn, view, opts \\ []) do
-    opts = Keyword.merge([router: Phoenix.LiveViewTest.Router, layout: false], opts)
+    opts = Keyword.merge([router: LiveElementTest.Router, layout: false], opts)
 
     conn
     |> Plug.Test.init_test_session(%{})
-    |> Phoenix.LiveView.Router.fetch_live_flash([])
-    |> put_private(:phoenix_live_view, {view, opts, %{name: :default, extra: %{}, vsn: 0}})
+    |> LiveElement.Router.fetch_live_flash([])
+    |> put_private(:live_element, {view, opts, %{name: :default, extra: %{}, vsn: 0}})
     |> LiveViewPlug.call(view)
   end
 
@@ -53,6 +53,6 @@ defmodule Phoenix.LiveView.PlugTest do
     conn = call(conn, DashboardLive, container: {:span, style: "phx-flex"})
 
     assert conn.resp_body =~
-             ~r/<span[^>]*class="Phoenix.LiveViewTest.DashboardLive"[^>]*style="phx-flex">/
+             ~r/<span[^>]*class="LiveElementTest.DashboardLive"[^>]*style="phx-flex">/
   end
 end

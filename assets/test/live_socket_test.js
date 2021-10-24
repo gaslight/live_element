@@ -1,5 +1,5 @@
 import {Socket} from "phoenix"
-import LiveSocket from "phoenix_live_view/live_socket"
+import LiveSocket from "live_element/live_socket"
 
 let container = (num) => global.document.getElementById(`container${num}`)
 

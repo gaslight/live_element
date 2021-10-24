@@ -1,15 +1,15 @@
-defmodule Phoenix.LiveView.HTMLEngine do
+defmodule LiveElement.HTMLEngine do
   @moduledoc """
   The HTMLEngine that powers `.heex` templates and the `~H` sigil.
 
   It works by adding a HTML parsing and validation layer on top
-  of EEx engine. By default it uses `Phoenix.LiveView.Engine` as
+  of EEx engine. By default it uses `LiveElement.Engine` as
   its "subengine".
   """
 
   # TODO: Use @impl true instead of @doc false when we require Elixir v1.12
-  alias Phoenix.LiveView.HTMLTokenizer
-  alias Phoenix.LiveView.HTMLTokenizer.ParseError
+  alias LiveElement.HTMLTokenizer
+  alias LiveElement.HTMLTokenizer.ParseError
 
   @behaviour Phoenix.Template.Engine
 
@@ -23,7 +23,7 @@ defmodule Phoenix.LiveView.HTMLEngine do
 
   @doc false
   def init(opts) do
-    {subengine, opts} = Keyword.pop(opts, :subengine, Phoenix.LiveView.Engine)
+    {subengine, opts} = Keyword.pop(opts, :subengine, LiveElement.Engine)
     {module, opts} = Keyword.pop(opts, :module)
 
     unless subengine do
@@ -58,11 +58,11 @@ defmodule Phoenix.LiveView.HTMLEngine do
 
     # Do not require if calling module is helpers. Fix for elixir < 1.12
     # TODO remove after Elixir >= 1.12 support
-    if state.module === Phoenix.LiveView.Helpers do
+    if state.module === LiveElement.Helpers do
       ast
     else
       quote do
-        require Phoenix.LiveView.Helpers
+        require LiveElement.Helpers
         unquote(ast)
       end
     end
@@ -259,7 +259,7 @@ defmodule Phoenix.LiveView.HTMLEngine do
 
     ast =
       quote line: tag_meta.line do
-        Phoenix.LiveView.Helpers.component(&(unquote(mod).unquote(fun) / 1), unquote(assigns))
+        LiveElement.Helpers.component(&(unquote(mod).unquote(fun) / 1), unquote(assigns))
       end
 
     state
@@ -291,7 +291,7 @@ defmodule Phoenix.LiveView.HTMLEngine do
 
     ast =
       quote line: line do
-        Phoenix.LiveView.Helpers.component(&(unquote(mod).unquote(fun) / 1), unquote(assigns))
+        LiveElement.Helpers.component(&(unquote(mod).unquote(fun) / 1), unquote(assigns))
       end
 
     state
@@ -310,7 +310,7 @@ defmodule Phoenix.LiveView.HTMLEngine do
 
     ast =
       quote line: line do
-        Phoenix.LiveView.Helpers.component(
+        LiveElement.Helpers.component(
           &(unquote(Macro.var(fun, __MODULE__)) / 1),
           unquote(assigns)
         )
@@ -370,7 +370,7 @@ defmodule Phoenix.LiveView.HTMLEngine do
 
     ast =
       quote line: line do
-        Phoenix.LiveView.Helpers.slot(unquote(slot_key), do: unquote(clauses))
+        LiveElement.Helpers.slot(unquote(slot_key), do: unquote(clauses))
       end
 
     attrs = [__slot__: slot_key, inner_block: ast] ++ attrs
@@ -399,7 +399,7 @@ defmodule Phoenix.LiveView.HTMLEngine do
 
     ast =
       quote line: line do
-        Phoenix.LiveView.Helpers.component(
+        LiveElement.Helpers.component(
           &(unquote(Macro.var(fun, __MODULE__)) / 1),
           unquote(assigns)
         )
@@ -608,7 +608,7 @@ defmodule Phoenix.LiveView.HTMLEngine do
     inner_block_assigns =
       quote line: line do
         %{__slot__: :inner_block,
-          inner_block: Phoenix.LiveView.Helpers.slot(:inner_block, do: unquote(clauses))}
+          inner_block: LiveElement.Helpers.slot(:inner_block, do: unquote(clauses))}
       end
 
     {slots, state} = pop_slots(state)
@@ -735,7 +735,7 @@ defmodule Phoenix.LiveView.HTMLEngine do
         end ++
           quote line: line, generated: true do
             other ->
-              Phoenix.LiveView.HTMLEngine.__unmatched_let__!(
+              LiveElement.HTMLEngine.__unmatched_let__!(
                 unquote(Macro.to_string(pattern)),
                 other
               )

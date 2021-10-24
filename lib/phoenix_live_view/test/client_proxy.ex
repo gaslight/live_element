@@ -1,4 +1,4 @@
-defmodule Phoenix.LiveViewTest.ClientProxy do
+defmodule LiveElementTest.ClientProxy do
   @moduledoc false
   use GenServer
 
@@ -24,7 +24,7 @@ defmodule Phoenix.LiveViewTest.ClientProxy do
             connect_params: %{},
             connect_info: %{}
 
-  alias Phoenix.LiveViewTest.{ClientProxy, DOM, Element, View, Upload}
+  alias LiveElementTest.{ClientProxy, DOM, Element, View, Upload}
 
   @doc """
   Encoding used by the Channel serializer.
@@ -58,7 +58,7 @@ defmodule Phoenix.LiveViewTest.ClientProxy do
   ## Options
 
     * `:caller` - the required `{ref, pid}` pair identifying the caller.
-    * `:view` - the required `%Phoenix.LiveViewTest.View{}`
+    * `:view` - the required `%LiveElementTest.View{}`
     * `:html` - the required string of HTML for the document.
 
   """
@@ -243,7 +243,7 @@ defmodule Phoenix.LiveViewTest.ClientProxy do
 
     spec = %{
       id: make_ref(),
-      start: {Phoenix.LiveView.Channel, :start_link, [{view.endpoint, from}]},
+      start: {LiveElement.Channel, :start_link, [{view.endpoint, from}]},
       restart: :temporary
     }
 
@@ -461,7 +461,7 @@ defmodule Phoenix.LiveViewTest.ClientProxy do
     payload = put_cid(%{"entry_ref" => entry_ref, "progress" => progress}, cid)
     topic = proxy_topic(el)
     %{pid: pid} = fetch_view_by_topic!(state, topic)
-    :ok = Phoenix.LiveView.Channel.ping(pid)
+    :ok = LiveElement.Channel.ping(pid)
     send(self(), {:sync_render_event, el, :upload_progress, payload, from})
     {:reply, :ok, state}
   end
@@ -484,7 +484,7 @@ defmodule Phoenix.LiveViewTest.ClientProxy do
 
   def handle_call({:live_children, topic}, from, state) do
     view = fetch_view_by_topic!(state, topic)
-    :ok = Phoenix.LiveView.Channel.ping(view.pid)
+    :ok = LiveElement.Channel.ping(view.pid)
     send(self(), {:sync_children, view.topic, from})
     {:noreply, state}
   end
@@ -492,7 +492,7 @@ defmodule Phoenix.LiveViewTest.ClientProxy do
   def handle_call({:render_element, operation, topic_or_element}, from, state) do
     topic = proxy_topic(topic_or_element)
     %{pid: pid} = fetch_view_by_topic!(state, topic)
-    :ok = Phoenix.LiveView.Channel.ping(pid)
+    :ok = LiveElement.Channel.ping(pid)
     send(self(), {:sync_render_element, operation, topic_or_element, from})
     {:noreply, state}
   end
@@ -500,7 +500,7 @@ defmodule Phoenix.LiveViewTest.ClientProxy do
   def handle_call({:render_event, topic_or_element, type, value}, from, state) do
     topic = proxy_topic(topic_or_element)
     %{pid: pid} = fetch_view_by_topic!(state, topic)
-    :ok = Phoenix.LiveView.Channel.ping(pid)
+    :ok = LiveElement.Channel.ping(pid)
     send(self(), {:sync_render_event, topic_or_element, type, value, from})
     {:noreply, state}
   end
@@ -592,7 +592,7 @@ defmodule Phoenix.LiveViewTest.ClientProxy do
   end
 
   defp verify_session(%ClientProxy{} = view) do
-    Phoenix.LiveView.Session.verify_session(
+    LiveElement.Session.verify_session(
       view.endpoint,
       view.topic,
       view.session_token,
@@ -601,7 +601,7 @@ defmodule Phoenix.LiveViewTest.ClientProxy do
   end
 
   defp put_view(state, %ClientProxy{pid: pid} = view, rendered) do
-    {:ok, %Phoenix.LiveView.Session{view: module}} = verify_session(view)
+    {:ok, %LiveElement.Session{view: module}} = verify_session(view)
     new_view = %ClientProxy{view | module: module, proxy: self(), pid: pid, rendered: rendered}
     Process.monitor(pid)
 
@@ -980,7 +980,7 @@ defmodule Phoenix.LiveViewTest.ClientProxy do
 
       [_ | _] ->
         raise ArgumentError,
-                "Phoenix.LiveViewTest currently only supports a single push within JS commands"
+                "LiveElementTest currently only supports a single push within JS commands"
     end
   end
 

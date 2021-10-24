@@ -1,4 +1,4 @@
-defmodule Phoenix.LiveView.Component do
+defmodule LiveElement.Component do
   @moduledoc """
   The struct returned by components in .heex templates.
 
@@ -51,12 +51,12 @@ defmodule Phoenix.LiveView.Component do
   end
 end
 
-defmodule Phoenix.LiveView.Comprehension do
+defmodule LiveElement.Comprehension do
   @moduledoc """
   The struct returned by for-comprehensions in .heex templates.
 
   See a description about its fields and use cases
-  in `Phoenix.LiveView.Engine` docs.
+  in `LiveElement.Engine` docs.
   """
 
   defstruct [:static, :dynamics, :fingerprint]
@@ -66,16 +66,16 @@ defmodule Phoenix.LiveView.Comprehension do
           dynamics: [
             [
               iodata()
-              | Phoenix.LiveView.Rendered.t()
-              | Phoenix.LiveView.Comprehension.t()
-              | Phoenix.LiveView.Component.t()
+              | LiveElement.Rendered.t()
+              | LiveElement.Comprehension.t()
+              | LiveElement.Component.t()
             ]
           ],
           fingerprint: integer()
         }
 
   defimpl Phoenix.HTML.Safe do
-    def to_iodata(%Phoenix.LiveView.Comprehension{static: static, dynamics: dynamics}) do
+    def to_iodata(%LiveElement.Comprehension{static: static, dynamics: dynamics}) do
       for dynamic <- dynamics, do: to_iodata(static, dynamic)
     end
 
@@ -94,12 +94,12 @@ defmodule Phoenix.LiveView.Comprehension do
   end
 end
 
-defmodule Phoenix.LiveView.Rendered do
+defmodule LiveElement.Rendered do
   @moduledoc """
   The struct returned by .heex templates.
 
   See a description about its fields and use cases
-  in `Phoenix.LiveView.Engine` docs.
+  in `LiveElement.Engine` docs.
   """
 
   defstruct [:static, :dynamic, :fingerprint, :root]
@@ -111,16 +111,16 @@ defmodule Phoenix.LiveView.Rendered do
                [
                  nil
                  | iodata()
-                 | Phoenix.LiveView.Rendered.t()
-                 | Phoenix.LiveView.Comprehension.t()
-                 | Phoenix.LiveView.Component.t()
+                 | LiveElement.Rendered.t()
+                 | LiveElement.Comprehension.t()
+                 | LiveElement.Component.t()
                ]),
           fingerprint: integer(),
           root: nil | true | false
         }
 
   defimpl Phoenix.HTML.Safe do
-    def to_iodata(%Phoenix.LiveView.Rendered{static: static, dynamic: dynamic}) do
+    def to_iodata(%LiveElement.Rendered{static: static, dynamic: dynamic}) do
       to_iodata(static, dynamic.(false), [])
     end
 
@@ -146,18 +146,18 @@ defmodule Phoenix.LiveView.Rendered do
   end
 end
 
-defmodule Phoenix.LiveView.Engine do
+defmodule LiveElement.Engine do
   @moduledoc ~S"""
   An `EEx` template engine that tracks changes.
 
-  This is often used by `Phoenix.LiveView.HTMLEngine` which also adds
+  This is often used by `LiveElement.HTMLEngine` which also adds
   HTML validation. In the documentation below, we will explain how it
-  works internally. For user-facing documentation, see `Phoenix.LiveView`.
+  works internally. For user-facing documentation, see `LiveElement`.
 
-  ## Phoenix.LiveView.Rendered
+  ## LiveElement.Rendered
 
   Whenever you render a live template, it returns a
-  `Phoenix.LiveView.Rendered` structure. This structure has
+  `LiveElement.Rendered` structure. This structure has
   three fields: `:static`, `:dynamic` and `:fingerprint`.
 
   The `:static` field is a list of literal strings. This
@@ -170,9 +170,9 @@ defmodule Phoenix.LiveView.Engine do
 
     1. iodata - which is the dynamic content
     2. nil - the dynamic content did not change
-    3. another `Phoenix.LiveView.Rendered` struct, see "Nesting and fingerprinting" below
-    4. a `Phoenix.LiveView.Comprehension` struct, see "Comprehensions" below
-    5. a `Phoenix.LiveView.Component` struct, see "Component" below
+    3. another `LiveElement.Rendered` struct, see "Nesting and fingerprinting" below
+    4. a `LiveElement.Comprehension` struct, see "Comprehensions" below
+    5. a `LiveElement.Component` struct, see "Component" below
 
   When you render a live template, you can convert the
   rendered structure to iodata by alternating the static
@@ -180,7 +180,7 @@ defmodule Phoenix.LiveView.Engine do
   followed by a dynamic entry. The last entry will always
   be static too. So the following structure:
 
-      %Phoenix.LiveView.Rendered{
+      %LiveElement.Rendered{
         static: ["foo", "bar", "baz"],
         dynamic: fn track_changes? -> ["left", "right"] end
       }
@@ -191,7 +191,7 @@ defmodule Phoenix.LiveView.Engine do
       ["foo", "left", "bar", "right", "baz"]
 
   This is also what calling `Phoenix.HTML.Safe.to_iodata/1`
-  with a `Phoenix.LiveView.Rendered` structure returns.
+  with a `LiveElement.Rendered` structure returns.
 
   Of course, the benefit of live templates is exactly
   that you do not need to send both static and dynamic
@@ -214,7 +214,7 @@ defmodule Phoenix.LiveView.Engine do
 
   ## Nesting and fingerprinting
 
-  `Phoenix.LiveView` also tracks changes across live
+  `LiveElement` also tracks changes across live
   templates. Therefore, if your view has this:
 
       <%= render "form.html", assigns %>
@@ -222,7 +222,7 @@ defmodule Phoenix.LiveView.Engine do
   Phoenix will be able to track what is static and dynamic
   across templates, as well as what changed. A rendered
   nested `live` template will appear in the `dynamic`
-  list as another `Phoenix.LiveView.Rendered` structure,
+  list as another `LiveElement.Rendered` structure,
   which must be handled recursively.
 
   However, because the rendering of live templates can
@@ -232,7 +232,7 @@ defmodule Phoenix.LiveView.Engine do
 
       <%= if something?, do: render("one.html", assigns), else: render("other.html", assigns) %>
 
-  To solve this, all `Phoenix.LiveView.Rendered` structs
+  To solve this, all `LiveElement.Rendered` structs
   also contain a fingerprint field that uniquely identifies
   it. If the fingerprints are equal, you have the same
   template, and therefore it is possible to only transmit
@@ -249,13 +249,13 @@ defmodule Phoenix.LiveView.Engine do
       <% end %>
 
   Instead of rendering all points with both static and
-  dynamic parts, it returns a `Phoenix.LiveView.Comprehension`
+  dynamic parts, it returns a `LiveElement.Comprehension`
   struct with the static parts, that are shared across all
   points, and a list of dynamics to be interpolated inside
   the static parts. If `@points` is a list with `%{x: 1, y: 2}`
   and `%{x: 3, y: 4}`, the above expression would return:
 
-      %Phoenix.LiveView.Comprehension{
+      %LiveElement.Comprehension{
         static: ["\n  x: ", "\n  y: ", "\n"],
         dynamics: [
           ["1", "2"],
@@ -322,7 +322,7 @@ defmodule Phoenix.LiveView.Engine do
     {:ok, rendered} = to_rendered_struct(handle_end(state), {:untainted, %{}}, %{}, opts)
 
     quote do
-      require Phoenix.LiveView.Engine
+      require LiveElement.Engine
       unquote(rendered)
     end
   end
@@ -379,7 +379,7 @@ defmodule Phoenix.LiveView.Engine do
            unquote(dynamic)
          end
 
-         %Phoenix.LiveView.Rendered{
+         %LiveElement.Rendered{
            static: unquote(static),
            dynamic: dynamic,
            fingerprint: unquote(fingerprint),
@@ -432,7 +432,7 @@ defmodule Phoenix.LiveView.Engine do
       for = {:for, meta, filters ++ [[do: {:__block__, [], block ++ [dynamic]}]]}
 
       quote do
-        %Phoenix.LiveView.Comprehension{
+        %LiveElement.Comprehension{
           static: unquote(static),
           dynamics: unquote(for),
           fingerprint: unquote(fingerprint)
@@ -1042,9 +1042,9 @@ defmodule Phoenix.LiveView.Engine do
   def live_to_iodata(expr) do
     case expr do
       {:safe, data} -> data
-      %{__struct__: Phoenix.LiveView.Rendered} = other -> other
-      %{__struct__: Phoenix.LiveView.Component} = other -> other
-      %{__struct__: Phoenix.LiveView.Comprehension} = other -> other
+      %{__struct__: LiveElement.Rendered} = other -> other
+      %{__struct__: LiveElement.Component} = other -> other
+      %{__struct__: LiveElement.Comprehension} = other -> other
       bin when is_binary(bin) -> Plug.HTML.html_escape_to_iodata(bin)
       other -> Phoenix.HTML.Safe.to_iodata(other)
     end

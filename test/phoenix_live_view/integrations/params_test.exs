@@ -1,13 +1,13 @@
-defmodule Phoenix.LiveView.ParamsTest do
+defmodule LiveElement.ParamsTest do
   use ExUnit.Case
   import Plug.Conn
   import Phoenix.ConnTest
 
-  import Phoenix.LiveViewTest
-  import Phoenix.LiveView.TelemetryTestHelpers
+  import LiveElementTest
+  import LiveElement.TelemetryTestHelpers
 
-  alias Phoenix.LiveView
-  alias Phoenix.LiveViewTest.{Endpoint, DOM}
+  alias LiveElement
+  alias LiveElementTest.{Endpoint, DOM}
 
   @endpoint Endpoint
 
@@ -177,11 +177,11 @@ defmodule Phoenix.LiveView.ParamsTest do
       assert catch_exit(live(conn, "/errors?crash_on=connected_handle_params"))
 
       assert_receive {:event, [:phoenix, :live_view, :handle_params, :start], %{system_time: _},
-                      %{socket: %Phoenix.LiveView.Socket{transport_pid: pid}}}
+                      %{socket: %LiveElement.Socket{transport_pid: pid}}}
                      when is_pid(pid)
 
       assert_receive {:event, [:phoenix, :live_view, :handle_params, :exception], %{duration: _},
-                      %{socket: %Phoenix.LiveView.Socket{transport_pid: pid}}}
+                      %{socket: %LiveElement.Socket{transport_pid: pid}}}
                      when is_pid(pid)
     end
 

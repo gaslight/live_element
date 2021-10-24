@@ -1,10 +1,10 @@
-defmodule Phoenix.LiveView.Channel do
+defmodule LiveElement.Channel do
   @moduledoc false
   use GenServer, restart: :temporary
 
   require Logger
 
-  alias Phoenix.LiveView.{Socket, Utils, Diff, Upload, UploadConfig, Route, Session, Lifecycle}
+  alias LiveElement.{Socket, Utils, Diff, Upload, UploadConfig, Route, Session, Lifecycle}
   alias Phoenix.Socket.Message
 
   @prefix :phoenix
@@ -55,6 +55,7 @@ defmodule Phoenix.LiveView.Channel do
   @impl true
   def handle_info({Phoenix.Channel, auth_payload, from, phx_socket}, ref) do
     Process.demonitor(ref)
+    IO.inspect(auth_payload, label: "before mount")
     mount(auth_payload, from, phx_socket)
   rescue
     # Normalize exceptions for better client debugging
@@ -766,47 +767,11 @@ defmodule Phoenix.LiveView.Channel do
   defp mount(%{"session" => session_token} = params, from, phx_socket) do
     %Phoenix.Socket{endpoint: endpoint, topic: topic} = phx_socket
 
-    case Session.verify_session(endpoint, topic, session_token, params["static"]) do
+    case build_session() do
       {:ok, %Session{} = verified} ->
         %Phoenix.Socket{private: %{connect_info: connect_info}} = phx_socket
 
         case connect_info do
-          %{session: nil} ->
-            Logger.debug("""
-            LiveView session was misconfigured or the user token is outdated.
-
-            1) Ensure your session configuration in your endpoint is in a module attribute:
-
-                @session_options [
-                  ...
-                ]
-
-            2) Change the `plug Plug.Session` to use said attribute:
-
-                plug Plug.Session, @session_options
-
-            3) Also pass the `@session_options` to your LiveView socket:
-
-                socket "/live", Phoenix.LiveView.Socket,
-                  websocket: [connect_info: [session: @session_options]]
-
-            4) Ensure the `protect_from_forgery` plug is in your router pipeline:
-
-                plug :protect_from_forgery
-
-            5) Define the CSRF meta tag inside the `<head>` tag in your layout:
-
-                <%= csrf_meta_tag() %>
-
-            6) Pass it forward in your app.js:
-
-                let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-                let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}});
-            """)
-
-            GenServer.reply(from, {:error, %{reason: "stale"}})
-            {:stop, :shutdown, :no_state}
-
           %{} ->
             case authorize_session(verified, endpoint, params) do
               {:ok, %Session{} = new_verified, route, url} ->
@@ -832,6 +797,24 @@ defmodule Phoenix.LiveView.Channel do
     Logger.error("Mounting #{phx_socket.topic} failed because no session was provided")
     GenServer.reply(from, {:error, %{reason: "stale"}})
     {:stop, :shutdown, :no_session}
+  end
+
+  defp build_session() do
+    {:ok,
+     %LiveElement.Session{
+       assign_new: [],
+       flash: %{},
+       id: "phx-Fq6e4BAJtMAudgHH",
+       live_session_name: :default,
+       live_session_vsn: 1_634_418_391_780_893_900,
+       parent_pid: nil,
+       redirected?: false,
+       root_pid: nil,
+       root_view: TodoListDemoWeb.TodosLive.TodoList,
+       router: TodoListDemoWeb.Router,
+       session: %{},
+       view: TodoListDemoWeb.TodosLive.TodoList
+     }}
   end
 
   defp verify_flash(endpoint, %Session{} = verified, flash_token, connect_params) do
@@ -1041,7 +1024,7 @@ defmodule Phoenix.LiveView.Channel do
   end
 
   defp assign_action(socket, action) do
-    Phoenix.LiveView.assign(socket, :live_action, action)
+    LiveElement.assign(socket, :live_action, action)
   end
 
   defp maybe_update_uploads(%Socket{} = socket, %{"uploads" => uploads} = payload) do

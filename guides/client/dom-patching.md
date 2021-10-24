@@ -26,7 +26,7 @@ The "append" and "prepend" feature is often used with "Temporary assigns"
 to work with large amounts of data. Let's learn more.
 
 To react to elements being removed from the DOM, the `phx-remove` binding
-may be specified, which can contain a `Phoenix.LiveView.JS` command to execute.
+may be specified, which can contain a `LiveElement.JS` command to execute.
 
 *Note*: The `phx-remove` command is only executed for the removed parent element.
 It does not cascade to children.

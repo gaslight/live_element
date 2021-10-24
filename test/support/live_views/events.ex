@@ -1,5 +1,5 @@
-defmodule Phoenix.LiveViewTest.EventsLive do
-  use Phoenix.LiveView, namespace: Phoenix.LiveViewTest
+defmodule LiveElementTest.EventsLive do
+  use LiveElement, namespace: LiveElementTest
 
   def render(assigns) do
     ~H"""
@@ -24,11 +24,11 @@ defmodule Phoenix.LiveViewTest.EventsLive do
   def handle_info({:run, func}, socket), do: func.(socket)
 end
 
-defmodule Phoenix.LiveViewTest.EventsInMountLive do
-  use Phoenix.LiveView, namespace: Phoenix.LiveViewTest
+defmodule LiveElementTest.EventsInMountLive do
+  use LiveElement, namespace: LiveElementTest
 
   defmodule Child do
-    use Phoenix.LiveView, namespace: Phoenix.LiveViewTest
+    use LiveElement, namespace: LiveElementTest
 
     def render(assigns) do
       ~H"hello!"
@@ -58,8 +58,8 @@ defmodule Phoenix.LiveViewTest.EventsInMountLive do
   end
 end
 
-defmodule Phoenix.LiveViewTest.EventsInComponentLive do
-  use Phoenix.LiveView, namespace: Phoenix.LiveViewTest
+defmodule LiveElementTest.EventsInComponentLive do
+  use LiveElement, namespace: LiveElementTest
 
   defmodule Child do
     use Phoenix.LiveComponent

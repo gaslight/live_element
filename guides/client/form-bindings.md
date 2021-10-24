@@ -66,12 +66,12 @@ Next, your LiveView picks up the events in `handle_event` callbacks:
 
 The validate callback simply updates the changeset based on all form input
 values, then assigns the new changeset to the socket. If the changeset
-changes, such as generating new errors, [`render/1`](`c:Phoenix.LiveView.render/1`)
+changes, such as generating new errors, [`render/1`](`c:LiveElement.render/1`)
 is invoked and the form is re-rendered.
 
 Likewise for `phx-submit` bindings, the same callback is invoked and
 persistence is attempted. On success, a `:noreply` tuple is returned and the
-socket is annotated for redirect with `Phoenix.LiveView.redirect/2` to
+socket is annotated for redirect with `LiveElement.redirect/2` to
 the new user page, otherwise the socket assigns are updated with the errored
 changeset to be re-rendered for the client.
 
@@ -148,7 +148,7 @@ attribute:
         <%= live_file_input @uploads.avatar %>
     </div>
 
-See `Phoenix.LiveView.Helpers.live_file_input/2` for more.
+See `LiveElement.Helpers.live_file_input/2` for more.
 
 ## Submitting the form action over HTTP
 

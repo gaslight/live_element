@@ -1,7 +1,7 @@
-defmodule Phoenix.LiveView.HEExExtensionTest do
+defmodule LiveElement.HEExExtensionTest do
   use ExUnit.Case, async: true
 
-  alias Phoenix.LiveView.{HTMLEngine, Rendered, Component}
+  alias LiveElement.{HTMLEngine, Rendered, Component}
 
   defmodule View do
     use Phoenix.View, root: "test/support/templates/heex", path: ""
@@ -25,7 +25,7 @@ defmodule Phoenix.LiveView.HEExExtensionTest do
     pre: "pre",
     inner_content: "inner",
     post: "post",
-    socket: %Phoenix.LiveView.Socket{}
+    socket: %LiveElement.Socket{}
   }
 
   test "renders live engine to string" do

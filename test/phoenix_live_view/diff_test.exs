@@ -1,9 +1,9 @@
-defmodule Phoenix.LiveView.DiffTest do
+defmodule LiveElement.DiffTest do
   use ExUnit.Case, async: true
 
-  import Phoenix.LiveView.Helpers
+  import LiveElement.Helpers
 
-  alias Phoenix.LiveView.{Socket, Diff, Rendered, Component}
+  alias LiveElement.{Socket, Diff, Rendered, Component}
   alias Phoenix.LiveComponent.CID
 
   def basic_template(assigns) do
@@ -847,7 +847,7 @@ defmodule Phoenix.LiveView.DiffTest do
       """
 
       assert_raise RuntimeError,
-                   "found duplicate ID \"SAME\" for component Phoenix.LiveView.DiffTest.RenderOnlyComponent when rendering template",
+                   "found duplicate ID \"SAME\" for component LiveElement.DiffTest.RenderOnlyComponent when rendering template",
                    fn -> render(rendered) end
     end
 
@@ -1345,7 +1345,7 @@ defmodule Phoenix.LiveView.DiffTest do
       # Now let's add one level of nesting directly
       {diff, diff_components, :extra} =
         Diff.write_component(socket, 1, diff_components, fn socket, _component ->
-          {Phoenix.LiveView.assign(socket, children: [{2, []}]), :extra}
+          {LiveElement.assign(socket, children: [{2, []}]), :extra}
         end)
 
       assert diff == %{

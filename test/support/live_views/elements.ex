@@ -1,7 +1,7 @@
-defmodule Phoenix.LiveViewTest.ElementsLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.ElementsLive do
+  use LiveElement
 
-  alias Phoenix.LiveView.JS
+  alias LiveElement.JS
 
   def render(assigns) do
     ~H"""

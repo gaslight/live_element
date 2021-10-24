@@ -4,7 +4,7 @@ defmodule Phoenix.Component do
 
   A function component is any function that receives
   an assigns map as argument and returns a rendered
-  struct built with [the `~H` sigil](`Phoenix.LiveView.Helpers.sigil_H/2`).
+  struct built with [the `~H` sigil](`LiveElement.Helpers.sigil_H/2`).
 
   Here is an example:
 
@@ -46,14 +46,14 @@ defmodule Phoenix.Component do
       <.greet name={@user.name} />
       """
 
-  You can learn more about the `~H` sigil [in its documentation](`Phoenix.LiveView.Helpers.sigil_H/2`).
+  You can learn more about the `~H` sigil [in its documentation](`LiveElement.Helpers.sigil_H/2`).
 
   ## `use Phoenix.Component`
 
   Modules that define function components should call
   `use Phoenix.Component` at the top. Doing so will import
-  the functions from both `Phoenix.LiveView` and
-  `Phoenix.LiveView.Helpers` modules. `Phoenix.LiveView`
+  the functions from both `LiveElement` and
+  `LiveElement.Helpers` modules. `LiveElement`
   and `Phoenix.LiveComponent` automatically invoke
   `use Phoenix.Component` for you.
 
@@ -63,8 +63,8 @@ defmodule Phoenix.Component do
 
   ## Assigns
 
-  While inside a function component, you must use `Phoenix.LiveView.assign/3`
-  and `Phoenix.LiveView.assign_new/3` to manipulate assigns,
+  While inside a function component, you must use `LiveElement.assign/3`
+  and `LiveElement.assign_new/3` to manipulate assigns,
   so that LiveView can track changes to the assigns values.
   For example, let's imagine a component that receives the first
   name and last name and must compute the name assign. One option
@@ -133,7 +133,7 @@ defmodule Phoenix.Component do
       end
 
   In a nutshell, the contents given to the component is assigned to
-  the `@inner_block` assign and then we use `Phoenix.LiveView.Helpers.render_slot/2`
+  the `@inner_block` assign and then we use `LiveElement.Helpers.render_slot/2`
   to render it.
 
   You can even have the component give a value back to the caller,
@@ -288,8 +288,8 @@ defmodule Phoenix.Component do
   @doc false
   defmacro __using__(_) do
     quote do
-      import Phoenix.LiveView
-      import Phoenix.LiveView.Helpers
+      import LiveElement
+      import LiveElement.Helpers
     end
   end
 end

@@ -1,7 +1,7 @@
-alias Phoenix.LiveViewTest.{ClockLive, ClockControlsLive}
+alias LiveElementTest.{ClockLive, ClockControlsLive}
 
-defmodule Phoenix.LiveViewTest.ThermostatLive do
-  use Phoenix.LiveView, container: {:article, class: "thermo"}, namespace: Phoenix.LiveViewTest
+defmodule LiveElementTest.ThermostatLive do
+  use LiveElement, container: {:article, class: "thermo"}, namespace: LiveElementTest
 
   def render(assigns) do
     ~H"""
@@ -65,8 +65,8 @@ defmodule Phoenix.LiveViewTest.ThermostatLive do
   end
 end
 
-defmodule Phoenix.LiveViewTest.ClockLive do
-  use Phoenix.LiveView, container: {:section, class: "clock"}
+defmodule LiveElementTest.ClockLive do
+  use LiveElement, container: {:section, class: "clock"}
 
   def render(assigns) do
     ~H"""
@@ -92,8 +92,8 @@ defmodule Phoenix.LiveViewTest.ClockLive do
   end
 end
 
-defmodule Phoenix.LiveViewTest.ClockControlsLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.ClockControlsLive do
+  use LiveElement
 
   def render(assigns), do: ~H|<button phx-click="snooze">+</button>|
 
@@ -105,8 +105,8 @@ defmodule Phoenix.LiveViewTest.ClockControlsLive do
   end
 end
 
-defmodule Phoenix.LiveViewTest.DashboardLive do
-  use Phoenix.LiveView, container: {:div, class: inspect(__MODULE__)}
+defmodule LiveElementTest.DashboardLive do
+  use LiveElement, container: {:div, class: inspect(__MODULE__)}
 
   def render(assigns) do
     ~H"""
@@ -119,8 +119,8 @@ defmodule Phoenix.LiveViewTest.DashboardLive do
   end
 end
 
-defmodule Phoenix.LiveViewTest.SameChildLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.SameChildLive do
+  use LiveElement
 
   def render(%{dup: true} = assigns) do
     ~H"""
@@ -147,9 +147,9 @@ defmodule Phoenix.LiveViewTest.SameChildLive do
   end
 end
 
-defmodule Phoenix.LiveViewTest.RootLive do
-  use Phoenix.LiveView
-  alias Phoenix.LiveViewTest.ChildLive
+defmodule LiveElementTest.RootLive do
+  use LiveElement
+  alias LiveElementTest.ChildLive
 
   def render(assigns) do
     ~H"""
@@ -175,8 +175,8 @@ defmodule Phoenix.LiveViewTest.RootLive do
   end
 end
 
-defmodule Phoenix.LiveViewTest.ChildLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.ChildLive do
+  use LiveElement
 
   def render(assigns) do
     ~H"""
@@ -195,8 +195,8 @@ defmodule Phoenix.LiveViewTest.ChildLive do
   end
 end
 
-defmodule Phoenix.LiveViewTest.OptsLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.OptsLive do
+  use LiveElement
 
   def render(assigns), do: ~H|<%= @description %>. <%= @canary %>|
 
@@ -209,8 +209,8 @@ defmodule Phoenix.LiveViewTest.OptsLive do
   end
 end
 
-defmodule Phoenix.LiveViewTest.RedirLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.RedirLive do
+  use LiveElement
 
   def render(assigns) do
     ~H"""
@@ -270,18 +270,18 @@ defmodule Phoenix.LiveViewTest.RedirLive do
   defp do_redirect(socket, "push_patch", opts), do: push_patch(socket, opts)
 end
 
-defmodule Phoenix.LiveViewTest.AssignsNotInSocketLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.AssignsNotInSocketLive do
+  use LiveElement
 
   def render(assigns), do: ~H|<%= boom(@socket) %>|
   def mount(_params, _session, socket), do: {:ok, socket}
   defp boom(socket), do: socket.assigns.boom
 end
 
-defmodule Phoenix.LiveViewTest.ErrorsLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.ErrorsLive do
+  use LiveElement
 
-  alias Phoenix.LiveView.Socket
+  alias LiveElement.Socket
 
   def render(assigns), do: ~H|<div>I crash in mount</div>|
 

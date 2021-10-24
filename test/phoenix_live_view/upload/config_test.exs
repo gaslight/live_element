@@ -1,8 +1,8 @@
-defmodule Phoenix.LiveView.UploadConfigTest do
+defmodule LiveElement.UploadConfigTest do
   use ExUnit.Case, async: true
 
-  alias Phoenix.LiveView
-  alias Phoenix.LiveView.{UploadConfig, UploadEntry}
+  alias LiveElement
+  alias LiveElement.{UploadConfig, UploadEntry}
 
   defp build_socket() do
     %LiveView.Socket{}
@@ -192,7 +192,7 @@ defmodule Phoenix.LiveView.UploadConfigTest do
       entries_before = avatar.entries
 
       assert [
-               %Phoenix.LiveView.UploadEntry{
+               %LiveElement.UploadEntry{
                  client_name: ^name,
                  client_size: ^size,
                  client_type: ^type,
@@ -219,7 +219,7 @@ defmodule Phoenix.LiveView.UploadConfigTest do
       entries_before = avatar.entries
 
       assert [
-               %Phoenix.LiveView.UploadEntry{
+               %LiveElement.UploadEntry{
                  client_name: ^name,
                  client_size: ^size,
                  client_type: ^type,
@@ -391,6 +391,6 @@ defmodule Phoenix.LiveView.UploadConfigTest do
       "size" => 1024,
       "type" => "application/octet-stream"
     })
-    |> Map.put_new_lazy("ref", &Phoenix.LiveView.Utils.random_id/0)
+    |> Map.put_new_lazy("ref", &LiveElement.Utils.random_id/0)
   end
 end

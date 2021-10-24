@@ -1,6 +1,6 @@
-defmodule Phoenix.LiveView.Lifecycle do
+defmodule LiveElement.Lifecycle do
   @moduledoc false
-  alias Phoenix.LiveView.{Socket, Utils}
+  alias LiveElement.{Socket, Utils}
 
   @lifecycle :lifecycle
 

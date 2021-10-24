@@ -21,8 +21,8 @@
 
 The hook API introduced in LiveView 0.16 has been improved based on feedback.
 LiveView 0.17 removes the custom module-function callbacks for the
-`Phoenix.LiveView.on_mount/1` macro and the `:on_mount` option for
-`Phoenix.LiveView.Router.live_session/3` in favor of supporting a custom
+`LiveElement.on_mount/1` macro and the `:on_mount` option for
+`LiveElement.Router.live_session/3` in favor of supporting a custom
 argument. For clarity, the module function to be invoked during the mount
 lifecycle stage will always be named `on_mount/4`.
 
@@ -136,7 +136,7 @@ Some functionality that was previously deprecated has been removed:
 ### Enhancements
   - Relax `phoenix_html` dependency requirement
   - Allow testing functional components by passing a function reference
-    to `Phoenix.LiveViewTest.render_component/3`
+    to `LiveElementTest.render_component/3`
 
 ### Bug fixes
   - Do not generate CSRF tokens for non-POST forms
@@ -148,7 +148,7 @@ Some functionality that was previously deprecated has been removed:
 
 LiveView v0.16 optimizes live redirects by supporting navigation purely
 over the existing WebSocket connection. This is accomplished by the new
-`live_session/3` feature of `Phoenix.LiveView.Router`. The
+`live_session/3` feature of `LiveElement.Router`. The
 [security guide](/guides/server/security-model.md) has always stressed
 the following:
 
@@ -173,7 +173,7 @@ live session name. If a client attempts to live redirect to a different
 live session, it will be refused and a graceful client-side redirect will
 trigger a regular HTTP request to the attempted URL.
 
-See the `Phoenix.LiveView.Router.live_session/3` docs for more information
+See the `LiveElement.Router.live_session/3` docs for more information
 and example usage.
 
 ### New HTML Engine
@@ -267,7 +267,7 @@ your application.
 ### Breaking Changes
 
 LiveView 0.16 removes the `:layout` and `:container` options from
-`Phoenix.LiveView.Routing.live/4` in favor of the `:root_layout`
+`LiveElement.Routing.live/4` in favor of the `:root_layout`
 and `:container` options on `Phoenix.Router.live_session/3`.
 
 For instance, if you have the following in LiveView 0.15 and prior:
@@ -284,18 +284,18 @@ live_session :session_name, root_layout: {MyAppWeb.LayoutView, "custom_layout.ht
 end
 ```
 
-On the client, the `phoenix_live_view` package no longer provides a default export for `LiveSocket`.
+On the client, the `live_element` package no longer provides a default export for `LiveSocket`.
 
 If you have the following in your JavaScript entrypoint (typically located at `assets/js/app.js`):
 
 ```js
-import LiveSocket from "phoenix_live_view"
+import LiveSocket from "live_element"
 ```
 
 Change it to:
 
 ```js
-import { LiveSocket } from "phoenix_live_view"
+import { LiveSocket } from "live_element"
 ```
 
 Additionally on the client, the root LiveView element no longer exposes the
@@ -320,7 +320,7 @@ Similarly, the `viewName` property of client hooks has been removed.
 
 ### Bug fixes
   - Make sure components are loaded on `render_component` to ensure all relevant callbacks are invoked
-  - Fix `Phoenix.LiveViewTest.page_title` returning nil in some cases
+  - Fix `LiveElementTest.page_title` returning nil in some cases
   - Fix buttons being re-enabled when explicitly set to disabled on server
   - Fix live patch failing to update URL when live patch link is patched again via `handle_params` within the same callback lifecycle
   - Fix `phx-no-feedback` class not applied when page is live-patched
@@ -329,7 +329,7 @@ Similarly, the `viewName` property of client hooks has been removed.
   - Fix error with multiple `live_file_input` in one form
   - Fix race condition in `showError` causing null `querySelector`
   - Fix statics not resolving correctly across recursive diffs
-  - Fix no function clause matching in `Phoenix.LiveView.Diff.many_to_iodata`
+  - Fix no function clause matching in `LiveElement.Diff.many_to_iodata`
   - Fix upload input not being cleared after files are uploaded via a component
   - Fix channel crash when uploading during reconnect
   - Fix duplicate progress events being sent for large uploads
@@ -412,7 +412,7 @@ Similarly, the `viewName` property of client hooks has been removed.
 
 ### Enhancements
   - Add live uploads support for file progress, interactive file selection, and direct to cloud support
-  - Implement `Phoenix.LiveViewTest.open_browser/2` that opens up a browser with the LiveView page
+  - Implement `LiveElementTest.open_browser/2` that opens up a browser with the LiveView page
 
 ### Backwards incompatible changes
   - Remove `@inner_content` in components and introduce `render_block` for rendering component `@inner_block`
@@ -437,7 +437,7 @@ Similarly, the `viewName` property of client hooks has been removed.
 ### Bug fixes
   - Fix `redirect(socket, external: ...)` when returned from an event
   - Properly follow location hashes on live patch/redirect
-  - Fix failure in `Phoenix.LiveViewTest` when phx-update has non-HTML nodes as children
+  - Fix failure in `LiveElementTest` when phx-update has non-HTML nodes as children
   - Fix `phx_trigger_action` submitting the form before the DOM updates are complete
 
 ## 0.14.6 (2020-09-21)
@@ -450,13 +450,13 @@ Similarly, the `viewName` property of client hooks has been removed.
 ### Enhancements
 
   - Optimize DOM prepend and append operations
-  - Add `Phoenix.LiveView.send_update_after/3`
+  - Add `LiveElement.send_update_after/3`
 
 ### Bug fixes
   - Fix scroll position when using back/forward with `live_redirect`'s
   - Handle recursive components when generating diffs
   - Support hard redirects on mount
-  - Properly track nested components on deletion on `Phoenix.LiveViewTest`
+  - Properly track nested components on deletion on `LiveElementTest`
 
 ## 0.14.4 (2020-07-30)
 
@@ -602,8 +602,8 @@ Similarly, the `viewName` property of client hooks has been removed.
   - Fix double window bindings when explicit calls to LiveSocket connect/disconnect/connect
 
 ### Enhancements
-  - Add `Phoenix.LiveView.get_connect_info/1`
-  - Add `Phoenix.LiveViewTest.put_connect_info/2` and `Phoenix.LiveViewTest.put_connect_params/2`
+  - Add `LiveElement.get_connect_info/1`
+  - Add `LiveElementTest.put_connect_info/2` and `LiveElementTest.put_connect_params/2`
   - Add support for tracking static asset changes on the page across cold server deploys
   - Add support for passing a `@myself` target to a hook's `pushEventTo` target
   - Add configurable metadata for events with new `metadata` LiveSocket option
@@ -648,11 +648,11 @@ The new implementation will check there is a button at `#term .buttons a`, with 
 
 ### Backwards incompatible changes
   - `phx-error-for` has been removed in favor of `phx-feedback-for`. `phx-feedback-for` will set a `phx-no-feedback` class whenever feedback has to be hidden
-  - `Phoenix.LiveViewTest.children/1` has been renamed to `Phoenix.LiveViewTest.live_children/1`
-  - `Phoenix.LiveViewTest.find_child/2` has been renamed to `Phoenix.LiveViewTest.find_live_child/2`
-  - `Phoenix.LiveViewTest.assert_redirect/3` no longer matches on the flash, instead it returns the flash
-  - `Phoenix.LiveViewTest.assert_redirect/3` no longer matches on the patch redirects, use `assert_patch/3` instead
-  - `Phoenix.LiveViewTest.assert_remove/3` has been removed. If the LiveView crashes, it will cause the test to crash too
+  - `LiveElementTest.children/1` has been renamed to `LiveElementTest.live_children/1`
+  - `LiveElementTest.find_child/2` has been renamed to `LiveElementTest.find_live_child/2`
+  - `LiveElementTest.assert_redirect/3` no longer matches on the flash, instead it returns the flash
+  - `LiveElementTest.assert_redirect/3` no longer matches on the patch redirects, use `assert_patch/3` instead
+  - `LiveElementTest.assert_remove/3` has been removed. If the LiveView crashes, it will cause the test to crash too
   - Passing a path with DOM IDs to `render_*` test functions is deprecated. Furthermore, they now require a `phx-target="<%= @id %>"` on the given DOM ID:
 
     ```html
@@ -678,7 +678,7 @@ The new implementation will check there is a button at `#term .buttons a`, with 
 
 ### Backwards incompatible changes
   - `render_event`/`render_click` and friends now expect a DOM ID selector to be given when working with components. For example, instead of `render_click([live, "user-13"])`, you should write `render_click([live, "#user-13"])`, mirroring the `phx-target` API.
-  - Accessing the socket assigns directly `@socket.assigns[...]` in a template will now raise the exception `Phoenix.LiveView.Socket.AssignsNotInSocket`. The socket assigns are available directly inside the template as LiveEEx `assigns`, such as `@foo` and `@bar`. Any assign access should be done using the assigns in the template where proper change tracking takes place.
+  - Accessing the socket assigns directly `@socket.assigns[...]` in a template will now raise the exception `LiveElement.Socket.AssignsNotInSocket`. The socket assigns are available directly inside the template as LiveEEx `assigns`, such as `@foo` and `@bar`. Any assign access should be done using the assigns in the template where proper change tracking takes place.
 
 ### Enhancements
   - Trigger debounced events immediately on input blur
@@ -693,11 +693,11 @@ The new implementation will check there is a button at `#term .buttons a`, with 
 
 
     ```diff
-    - @import "../../../../deps/phoenix_live_view/assets/css/live_view.css";
+    - @import "../../../../deps/live_element/assets/css/live_view.css";
     + @import "../node_modules/nprogress/nprogress.css";
     ```
 
-    and add `nprogress` to `assets/package.json`. Full details in the [Progress animation guide](https://hexdocs.pm/phoenix_live_view/0.11.0/installation.html#progress-animation)
+    and add `nprogress` to `assets/package.json`. Full details in the [Progress animation guide](https://hexdocs.pm/live_element/0.11.0/installation.html#progress-animation)
 
 ### Bug fixes
   - Fix client issue with greater than two levels of LiveView nesting
@@ -718,7 +718,7 @@ The new implementation will check there is a button at `#term .buttons a`, with 
 ### Backwards incompatible changes
   - Rename socket assign `@live_view_module` to `@live_module`
   - Rename socket assign `@live_view_action` to `@live_action`
-  - LiveView no longer uses the default app layout and `put_live_layout` is no longer supported. Instead, use `put_root_layout`. Note, however, that the layout given to `put_root_layout` must use `@inner_content` instead of `<%= render(@view_module, @view_template, assigns) %>` and that the root layout will also be used by regular views. Check the [Live Layouts](https://hexdocs.pm/phoenix_live_view/0.10.0/Phoenix.LiveView.html#module-live-layouts) section of the docs.
+  - LiveView no longer uses the default app layout and `put_live_layout` is no longer supported. Instead, use `put_root_layout`. Note, however, that the layout given to `put_root_layout` must use `@inner_content` instead of `<%= render(@view_module, @view_template, assigns) %>` and that the root layout will also be used by regular views. Check the [Live Layouts](https://hexdocs.pm/live_element/0.10.0/LiveElement.html#module-live-layouts) section of the docs.
 
 ### Bug fixes
   - Fix loading states causing nested LiveViews to be removed during live navigation
@@ -766,7 +766,7 @@ The new implementation will check there is a button at `#term .buttons a`, with 
 ## 0.8.0 (2020-02-22)
 
 ### Backwards incompatible changes
-  - Remove `Phoenix.LiveView.Flash` in favor of `:fetch_live_flash` imported by `Phoenix.LiveView.Router`
+  - Remove `LiveElement.Flash` in favor of `:fetch_live_flash` imported by `LiveElement.Router`
   - Live layout must now access the child contents with `@inner_content` instead of invoking the LiveView directly
   - Returning `:stop` tuples from LiveView `mount` or `handle_[params|call|cast|info|event]` is no longer supported. LiveViews are stopped when issuing a `redirect` or `push_redirect`
 
@@ -797,7 +797,7 @@ The new implementation will check there is a button at `#term .buttons a`, with 
 ### Backwards incompatible changes
   - `live_redirect` was removed in favor of `push_patch` (for updating the URL and params of the current LiveView) and `push_redirect` (for updating the URL to another LiveView)
   - `live_link` was removed in favor of  `live_patch` (for updating the URL and params of the current LiveView) and `live_redirect` (for updating the URL to another LiveView)
-  - `Phoenix.LiveViewTest.assert_redirect` no longer accepts an anonymous function in favor of executing the code
+  - `LiveElementTest.assert_redirect` no longer accepts an anonymous function in favor of executing the code
   prior to asserting the redirects, just like `assert_receive`.
 
 ### Enhancements
@@ -866,7 +866,7 @@ The steps are:
   3) Also pass the `@session_options` to your LiveView socket:
 
       ```elixir
-      socket "/live", Phoenix.LiveView.Socket,
+      socket "/live", LiveElement.Socket,
         websocket: [connect_info: [session: @session_options]]
       ```
 
@@ -901,7 +901,7 @@ Also note that **the session from now on will have string keys**. LiveView will 
 
 ### Backwards incompatible changes
   - `phx-target="window"` has been removed in favor of `phx-window-keydown`, `phx-window-focus`, etc, and the `phx-target` binding has been repurposed for targeting LiveView and LiveComponent events from the client
-  - `Phoenix.LiveView` no longer defined `live_render` and `live_link`. These functions have been moved to `Phoenix.LiveView.Helpers` which can now be fully imported in your views. In other words, replace `import Phoenix.LiveView, only: [live_render: ..., live_link: ...]` by `import Phoenix.LiveView.Helpers`
+  - `LiveElement` no longer defined `live_render` and `live_link`. These functions have been moved to `LiveElement.Helpers` which can now be fully imported in your views. In other words, replace `import LiveElement, only: [live_render: ..., live_link: ...]` by `import LiveElement.Helpers`
 
 ## 0.4.1 (2019-11-07)
 
@@ -951,7 +951,7 @@ Also note that **the session from now on will have string keys**. LiveView will 
 ## 0.2.0 (2019-09-12)
 
 ### Enhancements
-  - [LiveView] Add new `:container` option to `use Phoenix.LiveView`
+  - [LiveView] Add new `:container` option to `use LiveElement`
   - [LiveViewTest] Add `live_isolated` test helper for testing LiveViews which are not routable
 
 ### Backwards incompatible changes
@@ -962,7 +962,7 @@ Also note that **the session from now on will have string keys**. LiveView will 
 
 ```javascript
 import {Socket} from "phoenix"
-import LiveSocket from "phoenix_live_view"
+import LiveSocket from "live_element"
 
 let liveSocket = new LiveSocket("/live", Socket, {...})
 ```

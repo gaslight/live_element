@@ -1,6 +1,6 @@
 import {Socket} from "phoenix"
-import LiveSocket from "phoenix_live_view/live_socket"
-import View from "phoenix_live_view/view"
+import LiveSocket from "live_element/live_socket"
+import View from "live_element/view"
 
 let containerId = 0
 

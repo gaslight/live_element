@@ -1,10 +1,11 @@
-defmodule Phoenix.LiveView.Diff do
+defmodule LiveElement.Diff do
   # The diff engine is responsible for tracking the rendering state.
   # Given that components are part of said state, they are also
   # handled here.
   @moduledoc false
 
-  alias Phoenix.LiveView.{Utils, Rendered, Comprehension, Component}
+  alias Phoenix.LiveView.{Rendered, Comprehension}
+  alias LiveElement.{Utils, Component}
 
   @components :c
   @static :s
@@ -133,7 +134,7 @@ defmodule Phoenix.LiveView.Diff do
     render(%{socket | fingerprints: new_fingerprints()}, rendered, new_components(uuids))
   end
 
-  def render(%{fingerprints: prints} = socket, %Rendered{} = rendered, components) do
+  def render(%{fingerprints: prints} = socket, rendered, components) do
     {diff, prints, pending, components, nil} =
       traverse(socket, rendered, prints, %{}, components, nil, true)
 

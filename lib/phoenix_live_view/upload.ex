@@ -1,8 +1,8 @@
-defmodule Phoenix.LiveView.Upload do
-  # Operations integrating Phoenix.LiveView.Socket with UploadConfig.
+defmodule LiveElement.Upload do
+  # Operations integrating LiveElement.Socket with UploadConfig.
   @moduledoc false
 
-  alias Phoenix.LiveView.{Socket, Utils, UploadConfig, UploadEntry}
+  alias LiveElement.{Socket, Utils, UploadConfig, UploadEntry}
 
   @refs_to_names :__phoenix_refs_to_names__
 
@@ -144,7 +144,7 @@ defmodule Phoenix.LiveView.Upload do
   end
 
   @doc """
-  Unregisters a completed entry from an `Phoenix.LiveView.UploadChannel` process.
+  Unregisters a completed entry from an `LiveElement.UploadChannel` process.
   """
   def unregister_completed_entry_upload(%Socket{} = socket, %UploadConfig{} = conf, entry_ref) do
     conf
@@ -153,7 +153,7 @@ defmodule Phoenix.LiveView.Upload do
   end
 
   @doc """
-  Registers a new entry upload for an `Phoenix.LiveView.UploadChannel` process.
+  Registers a new entry upload for an `LiveElement.UploadChannel` process.
   """
   def register_entry_upload(%Socket{} = socket, %UploadConfig{} = conf, pid, entry_ref)
       when is_pid(pid) do
@@ -194,7 +194,7 @@ defmodule Phoenix.LiveView.Upload do
   end
 
   @doc """
-  Returns the `%UploadConfig{}` from the socket for the `Phoenix.LiveView.UploadChannel` pid.
+  Returns the `%UploadConfig{}` from the socket for the `LiveElement.UploadChannel` pid.
   """
   def get_upload_by_pid(socket, pid) when is_pid(pid) do
     Enum.find_value(socket.assigns[:uploads] || %{}, fn
@@ -286,14 +286,14 @@ defmodule Phoenix.LiveView.Upload do
         end)
 
       entry_refs = for entry <- entries, do: entry.ref
-      Phoenix.LiveView.Channel.drop_upload_entries(conf, entry_refs)
+      LiveElement.Channel.drop_upload_entries(conf, entry_refs)
 
       results
     else
       entries
       |> Enum.map(fn entry -> {entry, UploadConfig.entry_pid(conf, entry)} end)
       |> Enum.filter(fn {_entry, pid} -> is_pid(pid) end)
-      |> Enum.map(fn {entry, pid} -> Phoenix.LiveView.UploadChannel.consume(pid, entry, func) end)
+      |> Enum.map(fn {entry, pid} -> LiveElement.UploadChannel.consume(pid, entry, func) end)
     end
   end
 
@@ -336,7 +336,7 @@ defmodule Phoenix.LiveView.Upload do
     reply_entries =
       for entry <- entries, into: %{} do
         token =
-          Phoenix.LiveView.Static.sign_token(socket.endpoint, %{
+          LiveElement.Static.sign_token(socket.endpoint, %{
             pid: self(),
             ref: {conf.ref, entry.ref},
             cid: cid

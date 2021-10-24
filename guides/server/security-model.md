@@ -43,7 +43,7 @@ via Plugs, such as this:
     plug :ensure_user_authenticated
     plug :ensure_user_confirmed
 
-Then the [`mount/3`](`c:Phoenix.LiveView.mount/3`) callback of your LiveView
+Then the [`mount/3`](`c:LiveElement.mount/3`) callback of your LiveView
 should execute those same verifications:
 
     def mount(params, %{"user_id" => user_id} = _session, socket) do
@@ -59,12 +59,12 @@ should execute those same verifications:
       {:ok, socket}
     end
 
-LiveView v0.16 includes the `on_mount` (`Phoenix.LiveView.on_mount/1`) hook,
+LiveView v0.16 includes the `on_mount` (`LiveElement.on_mount/1`) hook,
 which allows you to encapsulate this logic and execute it on every mount,
 as you would with plug:
 
     defmodule MyAppWeb.UserLiveAuth do
-      import Phoenix.LiveView
+      import LiveElement
 
       def mount(params, %{"user_id" => user_id} = _session, socket) do
         socket = assign_new(socket, :current_user, fn ->
@@ -82,13 +82,13 @@ as you would with plug:
 and then use it on all relevant LiveViews:
 
     defmodule MyAppWeb.PageLive do
-      use Phoenix.LiveView
+      use LiveElement
       on_mount MyAppWeb.UserLiveAuth
 
       ...
     end
 
-Note in the snippet above we used [`assign_new/3`](`Phoenix.LiveView.assign_new/3`).
+Note in the snippet above we used [`assign_new/3`](`LiveElement.assign_new/3`).
 This is a convenience to avoid fetching the `current_user` multiple times across
 LiveViews.
 
@@ -159,7 +159,7 @@ the topic:
 > code uses a `user_token` instead of referring to the `user_id`.
 
 Once a LiveView is disconnected, the client will attempt to reestablish
-the connection and re-execute the [`mount/3`](`c:Phoenix.LiveView.mount/3`)
+the connection and re-execute the [`mount/3`](`c:LiveElement.mount/3`)
 callback. In this case, if the user is no longer logged in or it no longer has
 access to the current resource, `mount/3` will fail and the user will be
 redirected.
@@ -176,7 +176,7 @@ a new LiveView will be mounted, skipping the regular HTTP requests and
 without going through the plug pipeline.
 
 However, if you want to draw stronger boundaries between parts of your
-application, you can also use `Phoenix.LiveView.Router.live_session/2`
+application, you can also use `LiveElement.Router.live_session/2`
 to group your live routes. This can be handy because you can only
 `live_redirect` between LiveViews in the same `live_session`.
 

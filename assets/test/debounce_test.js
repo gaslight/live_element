@@ -1,4 +1,4 @@
-import DOM from "phoenix_live_view/dom"
+import DOM from "live_element/dom"
 
 let after = (time, func) => setTimeout(func, time)
 

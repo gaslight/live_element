@@ -1,5 +1,5 @@
-defmodule Phoenix.LiveViewTest.CidsDestroyedLive do
-  use Phoenix.LiveView
+defmodule LiveElementTest.CidsDestroyedLive do
+  use LiveElement
 
   defmodule Button do
     use Phoenix.LiveComponent

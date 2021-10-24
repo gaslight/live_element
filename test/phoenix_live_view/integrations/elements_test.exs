@@ -1,9 +1,9 @@
-defmodule Phoenix.LiveView.ElementsTest do
+defmodule LiveElement.ElementsTest do
   use ExUnit.Case, async: true
   import Phoenix.ConnTest
 
-  import Phoenix.LiveViewTest
-  alias Phoenix.LiveViewTest.{Endpoint}
+  import LiveElementTest
+  alias LiveElementTest.{Endpoint}
 
   @endpoint Endpoint
 
@@ -713,10 +713,10 @@ defmodule Phoenix.LiveView.ElementsTest do
         assert content = File.read!(path)
 
         assert content =~
-                 ~r[<link rel="stylesheet" href="file:.*phoenix_live_view\/priv\/css\/custom\.css"\/>]
+                 ~r[<link rel="stylesheet" href="file:.*live_element\/priv\/css\/custom\.css"\/>]
 
         assert content =~
-                 ~r[<link rel="stylesheet" href="file:.*phoenix_live_view\/priv\/static\/css\/app\.css"\/>]
+                 ~r[<link rel="stylesheet" href="file:.*live_element\/priv\/static\/css\/app\.css"\/>]
 
         assert content =~ "<link rel=\"stylesheet\" href=\"//example.com/a.css\"/>"
         assert content =~ "<link rel=\"stylesheet\" href=\"https://example.com/b.css\"/>"

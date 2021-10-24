@@ -1,10 +1,10 @@
-defmodule Phoenix.LiveView.AssignsTest do
+defmodule LiveElement.AssignsTest do
   use ExUnit.Case, async: true
   import Plug.Conn
   import Phoenix.ConnTest
 
-  import Phoenix.LiveViewTest
-  alias Phoenix.LiveViewTest.Endpoint
+  import LiveElementTest
+  alias LiveElementTest.Endpoint
 
   @endpoint Endpoint
 
@@ -67,7 +67,7 @@ defmodule Phoenix.LiveView.AssignsTest do
 
     test "raises with invalid options", %{conn: conn} do
       assert_raise Plug.Conn.WrapperError,
-                   ~r/invalid option returned from Phoenix.LiveViewTest.OptsLive.mount\/3/,
+                   ~r/invalid option returned from LiveElementTest.OptsLive.mount\/3/,
                    fn ->
                      conn
                      |> put_session(:opts, oops: [:description])

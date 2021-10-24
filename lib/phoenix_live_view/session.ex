@@ -1,6 +1,6 @@
-defmodule Phoenix.LiveView.Session do
+defmodule LiveElement.Session do
   @moduledoc false
-  alias Phoenix.LiveView.{Session, Route, Static}
+  alias LiveElement.{Session, Route, Static}
 
   defstruct id: nil,
             view: nil,

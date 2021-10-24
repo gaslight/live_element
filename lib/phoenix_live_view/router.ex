@@ -1,4 +1,4 @@
-defmodule Phoenix.LiveView.Router do
+defmodule LiveElement.Router do
   @moduledoc """
   Provides LiveView routing for Phoenix routers.
   """
@@ -64,7 +64,7 @@ defmodule Phoenix.LiveView.Router do
 
     * `:container` - an optional tuple for the HTML tag and DOM attributes to
       be used for the LiveView container. For example: `{:li, style: "color: blue;"}`.
-      See `Phoenix.LiveView.Helpers.live_render/3` for more information and examples.
+      See `LiveElement.Helpers.live_render/3` for more information and examples.
 
     * `:as` - optionally configures the named helper. Defaults to `:live` when
       using a LiveView without actions or defaults to the LiveView name when using
@@ -80,7 +80,7 @@ defmodule Phoenix.LiveView.Router do
 
       defmodule MyApp.Router
         use Phoenix.Router
-        import Phoenix.LiveView.Router
+        import LiveElement.Router
 
         scope "/", MyApp do
           pipe_through [:browser]
@@ -98,9 +98,9 @@ defmodule Phoenix.LiveView.Router do
   defmacro live(path, live_view, action \\ nil, opts \\ []) do
     quote bind_quoted: binding() do
       {action, router_options} =
-        Phoenix.LiveView.Router.__live__(__MODULE__, live_view, action, opts)
+        LiveElement.Router.__live__(__MODULE__, live_view, action, opts)
 
-      Phoenix.Router.get(path, Phoenix.LiveView.Plug, action, router_options)
+      Phoenix.Router.get(path, LiveElement.Plug, action, router_options)
     end
   end
 
@@ -140,7 +140,7 @@ defmodule Phoenix.LiveView.Router do
       override any existing root layout set in the router.
 
     * `:on_mount` - The optional list of hooks to attach to the mount lifecycle _of
-      each LiveView in the session_. See `Phoenix.LiveView.on_mount/1`. Passing a
+      each LiveView in the session_. See `LiveElement.on_mount/1`. Passing a
       single value is also accepted.
 
   ## Examples
@@ -274,7 +274,7 @@ defmodule Phoenix.LiveView.Router do
         """
 
       {:on_mount, on_mount}, acc ->
-        hooks = Enum.map(List.wrap(on_mount), &Phoenix.LiveView.Lifecycle.on_mount(module, &1))
+        hooks = Enum.map(List.wrap(on_mount), &LiveElement.Lifecycle.on_mount(module, &1))
         Map.put(acc, :on_mount, hooks)
 
       {key, _val}, _acc ->
@@ -303,7 +303,7 @@ defmodule Phoenix.LiveView.Router do
 
       defmodule MyAppWeb.Router do
         use LiveGenWeb, :router
-        import Phoenix.LiveView.Router
+        import LiveElement.Router
 
         pipeline :browser do
           ...
@@ -349,8 +349,8 @@ defmodule Phoenix.LiveView.Router do
     {as_action,
      alias: false,
      as: as_helper,
-     private: Map.put(private, :phoenix_live_view, {live_view, opts, live_session}),
-     metadata: Map.put(metadata, :phoenix_live_view, {live_view, action, opts, live_session})}
+     private: Map.put(private, :live_element, {live_view, opts, live_session}),
+     metadata: Map.put(metadata, :live_element, {live_view, action, opts, live_session})}
   end
 
   defp validate_live_opts!(opts) do
@@ -422,7 +422,7 @@ defmodule Phoenix.LiveView.Router do
     endpoint = Phoenix.Controller.endpoint_module(conn)
 
     flash =
-      case Phoenix.LiveView.Utils.verify_flash(endpoint, token) do
+      case LiveElement.Utils.verify_flash(endpoint, token) do
         %{} = flash when flash != %{} -> flash
         %{} -> nil
       end

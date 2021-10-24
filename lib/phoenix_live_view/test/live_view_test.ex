@@ -1,4 +1,4 @@
-defmodule Phoenix.LiveViewTest do
+defmodule LiveElementTest do
   @moduledoc ~S'''
   Conveniences for testing Phoenix LiveViews.
 
@@ -10,7 +10,7 @@ defmodule Phoenix.LiveViewTest do
 
   ## LiveView Testing
 
-  The life-cycle of a LiveView as outlined in the `Phoenix.LiveView`
+  The life-cycle of a LiveView as outlined in the `LiveElement`
   docs details how a view starts as a stateless HTML render in a disconnected
   socket state. Once the browser receives the HTML, it connects to the
   server and a new LiveView process is started, remounted in a connected
@@ -19,7 +19,7 @@ defmodule Phoenix.LiveViewTest do
 
       import Plug.Conn
       import Phoenix.ConnTest
-      import Phoenix.LiveViewTest
+      import LiveElementTest
       @endpoint MyEndpoint
 
       test "disconnected and connected mount", %{conn: conn} do
@@ -124,7 +124,7 @@ defmodule Phoenix.LiveViewTest do
   You can test it by using `render_component/3`, passing the function
   reference to the component as first argument:
 
-      import Phoenix.LiveViewTest
+      import LiveElementTest
 
       test "greets" do
         assert render_component(&MyComponents.greet/1, name: "Mary") ==
@@ -134,8 +134,8 @@ defmodule Phoenix.LiveViewTest do
   However, for complex components, often the simplest way to test them
   is by using the `~H` sigil itself:
 
-      import Phoenix.LiveView.Helpers
-      import Phoenix.LiveViewTest
+      import LiveElement.Helpers
+      import LiveElementTest
 
       test "greets" do
         assert rendered_to_string(~H"""
@@ -177,13 +177,13 @@ defmodule Phoenix.LiveViewTest do
   require Phoenix.ConnTest
   require Phoenix.ChannelTest
 
-  alias Phoenix.LiveView.{Diff, Socket}
-  alias Phoenix.LiveViewTest.{ClientProxy, DOM, Element, View, Upload, UploadClient}
+  alias LiveElement.{Diff, Socket}
+  alias LiveElementTest.{ClientProxy, DOM, Element, View, Upload, UploadClient}
 
   @doc """
   Puts connect params to be used on LiveView connections.
 
-  See `Phoenix.LiveView.get_connect_params/1`.
+  See `LiveElement.get_connect_params/1`.
   """
   def put_connect_params(conn, params) when is_map(params) do
     Plug.Conn.put_private(conn, :live_view_connect_params, params)
@@ -192,7 +192,7 @@ defmodule Phoenix.LiveViewTest do
   @doc """
   Puts connect info to be used on LiveView connections.
 
-  See `Phoenix.LiveView.get_connect_info/1`.
+  See `LiveElement.get_connect_info/1`.
   """
   def put_connect_info(conn, params) when is_map(params) do
     Plug.Conn.put_private(conn, :live_view_connect_info, params)
@@ -220,10 +220,10 @@ defmodule Phoenix.LiveViewTest do
     quote bind_quoted: binding(), generated: true do
       cond do
         is_binary(path) ->
-          Phoenix.LiveViewTest.__live__(get(conn, path), path)
+          LiveElementTest.__live__(get(conn, path), path)
 
         is_nil(path) ->
-          Phoenix.LiveViewTest.__live__(conn)
+          LiveElementTest.__live__(conn)
 
         true ->
           raise RuntimeError, "path must be nil or a binary, got: #{inspect(path)}"
@@ -244,7 +244,7 @@ defmodule Phoenix.LiveViewTest do
     * `:session` - the session to be given to the LiveView
 
   All other options are forwarded to the LiveView for rendering. Refer to
-  `Phoenix.LiveView.Helpers.live_render/3` for a list of supported render
+  `LiveElement.Helpers.live_render/3` for a list of supported render
   options.
 
   ## Examples
@@ -253,7 +253,7 @@ defmodule Phoenix.LiveViewTest do
         live_isolated(conn, MyAppWeb.ClockLive, session: %{"tz" => "EST"})
 
   Use `put_connect_params/2` to put connect params for a call to
-  `Phoenix.LiveView.get_connect_params/1` in `c:Phoenix.LiveView.mount/3`:
+  `LiveElement.get_connect_params/1` in `c:LiveElement.mount/3`:
 
       {:ok, view, html} =
         conn
@@ -274,8 +274,8 @@ defmodule Phoenix.LiveViewTest do
   def __isolated__(conn, endpoint, live_view, opts) do
     put_in(conn.private[:phoenix_endpoint], endpoint || raise("no @endpoint set in test module"))
     |> Plug.Test.init_test_session(%{})
-    |> Phoenix.LiveView.Router.fetch_live_flash([])
-    |> Phoenix.LiveView.Controller.live_render(live_view, opts)
+    |> LiveElement.Router.fetch_live_flash([])
+    |> LiveElement.Controller.live_render(live_view, opts)
     |> connect_from_static_token(nil)
   end
 
@@ -359,7 +359,7 @@ defmodule Phoenix.LiveViewTest do
     opts =
       if flash = conn.private[:phoenix_flash] do
         endpoint = Phoenix.Controller.endpoint_module(conn)
-        %{to: to, flash: Phoenix.LiveView.Utils.sign_flash(endpoint, flash)}
+        %{to: to, flash: LiveElement.Utils.sign_flash(endpoint, flash)}
       else
         %{to: to}
       end
@@ -461,7 +461,7 @@ defmodule Phoenix.LiveViewTest do
     quote do
       component = unquote(component)
 
-      Phoenix.LiveViewTest.__render_component__(
+      LiveElementTest.__render_component__(
         unquote(endpoint),
         if(is_atom(component), do: component.__live__(), else: component),
         unquote(assigns),
@@ -1094,8 +1094,8 @@ defmodule Phoenix.LiveViewTest do
   defmacro file_input(view, form_selector, name, entries) do
     quote bind_quoted: [view: view, selector: form_selector, name: name, entries: entries] do
       require Phoenix.ChannelTest
-      builder = fn -> Phoenix.ChannelTest.connect(Phoenix.LiveView.Socket, %{}, %{}) end
-      Phoenix.LiveViewTest.__file_input__(view, selector, name, entries, builder)
+      builder = fn -> Phoenix.ChannelTest.connect(LiveElement.Socket, %{}, %{}) end
+      LiveElementTest.__file_input__(view, selector, name, entries, builder)
     end
   end
 
@@ -1103,7 +1103,7 @@ defmodule Phoenix.LiveViewTest do
   def __file_input__(view, selector, name, entries, builder) do
     cid = find_cid!(view, selector)
 
-    case Phoenix.LiveView.Channel.fetch_upload_config(view.pid, name, cid) do
+    case LiveElement.Channel.fetch_upload_config(view.pid, name, cid) do
       {:ok, %{external: false}} ->
         start_upload_client(builder, view, selector, name, entries, cid)
 
@@ -1299,7 +1299,7 @@ defmodule Phoenix.LiveViewTest do
 
     receive do
       {^ref, {^kind, ^topic, %{to: new_to} = opts}} when new_to == to or to == nil ->
-        {new_to, Phoenix.LiveView.Utils.verify_flash(endpoint, opts[:flash])}
+        {new_to, LiveElement.Utils.verify_flash(endpoint, opts[:flash])}
     after
       timeout ->
         message =
@@ -1439,7 +1439,7 @@ defmodule Phoenix.LiveViewTest do
 
   defp write_tmp_html_file(html) do
     html = Floki.raw_html(html)
-    path = Path.join([System.tmp_dir!(), "#{Phoenix.LiveView.Utils.random_id()}.html"])
+    path = Path.join([System.tmp_dir!(), "#{LiveElement.Utils.random_id()}.html"])
     File.write!(path, html)
     path
   end
@@ -1524,11 +1524,11 @@ defmodule Phoenix.LiveViewTest do
     quote bind_quoted: binding() do
       case reason do
         {:error, {:live_redirect, opts}} ->
-          {conn, to} = Phoenix.LiveViewTest.__follow_redirect__(conn, to, opts)
+          {conn, to} = LiveElementTest.__follow_redirect__(conn, to, opts)
           live(conn, to)
 
         {:error, {:redirect, opts}} ->
-          {conn, to} = Phoenix.LiveViewTest.__follow_redirect__(conn, to, opts)
+          {conn, to} = LiveElementTest.__follow_redirect__(conn, to, opts)
           {:ok, get(conn, to)}
 
         _ ->
@@ -1586,7 +1586,7 @@ defmodule Phoenix.LiveViewTest do
       end
 
     live_module =
-      case Phoenix.LiveView.Route.live_link_info(root.endpoint, root.router, url) do
+      case LiveElement.Route.live_link_info(root.endpoint, root.router, url) do
         {:internal, route} ->
           route.view
 
@@ -1636,7 +1636,7 @@ defmodule Phoenix.LiveViewTest do
   """
   defmacro follow_trigger_action(form, conn) do
     quote bind_quoted: binding() do
-      {method, path, form_data} = Phoenix.LiveViewTest.__render_trigger_event__(form)
+      {method, path, form_data} = LiveElementTest.__render_trigger_event__(form)
       dispatch(conn, @endpoint, method, path, form_data)
     end
   end

@@ -1,7 +1,7 @@
-defmodule Phoenix.LiveView.JSTest do
+defmodule LiveElement.JSTest do
   use ExUnit.Case, async: true
 
-  alias Phoenix.LiveView.JS
+  alias LiveElement.JS
 
   describe "push" do
     test "with defaults" do

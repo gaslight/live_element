@@ -1,4 +1,4 @@
-import Browser from "phoenix_live_view/browser"
+import Browser from "live_element/browser"
 
 describe("Browser", () => {
   beforeEach(() => {

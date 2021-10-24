@@ -1,7 +1,7 @@
-defmodule Phoenix.LiveView.Route do
+defmodule LiveElement.Route do
   @moduledoc false
 
-  alias Phoenix.LiveView.{Route, Socket}
+  alias LiveElement.{Route, Socket}
 
   defstruct path: nil,
             view: nil,
@@ -71,7 +71,7 @@ defmodule Phoenix.LiveView.Route do
     route_path = strip_segments(endpoint.script_name(), split_path) || split_path
 
     case Phoenix.Router.route_info(router, "GET", route_path, host) do
-      %{plug: Phoenix.LiveView.Plug, phoenix_live_view: lv, path_params: path_params} ->
+      %{plug: LiveElement.Plug, live_element: lv, path_params: path_params} ->
         {view, action, opts, live_session} = lv
 
         route = %Route{

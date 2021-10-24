@@ -1,11 +1,11 @@
-defmodule Phoenix.LiveView.MixProject do
+defmodule LiveElement.MixProject do
   use Mix.Project
 
   @version "0.17.2"
 
   def project do
     [
-      app: :phoenix_live_view,
+      app: :live_element,
       version: @version,
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
@@ -16,7 +16,7 @@ defmodule Phoenix.LiveView.MixProject do
       deps: deps(),
       aliases: aliases(),
       docs: docs(),
-      name: "Phoenix LiveView",
+      name: "LiveElement",
       homepage_url: "http://www.phoenixframework.org",
       description: """
       Rich, real-time user experiences with server-rendered HTML
@@ -33,7 +33,7 @@ defmodule Phoenix.LiveView.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {Phoenix.LiveView.Application, []}
+      mod: {LiveElement.Application, []}
     ]
   end
 
@@ -41,6 +41,7 @@ defmodule Phoenix.LiveView.MixProject do
     [
       {:phoenix, "~> 1.5.9 or ~> 1.6.0"},
       {:phoenix_html, "~> 3.1"},
+      {:phoenix_live_view, "~> 0.16"},
       {:esbuild, "~> 0.2", only: :dev},
       {:telemetry, "~> 0.4.2 or ~> 1.0"},
       {:jason, "~> 1.0", optional: true},
@@ -52,9 +53,9 @@ defmodule Phoenix.LiveView.MixProject do
 
   defp docs do
     [
-      main: "Phoenix.LiveView",
+      main: "LiveElement",
       source_ref: "v#{@version}",
-      source_url: "https://github.com/phoenixframework/phoenix_live_view",
+      source_url: "https://github.com/phoenixframework/live_element",
       extra_section: "GUIDES",
       extras: extras(),
       groups_for_extras: groups_for_extras(),
@@ -92,12 +93,12 @@ defmodule Phoenix.LiveView.MixProject do
   defp groups_for_modules do
     # Ungrouped Modules:
     #
-    # Phoenix.LiveView
-    # Phoenix.LiveView.Controller
-    # Phoenix.LiveView.Helpers
-    # Phoenix.LiveView.Router
-    # Phoenix.LiveView.Socket
-    # Phoenix.LiveViewTest
+    # LiveElement
+    # LiveElement.Controller
+    # LiveElement.Helpers
+    # LiveElement.Router
+    # LiveElement.Socket
+    # LiveElementTest
 
     [
       "Components": [
@@ -106,20 +107,20 @@ defmodule Phoenix.LiveView.MixProject do
         Phoenix.LiveComponent.CID
       ],
       "Testing structures": [
-        Phoenix.LiveViewTest.Element,
-        Phoenix.LiveViewTest.Upload,
-        Phoenix.LiveViewTest.View
+        LiveElementTest.Element,
+        LiveElementTest.Upload,
+        LiveElementTest.View
       ],
       "Upload structures": [
-        Phoenix.LiveView.UploadConfig,
-        Phoenix.LiveView.UploadEntry
+        LiveElement.UploadConfig,
+        LiveElement.UploadEntry
       ],
       "Plugin API": [
-        Phoenix.LiveView.Engine,
-        Phoenix.LiveView.HTMLEngine,
-        Phoenix.LiveView.Component,
-        Phoenix.LiveView.Rendered,
-        Phoenix.LiveView.Comprehension
+        LiveElement.Engine,
+        LiveElement.HTMLEngine,
+        LiveElement.Component,
+        LiveElement.Rendered,
+        LiveElement.Comprehension
       ]
     ]
   end
@@ -128,7 +129,7 @@ defmodule Phoenix.LiveView.MixProject do
     [
       maintainers: ["Chris McCord", "José Valim", "Gary Rennie", "Alex Garibay", "Scott Newcomer"],
       licenses: ["MIT"],
-      links: %{github: "https://github.com/phoenixframework/phoenix_live_view"},
+      links: %{github: "https://github.com/phoenixframework/live_element"},
       files:
         ~w(assets/js lib priv) ++
           ~w(CHANGELOG.md LICENSE.md mix.exs package.json README.md)

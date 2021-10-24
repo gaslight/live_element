@@ -1,10 +1,10 @@
-defmodule Phoenix.LiveView.LiveNavigationTest do
+defmodule LiveElement.LiveNavigationTest do
   use ExUnit.Case
 
   import Phoenix.ConnTest
-  import Phoenix.LiveViewTest
+  import LiveElementTest
 
-  alias Phoenix.LiveViewTest.{Endpoint, DOM}
+  alias LiveElementTest.{Endpoint, DOM}
   @endpoint Endpoint
 
   setup_all do
@@ -70,11 +70,11 @@ defmodule Phoenix.LiveView.LiveNavigationTest do
       assert {:ok, thermo_live, _html} = live(conn, "/thermo-live-session")
 
       assert {:error, {:redirect, %{to: "http://www.example.com/clock-live-session"}}} =
-               Phoenix.LiveViewTest.__live_redirect__(
+               LiveElementTest.__live_redirect__(
                  thermo_live,
                  [to: "/clock-live-session"],
                  fn _token ->
-                   salt = Phoenix.LiveView.Utils.salt!(@endpoint)
+                   salt = LiveElement.Utils.salt!(@endpoint)
                    Phoenix.Token.sign(@endpoint, salt, {0, %{}})
                  end
                )

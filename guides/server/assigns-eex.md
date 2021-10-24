@@ -1,14 +1,14 @@
 # Assigns and HEEx templates
 
 All of the data in a LiveView is stored in the socket as assigns.
-The `Phoenix.LiveView.assign/2` and `Phoenix.LiveView.assign/3`
+The `LiveElement.assign/2` and `LiveElement.assign/3`
 functions help store those values. Those values can be accessed
 in the LiveView as `socket.assigns.name` but they are accessed
 inside LiveView templates as `@name`.
 
-`Phoenix.LiveView`'s built-in templates are identified by the `.heex`
+`LiveElement`'s built-in templates are identified by the `.heex`
 extension (HTML EEx) or `~H` sigil. You can learn more about them
-by checking the docs for `Phoenix.LiveView.Helpers.sigil_H/2`.
+by checking the docs for `LiveElement.Helpers.sigil_H/2`.
 They are an extension of regular `.eex` templates with additional
 features such as:
 

@@ -1,12 +1,12 @@
-defmodule Phoenix.LiveViewTest.ComponentInLive.Root do
-  use Phoenix.LiveView
+defmodule LiveElementTest.ComponentInLive.Root do
+  use LiveElement
 
   def mount(_params, _session, socket) do
     {:ok, assign(socket, :enabled, true)}
   end
 
   def render(assigns) do
-    ~H"<%= @enabled && live_render @socket, Phoenix.LiveViewTest.ComponentInLive.Live, id: :nested_live %>"
+    ~H"<%= @enabled && live_render @socket, LiveElementTest.ComponentInLive.Live, id: :nested_live %>"
   end
 
   def handle_info(:disable, socket) do
@@ -14,15 +14,15 @@ defmodule Phoenix.LiveViewTest.ComponentInLive.Root do
   end
 end
 
-defmodule Phoenix.LiveViewTest.ComponentInLive.Live do
-  use Phoenix.LiveView
+defmodule LiveElementTest.ComponentInLive.Live do
+  use LiveElement
 
   def mount(_params, _session, socket) do
     {:ok, socket}
   end
 
   def render(assigns) do
-    ~H"<%= live_component Phoenix.LiveViewTest.ComponentInLive.Component, id: :nested_component %>"
+    ~H"<%= live_component LiveElementTest.ComponentInLive.Component, id: :nested_component %>"
   end
 
   def handle_event("disable", _params, socket) do
@@ -31,7 +31,7 @@ defmodule Phoenix.LiveViewTest.ComponentInLive.Live do
   end
 end
 
-defmodule Phoenix.LiveViewTest.ComponentInLive.Component do
+defmodule LiveElementTest.ComponentInLive.Component do
   use Phoenix.LiveComponent
 
   # Make sure mount is calling by setting assigns in them.

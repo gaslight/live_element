@@ -5,7 +5,7 @@
 
 Uploads to external cloud providers, such as Amazon S3,
 Google Cloud, etc., can be achieved by using the
-`:external` option in [`allow_upload/3`](`Phoenix.LiveView.allow_upload/3`).
+`:external` option in [`allow_upload/3`](`LiveElement.allow_upload/3`).
 
 You provide a 2-arity function to allow the server to
 generate metadata for each upload entry, which is passed to
@@ -34,7 +34,7 @@ to `assets/vendor/upchunk.js` or by installing it with `npm`:
 $ npm install --prefix assets --save @mux/upchunk
 ```
 
-Configure your uploader on `c:Phoenix.LiveView.mount/3`:
+Configure your uploader on `c:LiveElement.mount/3`:
 
     def mount(_params, _session, socket) do
       {:ok,
@@ -44,7 +44,7 @@ Configure your uploader on `c:Phoenix.LiveView.mount/3`:
     end
 
 Supply the `:external` option to
-`Phoenix.LiveView.allow_upload/3`. It requires a 2-arity
+`LiveElement.allow_upload/3`. It requires a 2-arity
 function that generates a signed URL where the client will
 push the bytes for the upload entry.
 

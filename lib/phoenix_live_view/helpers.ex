@@ -1,12 +1,12 @@
-defmodule Phoenix.LiveView.Helpers do
+defmodule LiveElement.Helpers do
   @moduledoc """
   A collection of helpers to be imported into your views.
   """
 
   # TODO: Convert all functions with the `live_` prefix to function components?
 
-  alias Phoenix.LiveView
-  alias Phoenix.LiveView.{Component, Socket, Static}
+  alias LiveElement
+  alias LiveElement.{Component, Socket, Static}
 
   @doc """
   Provides `~L` sigil with HTML safe Live EEx syntax inside source files.
@@ -20,7 +20,7 @@ defmodule Phoenix.LiveView.Helpers do
   @doc deprecated: "Use ~H instead"
   defmacro sigil_L({:<<>>, meta, [expr]}, []) do
     options = [
-      engine: Phoenix.LiveView.Engine,
+      engine: LiveElement.Engine,
       file: __CALLER__.file,
       line: __CALLER__.line + 1,
       indentation: meta[:indentation] || 0
@@ -154,7 +154,7 @@ defmodule Phoenix.LiveView.Helpers do
   '''
   defmacro sigil_H({:<<>>, meta, [expr]}, []) do
     options = [
-      engine: Phoenix.LiveView.HTMLEngine,
+      engine: LiveElement.HTMLEngine,
       file: __CALLER__.file,
       line: __CALLER__.line + 1,
       module: __CALLER__.module,
@@ -186,8 +186,8 @@ defmodule Phoenix.LiveView.Helpers do
 
         assigns =
           assigns
-          |> Phoenix.LiveView.assign(:target, target)
-          |> Phoenix.LiveView.assign(:extra, extra)
+          |> LiveElement.assign(:target, target)
+          |> LiveElement.assign(:extra, extra)
 
         ~H"""
         <a href={@href} target={@target} {@extra}>
@@ -214,7 +214,7 @@ defmodule Phoenix.LiveView.Helpers do
   Generates a link that will patch the current LiveView.
 
   When navigating to the current LiveView,
-  `c:Phoenix.LiveView.handle_params/3` is
+  `c:LiveElement.handle_params/3` is
   immediately invoked to handle the change of params and URL state.
   Then the new state is pushed to the client, without reloading the
   whole page while also maintaining the current scroll position.
@@ -271,7 +271,7 @@ defmodule Phoenix.LiveView.Helpers do
   it, use `live_patch/2` instead.
 
   *Note*: The live redirects are only supported between two LiveViews defined
-  under the same live session. See `Phoenix.LiveView.Router.live_session/3` for
+  under the same live session. See `LiveElement.Router.live_session/3` for
   more details.
 
   ## Options
@@ -366,9 +366,9 @@ defmodule Phoenix.LiveView.Helpers do
 
   The container can be customized in different ways:
 
-    * You can change the default `container` on `use Phoenix.LiveView`:
+    * You can change the default `container` on `use LiveElement`:
 
-          use Phoenix.LiveView, container: {:tr, id: "foo-bar"}
+          use LiveElement, container: {:tr, id: "foo-bar"}
 
     * You can override the container tag and pass extra attributes when
       calling `live_render` (as well as on your `live` call in your router):
@@ -448,7 +448,7 @@ defmodule Phoenix.LiveView.Helpers do
         "please use <.live_component module={Component} id=\"hello\" /> inside HEEx templates instead"
     )
 
-    Phoenix.LiveView.Helpers.__live_component__(component.__live__(), %{}, nil)
+    LiveElement.Helpers.__live_component__(component.__live__(), %{}, nil)
   end
 
   @doc """
@@ -498,7 +498,7 @@ defmodule Phoenix.LiveView.Helpers do
     if match?({:__aliases__, _, _}, component) or is_atom(component) or is_list(assigns) or
          is_map(assigns) do
       quote do
-        Phoenix.LiveView.Helpers.__live_component__(
+        LiveElement.Helpers.__live_component__(
           unquote(component).__live__(),
           unquote(assigns),
           unquote(inner_block)
@@ -507,15 +507,15 @@ defmodule Phoenix.LiveView.Helpers do
     else
       quote do
         case unquote(component) do
-          %Phoenix.LiveView.Socket{} ->
-            Phoenix.LiveView.Helpers.__live_component__(
+          %LiveElement.Socket{} ->
+            LiveElement.Helpers.__live_component__(
               unquote(assigns).__live__(),
               unquote(do_block),
               unquote(inner_block)
             )
 
           component ->
-            Phoenix.LiveView.Helpers.__live_component__(
+            LiveElement.Helpers.__live_component__(
               component.__live__(),
               unquote(assigns),
               unquote(inner_block)
@@ -571,15 +571,15 @@ defmodule Phoenix.LiveView.Helpers do
       end
 
     case func.(assigns) do
-      %Phoenix.LiveView.Rendered{} = rendered ->
+      %LiveElement.Rendered{} = rendered ->
         rendered
 
-      %Phoenix.LiveView.Component{} = component ->
+      %LiveElement.Component{} = component ->
         component
 
       other ->
         raise RuntimeError, """
-        expected #{inspect(func)} to return a %Phoenix.LiveView.Rendered{} struct
+        expected #{inspect(func)} to return a %LiveElement.Rendered{} struct
 
         Ensure your render function uses ~H to define its template.
 
@@ -603,7 +603,7 @@ defmodule Phoenix.LiveView.Helpers do
   defmacro render_block(inner_block, argument \\ []) do
     quote do
       unquote(__MODULE__).__render_block__(unquote(inner_block)).(
-        var!(changed, Phoenix.LiveView.Engine),
+        var!(changed, LiveElement.Engine),
         unquote(argument)
       )
     end
@@ -667,7 +667,7 @@ defmodule Phoenix.LiveView.Helpers do
   defmacro render_slot(slot, argument \\ nil) do
     quote do
       unquote(__MODULE__).__render_slot__(
-        var!(changed, Phoenix.LiveView.Engine),
+        var!(changed, LiveElement.Engine),
         unquote(slot),
         unquote(argument)
       )
@@ -800,7 +800,7 @@ defmodule Phoenix.LiveView.Helpers do
         </div>
       <% end %>
   """
-  def upload_errors(%Phoenix.LiveView.UploadConfig{} = conf) do
+  def upload_errors(%LiveElement.UploadConfig{} = conf) do
     for {ref, error} <- conf.errors, ref == conf.ref, do: error
   end
 
@@ -826,8 +826,8 @@ defmodule Phoenix.LiveView.Helpers do
       <% end %>
   """
   def upload_errors(
-        %Phoenix.LiveView.UploadConfig{} = conf,
-        %Phoenix.LiveView.UploadEntry{} = entry
+        %LiveElement.UploadConfig{} = conf,
+        %LiveElement.UploadEntry{} = entry
       ) do
     for {ref, error} <- conf.errors, ref == entry.ref, do: error
   end
@@ -841,7 +841,7 @@ defmodule Phoenix.LiveView.Helpers do
         <%= live_img_preview entry, width: 75 %>
       <% end %>
   """
-  def live_img_preview(%Phoenix.LiveView.UploadEntry{ref: ref} = entry, opts \\ []) do
+  def live_img_preview(%LiveElement.UploadEntry{ref: ref} = entry, opts \\ []) do
     attrs =
       Keyword.merge(opts,
         id: "phx-preview-#{ref}",
@@ -876,7 +876,7 @@ defmodule Phoenix.LiveView.Helpers do
 
       <%= live_file_input @uploads.avatar %>
   """
-  def live_file_input(%Phoenix.LiveView.UploadConfig{} = conf, opts \\ []) do
+  def live_file_input(%LiveElement.UploadConfig{} = conf, opts \\ []) do
     if opts[:id], do: raise(ArgumentError, "the :id cannot be overridden on a live_file_input")
 
     opts =
@@ -1049,7 +1049,7 @@ defmodule Phoenix.LiveView.Helpers do
     match?({:@, _, [{^assign_name, _, _}]}, expression) or
       match?({^assign_name, _, _}, expression) or
       match?(
-        {{:., _, [Phoenix.LiveView.Engine, :fetch_assign!]}, _, [{:assigns, _, _}, ^assign_name]},
+        {{:., _, [LiveElement.Engine, :fetch_assign!]}, _, [{:assigns, _, _}, ^assign_name]},
         expression
       )
   end

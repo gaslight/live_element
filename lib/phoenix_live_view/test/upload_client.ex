@@ -1,9 +1,9 @@
-defmodule Phoenix.LiveViewTest.UploadClient do
+defmodule LiveElementTest.UploadClient do
   @moduledoc false
   use GenServer
   require Phoenix.ChannelTest
 
-  alias Phoenix.LiveViewTest.{Upload, ClientProxy}
+  alias LiveElementTest.{Upload, ClientProxy}
 
   def channel_pids(%Upload{pid: pid}) do
     GenServer.call(pid, :channel_pids)

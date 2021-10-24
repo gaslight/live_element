@@ -1,18 +1,18 @@
-defmodule Phoenix.LiveView.HTMLEngineTest do
+defmodule LiveElement.HTMLEngineTest do
   use ExUnit.Case, async: true
 
-  import Phoenix.LiveView.Helpers,
+  import LiveElement.Helpers,
     only: [sigil_H: 2, render_slot: 1, render_slot: 2]
 
-  alias Phoenix.LiveView.HTMLEngine
-  alias Phoenix.LiveView.HTMLTokenizer.ParseError
+  alias LiveElement.HTMLEngine
+  alias LiveElement.HTMLTokenizer.ParseError
 
   defp eval(string, assigns \\ %{}, opts \\ []) do
     opts =
       Keyword.merge(opts,
         file: __ENV__.file,
         engine: HTMLEngine,
-        subengine: Phoenix.LiveView.Engine
+        subengine: LiveElement.Engine
       )
 
     EEx.eval_string(string, [assigns: assigns], opts)
@@ -139,7 +139,7 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
     assert render(template, assigns) ==
              ~S(<div d1="1" sd1="1" s1="1" d2="2" s2="2" sd2="2"></div>)
 
-    assert %Phoenix.LiveView.Rendered{static: ["<div", "", " s1=\"1\"", " s2=\"2\"", "></div>"]} =
+    assert %LiveElement.Rendered{static: ["<div", "", " s1=\"1\"", " s2=\"2\"", "></div>"]} =
              eval(template, assigns)
   end
 
@@ -150,34 +150,34 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
     template = ~S(<div id={"<foo>"} />)
     assert render(template, assigns) == ~S(<div id="&lt;foo&gt;"></div>)
 
-    assert %Phoenix.LiveView.Rendered{static: ["<div id=\"&lt;foo&gt;\"></div>"]} =
+    assert %LiveElement.Rendered{static: ["<div id=\"&lt;foo&gt;\"></div>"]} =
              eval(template, assigns)
 
     # binary concatenation is extracted out
     template = ~S(<div id={"pre-" <> @unsafe} />)
     assert render(template, assigns) == ~S(<div id="pre-&lt;foo&gt;"></div>)
 
-    assert %Phoenix.LiveView.Rendered{static: ["<div id=\"pre-", "\"></div>"]} =
+    assert %LiveElement.Rendered{static: ["<div id=\"pre-", "\"></div>"]} =
              eval(template, assigns)
 
     template = ~S(<div id={"pre-" <> @unsafe <> "-pos"} />)
     assert render(template, assigns) == ~S(<div id="pre-&lt;foo&gt;-pos"></div>)
 
-    assert %Phoenix.LiveView.Rendered{static: ["<div id=\"pre-", "-pos\"></div>"]} =
+    assert %LiveElement.Rendered{static: ["<div id=\"pre-", "-pos\"></div>"]} =
              eval(template, assigns)
 
     # interpolation is extracted out
     template = ~S(<div id={"pre-#{@unsafe}-pos"} />)
     assert render(template, assigns) == ~S(<div id="pre-&lt;foo&gt;-pos"></div>)
 
-    assert %Phoenix.LiveView.Rendered{static: ["<div id=\"pre-", "-pos\"></div>"]} =
+    assert %LiveElement.Rendered{static: ["<div id=\"pre-", "-pos\"></div>"]} =
              eval(template, assigns)
 
     # mixture of interpolation and binary concatenation is extracted out
     template = ~S(<div id={"pre-" <> "#{@unsafe}-pos"} />)
     assert render(template, assigns) == ~S(<div id="pre-&lt;foo&gt;-pos"></div>)
 
-    assert %Phoenix.LiveView.Rendered{static: ["<div id=\"pre-", "-pos\"></div>"]} =
+    assert %LiveElement.Rendered{static: ["<div id=\"pre-", "-pos\"></div>"]} =
              eval(template, assigns)
 
     # raises if not a binary
@@ -193,7 +193,7 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
 
     template = ~S"""
     <%= @text %>
-    <%= Phoenix.LiveView.HTMLEngineTest.do_block do %><%= assigns[:not_text] %><% end %>
+    <%= LiveElement.HTMLEngineTest.do_block do %><%= assigns[:not_text] %><% end %>
     """
 
     # A bug made it so "not text" appeared inside @text.
@@ -210,7 +210,7 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
       list: ["safe", false, nil, "<unsafe>"]
     }
 
-    assert %Phoenix.LiveView.Rendered{static: ["<div class=\"", "\"></div>"]} =
+    assert %LiveElement.Rendered{static: ["<div class=\"", "\"></div>"]} =
              eval(~S(<div class={@safe} />), assigns)
 
     template = ~S(<div class={@nil_assign} />)
@@ -242,7 +242,7 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
       list: ["safe", false, nil, "<unsafe>"]
     }
 
-    assert %Phoenix.LiveView.Rendered{static: ["<div style=\"", "\"></div>"]} =
+    assert %LiveElement.Rendered{static: ["<div style=\"", "\"></div>"]} =
              eval(~S(<div style={@safe} />), assigns)
 
     template = ~S(<div style={@nil_assign} />)
@@ -293,12 +293,12 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
     test "remote call (self close)" do
       assigns = %{}
 
-      assert compile("<Phoenix.LiveView.HTMLEngineTest.remote_function_component value='1'/>") ==
+      assert compile("<LiveElement.HTMLEngineTest.remote_function_component value='1'/>") ==
                "REMOTE COMPONENT: Value: 1"
     end
 
     test "remote call from alias (self close)" do
-      alias Phoenix.LiveView.HTMLEngineTest
+      alias LiveElement.HTMLEngineTest
       assigns = %{}
 
       assert compile("<HTMLEngineTest.remote_function_component value='1'/>") ==
@@ -309,9 +309,9 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
       assigns = %{}
 
       assert compile("""
-             <Phoenix.LiveView.HTMLEngineTest.remote_function_component_with_inner_block value='1'>
+             <LiveElement.HTMLEngineTest.remote_function_component_with_inner_block value='1'>
                The inner content
-             </Phoenix.LiveView.HTMLEngineTest.remote_function_component_with_inner_block>
+             </LiveElement.HTMLEngineTest.remote_function_component_with_inner_block>
              """) == "REMOTE COMPONENT: Value: 1, Content: \n  The inner content\n"
     end
 
@@ -326,13 +326,13 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
       assigns = %{}
 
       assert compile("""
-             <Phoenix.LiveView.HTMLEngineTest.remote_function_component_with_inner_block_args
+             <LiveElement.HTMLEngineTest.remote_function_component_with_inner_block_args
                value="aBcD"
                let={%{upcase: upcase, downcase: downcase}}
              >
                Upcase: <%= upcase %>
                Downcase: <%= downcase %>
-             </Phoenix.LiveView.HTMLEngineTest.remote_function_component_with_inner_block_args>
+             </LiveElement.HTMLEngineTest.remote_function_component_with_inner_block_args>
              """) =~ expected
     end
 
@@ -347,12 +347,12 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
 
       assert_raise(RuntimeError, message, fn ->
         compile("""
-        <Phoenix.LiveView.HTMLEngineTest.remote_function_component_with_inner_block_args
+        <LiveElement.HTMLEngineTest.remote_function_component_with_inner_block_args
           {[value: "aBcD"]}
           let={%{wrong: _}}
         >
           ...
-        </Phoenix.LiveView.HTMLEngineTest.remote_function_component_with_inner_block_args>
+        </LiveElement.HTMLEngineTest.remote_function_component_with_inner_block_args>
         """)
       end)
     end
@@ -363,7 +363,7 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
       assert_raise(CompileError, message, fn ->
         eval("""
         <br>
-        <Phoenix.LiveView.HTMLEngineTest.remote_function_component value='1' let={var}/>
+        <LiveElement.HTMLEngineTest.remote_function_component value='1' let={var}/>
         """)
       end)
     end
@@ -455,7 +455,7 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
       assert_raise(ParseError, message, fn ->
         eval("""
         <br>
-        <Phoenix.LiveView.HTMLEngineTest.remote_function_component value='1'
+        <LiveElement.HTMLEngineTest.remote_function_component value='1'
           let={var1}
           let={var2}
         />
@@ -590,11 +590,11 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
 
       assert compile("""
              COMPONENT WITH SLOTS:
-             <Phoenix.LiveView.HTMLEngineTest.function_component_with_single_slot>
+             <LiveElement.HTMLEngineTest.function_component_with_single_slot>
                <:sample>
                  The sample slot
                </:sample>
-             </Phoenix.LiveView.HTMLEngineTest.function_component_with_single_slot>
+             </LiveElement.HTMLEngineTest.function_component_with_single_slot>
              """) == expected
     end
 
@@ -651,14 +651,14 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
 
       assert compile("""
              COMPONENT WITH SLOTS:
-             <Phoenix.LiveView.HTMLEngineTest.function_component_with_single_slot>
+             <LiveElement.HTMLEngineTest.function_component_with_single_slot>
                <:sample>
                  entry 1
                </:sample>
                <:sample>
                  entry 2
                </:sample>
-             </Phoenix.LiveView.HTMLEngineTest.function_component_with_single_slot>
+             </LiveElement.HTMLEngineTest.function_component_with_single_slot>
              """) == expected
     end
 
@@ -680,10 +680,10 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
              """) == expected
 
       assert compile("""
-             <Phoenix.LiveView.HTMLEngineTest.function_component_with_multiple_slots_entries>
+             <LiveElement.HTMLEngineTest.function_component_with_multiple_slots_entries>
                <:sample id="1">one</:sample>
                <:sample id="2">two</:sample>
-             </Phoenix.LiveView.HTMLEngineTest.function_component_with_multiple_slots_entries>
+             </LiveElement.HTMLEngineTest.function_component_with_multiple_slots_entries>
              """) == expected
     end
 
@@ -698,9 +698,9 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
              """) == expected
 
       assert compile("""
-             <Phoenix.LiveView.HTMLEngineTest.function_component_with_slot_props>
+             <LiveElement.HTMLEngineTest.function_component_with_slot_props>
                <:sample a={@a} b="B"> and </:sample>
-             </Phoenix.LiveView.HTMLEngineTest.function_component_with_slot_props>
+             </LiveElement.HTMLEngineTest.function_component_with_slot_props>
              """) == expected
     end
 
@@ -739,14 +739,14 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
 
       assert compile("""
              BEFORE COMPONENT
-             <Phoenix.LiveView.HTMLEngineTest.function_component_with_slots>
+             <LiveElement.HTMLEngineTest.function_component_with_slots>
                <:header>
                  The header content
                </:header>
                <:footer>
                  The footer content
                </:footer>
-             </Phoenix.LiveView.HTMLEngineTest.function_component_with_slots>
+             </LiveElement.HTMLEngineTest.function_component_with_slots>
              AFTER COMPONENT
              """) == expected
     end
@@ -792,7 +792,7 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
 
       assert compile("""
              BEFORE COMPONENT
-             <Phoenix.LiveView.HTMLEngineTest.function_component_with_slots_and_default>
+             <LiveElement.HTMLEngineTest.function_component_with_slots_and_default>
                top
                <:header>
                  The header content
@@ -802,7 +802,7 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
                  The footer content
                </:footer>
                bot
-             </Phoenix.LiveView.HTMLEngineTest.function_component_with_slots_and_default>
+             </LiveElement.HTMLEngineTest.function_component_with_slots_and_default>
              AFTER COMPONENT
              """) == expected
     end
@@ -833,12 +833,12 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
 
       assert compile("""
              COMPONENT WITH SLOTS:
-             <Phoenix.LiveView.HTMLEngineTest.function_component_with_slots_and_args>
+             <LiveElement.HTMLEngineTest.function_component_with_slots_and_args>
                <:sample let={arg}>
                  The sample slot
                  Arg: <%= arg %>
                </:sample>
-             </Phoenix.LiveView.HTMLEngineTest.function_component_with_slots_and_args>
+             </LiveElement.HTMLEngineTest.function_component_with_slots_and_args>
              """) == expected
     end
 
@@ -862,7 +862,7 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
       """
 
       assert compile("""
-             <Phoenix.LiveView.HTMLEngineTest.function_component_with_single_slot>
+             <LiveElement.HTMLEngineTest.function_component_with_single_slot>
                <:sample>
                 The outer slot
                  <.function_component_with_single_slot>
@@ -871,7 +871,7 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
                    </:sample>
                  </.function_component_with_single_slot>
                </:sample>
-             </Phoenix.LiveView.HTMLEngineTest.function_component_with_single_slot>
+             </LiveElement.HTMLEngineTest.function_component_with_single_slot>
              """) == expected
 
       assert compile("""
@@ -906,10 +906,10 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
              """) == expected
 
       assert compile("""
-             <Phoenix.LiveView.HTMLEngineTest.function_component_with_self_close_slots>
+             <LiveElement.HTMLEngineTest.function_component_with_self_close_slots>
                <:sample id="1"/>
                <:sample id="2"/>
-             </Phoenix.LiveView.HTMLEngineTest.function_component_with_self_close_slots>
+             </LiveElement.HTMLEngineTest.function_component_with_self_close_slots>
              """) == expected
     end
 
@@ -1142,7 +1142,7 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
   describe "handle errors in expressions" do
     if Version.match?(System.version(), ">= 1.12.0") do
       test "inside attribute values" do
-        assert_raise(SyntaxError, "test/phoenix_live_view/html_engine_test.exs:12:22: syntax error before: ','", fn ->
+        assert_raise(SyntaxError, "test/live_element/html_engine_test.exs:12:22: syntax error before: ','", fn ->
           opts = [line: 10, indentation: 8]
 
           eval(
@@ -1158,7 +1158,7 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
       end
 
       test "inside root attribute value" do
-        assert_raise(SyntaxError, "test/phoenix_live_view/html_engine_test.exs:12:16: syntax error before: ','", fn ->
+        assert_raise(SyntaxError, "test/live_element/html_engine_test.exs:12:16: syntax error before: ','", fn ->
           opts = [line: 10, indentation: 8]
 
           eval(
@@ -1174,7 +1174,7 @@ defmodule Phoenix.LiveView.HTMLEngineTest do
       end
     else
       test "older versions cannot provide correct line on errors" do
-        assert_raise(SyntaxError, ~r"test/phoenix_live_view/html_engine_test.exs:2", fn ->
+        assert_raise(SyntaxError, ~r"test/live_element/html_engine_test.exs:2", fn ->
           opts = [line: 10, indentation: 8]
 
           eval(

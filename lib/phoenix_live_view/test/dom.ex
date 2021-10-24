@@ -1,4 +1,4 @@
-defmodule Phoenix.LiveViewTest.DOM do
+defmodule LiveElementTest.DOM do
   @moduledoc false
 
   @phx_static "data-phx-static"
@@ -252,7 +252,7 @@ defmodule Phoenix.LiveViewTest.DOM do
 
   def render_diff(rendered) do
     rendered
-    |> Phoenix.LiveView.Diff.to_iodata(fn cid, contents ->
+    |> LiveElement.Diff.to_iodata(fn cid, contents ->
       contents
       |> IO.iodata_to_binary()
       |> parse()

@@ -1,9 +1,9 @@
-defmodule Phoenix.LiveView.HTMLTokenizerTest do
+defmodule LiveElement.HTMLTokenizerTest do
   use ExUnit.Case, async: true
-  alias Phoenix.LiveView.HTMLTokenizer.ParseError
+  alias LiveElement.HTMLTokenizer.ParseError
 
   defp tokenize(text) do
-    Phoenix.LiveView.HTMLTokenizer.tokenize(text, "nofile", 0, [], [], :text)
+    LiveElement.HTMLTokenizer.tokenize(text, "nofile", 0, [], [], :text)
     |> elem(0)
     |> Enum.reverse()
   end

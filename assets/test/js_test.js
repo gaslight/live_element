@@ -1,6 +1,6 @@
 import {Socket} from "phoenix"
-import LiveSocket from "phoenix_live_view/live_socket"
-import JS from "phoenix_live_view/js"
+import LiveSocket from "live_element/live_socket"
+import JS from "live_element/js"
 import {simulateJoinedView, liveViewDOM} from "./test_helpers"
 
 let setupView = (content) => {

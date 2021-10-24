@@ -1,7 +1,7 @@
-defmodule Phoenix.LiveView.EngineTest do
+defmodule LiveElement.EngineTest do
   use ExUnit.Case, async: true
 
-  alias Phoenix.LiveView.{Engine, Rendered}
+  alias LiveElement.{Engine, Rendered}
 
   def safe(do: {:safe, _} = safe), do: safe
   def unsafe(do: {:safe, content}), do: content
@@ -17,7 +17,7 @@ defmodule Phoenix.LiveView.EngineTest do
 
     test "escapes HTML from nested content" do
       template = """
-      <%= Phoenix.LiveView.EngineTest.unsafe do %>
+      <%= LiveElement.EngineTest.unsafe do %>
         <foo>
       <% end %>
       """
@@ -31,7 +31,7 @@ defmodule Phoenix.LiveView.EngineTest do
 
     test "nested content is always safe" do
       template = """
-      <%= Phoenix.LiveView.EngineTest.safe do %>
+      <%= LiveElement.EngineTest.safe do %>
         <foo>
       <% end %>
       """
@@ -39,7 +39,7 @@ defmodule Phoenix.LiveView.EngineTest do
       assert render(template) == "\n  <foo>\n\n"
 
       template = """
-      <%= Phoenix.LiveView.EngineTest.safe do %>
+      <%= LiveElement.EngineTest.safe do %>
         <%= "<foo>" %>
       <% end %>
       """
@@ -143,7 +143,7 @@ defmodule Phoenix.LiveView.EngineTest do
       assert static == ["before\n", "\nafter\n"]
 
       assert [
-               %Phoenix.LiveView.Comprehension{
+               %LiveElement.Comprehension{
                  static: ["\n  x: ", "\n  y: ", "\n"],
                  dynamics: [
                    ["1", "2"],
@@ -259,10 +259,10 @@ defmodule Phoenix.LiveView.EngineTest do
       """
 
       old = %{map: [a: 1, b: 2, c: 3]}
-      assert [%Phoenix.LiveView.Comprehension{}] = changed(template, old, nil)
+      assert [%LiveElement.Comprehension{}] = changed(template, old, nil)
       assert [nil] = changed(template, old, %{})
-      assert [%Phoenix.LiveView.Comprehension{}] = changed(template, old, %{map: true})
-      assert [%Phoenix.LiveView.Comprehension{}] = changed(template, old, old)
+      assert [%LiveElement.Comprehension{}] = changed(template, old, %{map: true})
+      assert [%LiveElement.Comprehension{}] = changed(template, old, old)
     end
 
     test "renders dynamic if it has a lexical form" do
@@ -685,9 +685,9 @@ defmodule Phoenix.LiveView.EngineTest do
       template = "<%= case @foo do %><% val -> %><%= for i <- val do %><%= i %><% end %><% end %>"
 
       assert [
-               %Phoenix.LiveView.Rendered{
+               %LiveElement.Rendered{
                  dynamic: [
-                   %Phoenix.LiveView.Comprehension{
+                   %LiveElement.Comprehension{
                      static: ["", ""],
                      dynamics: [["1"], ["2"], ["3"]]
                    }
@@ -700,9 +700,9 @@ defmodule Phoenix.LiveView.EngineTest do
                [nil]
 
       assert [
-               %Phoenix.LiveView.Rendered{
+               %LiveElement.Rendered{
                  dynamic: [
-                   %Phoenix.LiveView.Comprehension{
+                   %LiveElement.Comprehension{
                      static: ["", ""],
                      dynamics: [["1"], ["2"], ["3"]]
                    }

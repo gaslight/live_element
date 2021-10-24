@@ -1,4 +1,4 @@
-defmodule Phoenix.LiveView do
+defmodule LiveElement do
   @moduledoc ~S'''
   LiveView provides rich, real-time user experiences with
   server-rendered HTML.
@@ -76,7 +76,7 @@ defmodule Phoenix.LiveView do
       defmodule MyAppWeb.ThermostatLive do
         # If you generated an app with mix phx.new --live,
         # the line below would be: use MyAppWeb, :live_view
-        use Phoenix.LiveView
+        use LiveElement
 
         def render(assigns) do
           ~H"""
@@ -95,7 +95,7 @@ defmodule Phoenix.LiveView do
   template, which stands for HTML+EEx. They are an extension of Elixir's
   builtin EEx templates, with support for HTML validation, syntax-based
   components, smart change tracking, and more. You can learn more about
-  the template syntax in `Phoenix.LiveView.Helpers.sigil_H/2`.
+  the template syntax in `LiveElement.Helpers.sigil_H/2`.
 
   Next, decide where you want to use your LiveView.
 
@@ -103,7 +103,7 @@ defmodule Phoenix.LiveView do
 
       defmodule MyAppWeb.Router do
         use Phoenix.Router
-        import Phoenix.LiveView.Router
+        import LiveElement.Router
 
         scope "/", MyAppWeb do
           live "/thermostat", ThermostatLive
@@ -115,11 +115,11 @@ defmodule Phoenix.LiveView do
   automatically included by `mix phx.new --live` and described in
   the installation guide. If you don't want to configure a root layout,
   you must pass `layout: {MyAppWeb.LayoutView, "app.html"}` as an
-  option to the `Phoenix.LiveView.Router.live/3` macro above.
+  option to the `LiveElement.Router.live/3` macro above.
 
   Alternatively, you can `live_render` from any template. In your view:
 
-      import Phoenix.LiveView.Helpers
+      import LiveElement.Helpers
 
   Then in your template:
 
@@ -148,7 +148,7 @@ defmodule Phoenix.LiveView do
   app.js file, you should find the following:
 
       import {Socket} from "phoenix"
-      import {LiveSocket} from "phoenix_live_view"
+      import {LiveSocket} from "live_element"
 
       let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
       let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
@@ -161,7 +161,7 @@ defmodule Phoenix.LiveView do
   with a timer:
 
       defmodule DemoWeb.ThermostatLive do
-        use Phoenix.LiveView
+        use LiveElement
         ...
 
         def mount(_params, %{"current_user_id" => user_id}, socket) do
@@ -195,7 +195,7 @@ defmodule Phoenix.LiveView do
   LiveView:
 
       defmodule MyAppWeb.ThermostatLive do
-        use Phoenix.LiveView
+        use LiveElement
 
         def render(assigns) do
           ~H"""
@@ -213,7 +213,7 @@ defmodule Phoenix.LiveView do
   existing `Phoenix.View` module in your application. For example:
 
       defmodule MyAppWeb.ThermostatLive do
-        use Phoenix.LiveView
+        use LiveElement
 
         def render(assigns) do
           Phoenix.View.render(MyAppWeb.PageView, "page.html", assigns)
@@ -239,7 +239,7 @@ defmodule Phoenix.LiveView do
       end
 
   To update UI state, for example, to open and close dropdowns, switch tabs,
-  etc, LiveView also supports JS commands (`Phoenix.LiveView.JS`), which
+  etc, LiveView also supports JS commands (`LiveElement.JS`), which
   execute directly on the client without reaching the server. To learn more,
   see [our bindings page](bindings.md) for a complete list of all LiveView
   bindings as well as our [JavaScript interoperability guide](js-interop.md).
@@ -269,7 +269,7 @@ defmodule Phoenix.LiveView do
   Perhaps you want to move part of the state or part of the events in your
   LiveView to a separate module. For these cases, LiveView provides
   `Phoenix.LiveComponent`, which are rendered using
-  [`live_component/1`](`Phoenix.LiveView.Helpers.live_component/1`):
+  [`live_component/1`](`LiveElement.Helpers.live_component/1`):
 
       <.live_component module={UserComponent} id={user.id} user={user} />
 
@@ -281,7 +281,7 @@ defmodule Phoenix.LiveView do
 
   Finally, if you want complete isolation between parts of a LiveView, you can
   always render a LiveView inside another LiveView by calling
-  [`live_render/3`](`Phoenix.LiveView.Helpers.live_render/3`). This child LiveView
+  [`live_render/3`](`LiveElement.Helpers.live_render/3`). This child LiveView
   runs in a separate process than the parent, with its own callbacks. If a child
   LiveView crashes, it won't affect the parent. If the parent crashes, all children
   are terminated.
@@ -298,7 +298,7 @@ defmodule Phoenix.LiveView do
 
     * use `Phoenix.Component` to compartmentalize/reuse markup
     * use `Phoenix.LiveComponent` to compartmentalize state, markup, and events
-    * use nested `Phoenix.LiveView` to compartmentalize state, markup, events, and error isolation
+    * use nested `LiveElement` to compartmentalize state, markup, events, and error isolation
 
   ## Endpoint configuration
 
@@ -340,7 +340,7 @@ defmodule Phoenix.LiveView do
     * [Uploads (External)](uploads-external.md)
   '''
 
-  alias Phoenix.LiveView.{Socket, Route}
+  alias LiveElement.{Socket, Route}
 
   @type unsigned_params :: map
 
@@ -377,7 +377,7 @@ defmodule Phoenix.LiveView do
             ) ::
               {:ok, Socket.t()} | {:ok, Socket.t(), keyword()}
 
-  @callback render(assigns :: Socket.assigns()) :: Phoenix.LiveView.Rendered.t()
+  @callback render(assigns :: Socket.assigns()) :: LiveElement.Rendered.t()
 
   @callback terminate(reason, socket :: Socket.t()) :: term
             when reason: :normal | :shutdown | {:shutdown, :left | :closed | term}
@@ -408,7 +408,7 @@ defmodule Phoenix.LiveView do
   @doc """
   Uses LiveView in the current module to mark it a LiveView.
 
-      use Phoenix.LiveView,
+      use LiveElement,
         namespace: MyAppWeb,
         container: {:tr, class: "colorized"},
         layout: {MyAppWeb.LayoutView, "live.html"}
@@ -432,15 +432,15 @@ defmodule Phoenix.LiveView do
       end
 
     quote bind_quoted: [opts: opts] do
-      @behaviour Phoenix.LiveView
+      @behaviour LiveElement
       use Phoenix.Component
 
-      require Phoenix.LiveView.Renderer
-      @before_compile Phoenix.LiveView.Renderer
+      require LiveElement.Renderer
+      @before_compile LiveElement.Renderer
 
       @phoenix_live_opts opts
       Module.register_attribute(__MODULE__, :phoenix_live_mount, accumulate: true)
-      @before_compile Phoenix.LiveView
+      @before_compile LiveElement
     end
   end
 
@@ -462,7 +462,7 @@ defmodule Phoenix.LiveView do
       end
 
     phoenix_live_mount = Module.get_attribute(env.module, :phoenix_live_mount)
-    lifecycle = Phoenix.LiveView.Lifecycle.mount(env.module, phoenix_live_mount)
+    lifecycle = LiveElement.Lifecycle.mount(env.module, phoenix_live_mount)
 
     namespace =
       opts[:namespace] || env.module |> Module.split() |> Enum.take(1) |> Module.concat()
@@ -519,14 +519,14 @@ defmodule Phoenix.LiveView do
   ## Examples
 
   The following is an example of attaching a hook via
-  `Phoenix.LiveView.Router.live_session/3`:
+  `LiveElement.Router.live_session/3`:
 
       # lib/my_app_web/live/init_assigns.ex
       defmodule MyAppWeb.InitAssigns do
         @moduledoc "\""
         Ensures common `assigns` are applied to all LiveViews attaching this hook.
         "\""
-        import Phoenix.LiveView
+        import LiveElement
 
         def on_mount(:default, _params, _session, socket) do
           {:cont, assign(socket, :page_title, "DemoWeb")}
@@ -579,7 +579,7 @@ defmodule Phoenix.LiveView do
       Module.put_attribute(
         __MODULE__,
         :phoenix_live_mount,
-        Phoenix.LiveView.Lifecycle.on_mount(__MODULE__, unquote(mod_or_mod_arg))
+        LiveElement.Lifecycle.on_mount(__MODULE__, unquote(mod_or_mod_arg))
       )
     end
   end
@@ -603,7 +603,7 @@ defmodule Phoenix.LiveView do
   ## Examples
 
       defmodule DemoWeb.ClockLive do
-        use Phoenix.LiveView
+        use LiveElement
         ...
         def mount(_params, _session, socket) do
           if connected?(socket), do: :timer.send_interval(1000, self(), :tick)
@@ -662,17 +662,17 @@ defmodule Phoenix.LiveView do
         # It is important to store the keys even if they are not in assigns
         # because maybe the controller doesn't have it but the view does.
         socket = put_in(socket.private.assign_new, {assigns, [key | keys]})
-        Phoenix.LiveView.Utils.force_assign(socket, key, Map.get_lazy(assigns, key, fun))
+        LiveElement.Utils.force_assign(socket, key, Map.get_lazy(assigns, key, fun))
 
       %{} ->
-        Phoenix.LiveView.Utils.force_assign(socket, key, fun.())
+        LiveElement.Utils.force_assign(socket, key, fun.())
     end
   end
 
   def assign_new(%{__changed__: changed} = assigns, key, fun) when is_function(fun, 0) do
     case assigns do
       %{^key => _} -> assigns
-      %{} -> Phoenix.LiveView.Utils.force_assign(assigns, changed, key, fun.())
+      %{} -> LiveElement.Utils.force_assign(assigns, changed, key, fun.())
     end
   end
 
@@ -697,7 +697,7 @@ defmodule Phoenix.LiveView do
 
   def assign(%Socket{} = socket, key, value) do
     validate_assign_key!(key)
-    Phoenix.LiveView.Utils.assign(socket, key, value)
+    LiveElement.Utils.assign(socket, key, value)
   end
 
   def assign(%{__changed__: changed} = assigns, key, value) do
@@ -706,7 +706,7 @@ defmodule Phoenix.LiveView do
         assigns
 
       %{} ->
-        Phoenix.LiveView.Utils.force_assign(assigns, changed, key, value)
+        LiveElement.Utils.force_assign(assigns, changed, key, value)
     end
   end
 
@@ -796,11 +796,11 @@ defmodule Phoenix.LiveView do
   def changed?(socket_or_assigns, key)
 
   def changed?(%Socket{assigns: assigns}, key) do
-    Phoenix.LiveView.Utils.changed?(assigns, key)
+    LiveElement.Utils.changed?(assigns, key)
   end
 
   def changed?(%{__changed__: _} = assigns, key) do
-    Phoenix.LiveView.Utils.changed?(assigns, key)
+    LiveElement.Utils.changed?(assigns, key)
   end
 
   def changed?(assigns, _key) do
@@ -817,11 +817,11 @@ defmodule Phoenix.LiveView do
   in a component is only copied to its parent LiveView if the component
   calls `push_redirect/2` or `push_patch/2`.
 
-  *Note*: You must also place the `Phoenix.LiveView.Router.fetch_live_flash/2`
+  *Note*: You must also place the `LiveElement.Router.fetch_live_flash/2`
   plug in your browser's pipeline in place of `fetch_flash` for LiveView flash
   messages be supported, for example:
 
-      import Phoenix.LiveView.Router
+      import LiveElement.Router
 
       pipeline :browser do
         ...
@@ -833,7 +833,7 @@ defmodule Phoenix.LiveView do
       iex> put_flash(socket, :info, "It worked!")
       iex> put_flash(socket, :error, "You can't access that page")
   """
-  defdelegate put_flash(socket, kind, msg), to: Phoenix.LiveView.Utils
+  defdelegate put_flash(socket, kind, msg), to: LiveElement.Utils
 
   @doc """
   Clears the flash.
@@ -842,7 +842,7 @@ defmodule Phoenix.LiveView do
 
       iex> clear_flash(socket)
   """
-  defdelegate clear_flash(socket), to: Phoenix.LiveView.Utils
+  defdelegate clear_flash(socket), to: LiveElement.Utils
 
   @doc """
   Clears a key from the flash.
@@ -851,7 +851,7 @@ defmodule Phoenix.LiveView do
 
       iex> clear_flash(socket, :info)
   """
-  defdelegate clear_flash(socket, key), to: Phoenix.LiveView.Utils
+  defdelegate clear_flash(socket, key), to: LiveElement.Utils
 
   @doc """
   Pushes an event to the client to be consumed by hooks.
@@ -864,7 +864,7 @@ defmodule Phoenix.LiveView do
 
       {:noreply, push_event(socket, "scores", %{points: 100, user: "josé"})}
   """
-  defdelegate push_event(socket, event, payload), to: Phoenix.LiveView.Utils
+  defdelegate push_event(socket, event, payload), to: LiveElement.Utils
 
   @doc ~S"""
   Allows an upload for the provided name.
@@ -919,7 +919,7 @@ defmodule Phoenix.LiveView do
         end
       end
   """
-  defdelegate allow_upload(socket, name, options), to: Phoenix.LiveView.Upload
+  defdelegate allow_upload(socket, name, options), to: LiveElement.Upload
 
   @doc """
   Revokes a previously allowed upload from `allow_upload/3`.
@@ -928,7 +928,7 @@ defmodule Phoenix.LiveView do
 
       disallow_upload(socket, :avatar)
   """
-  defdelegate disallow_upload(socket, name), to: Phoenix.LiveView.Upload
+  defdelegate disallow_upload(socket, name), to: LiveElement.Upload
 
   @doc """
   Cancels an upload for the given entry.
@@ -944,7 +944,7 @@ defmodule Phoenix.LiveView do
         {:noreply, cancel_upload(socket, :avatar, ref)}
       end
   """
-  defdelegate cancel_upload(socket, name, entry_ref), to: Phoenix.LiveView.Upload
+  defdelegate cancel_upload(socket, name, entry_ref), to: LiveElement.Upload
 
   @doc """
   Returns the completed and in progress entries for the upload.
@@ -959,7 +959,7 @@ defmodule Phoenix.LiveView do
           # all entries are still in progress
       end
   """
-  defdelegate uploaded_entries(socket, name), to: Phoenix.LiveView.Upload
+  defdelegate uploaded_entries(socket, name), to: LiveElement.Upload
 
   @doc ~S"""
   Consumes the uploaded entries.
@@ -982,7 +982,7 @@ defmodule Phoenix.LiveView do
         {:noreply, update(socket, :uploaded_files, &(&1 ++ uploaded_files))}
       end
   """
-  defdelegate consume_uploaded_entries(socket, name, func), to: Phoenix.LiveView.Upload
+  defdelegate consume_uploaded_entries(socket, name, func), to: LiveElement.Upload
 
   @doc ~S"""
   Consumes an individual uploaded entry.
@@ -1014,7 +1014,7 @@ defmodule Phoenix.LiveView do
         end
       end
   """
-  defdelegate consume_uploaded_entry(socket, entry, func), to: Phoenix.LiveView.Upload
+  defdelegate consume_uploaded_entry(socket, entry, func), to: LiveElement.Upload
 
   @doc """
   Annotates the socket for redirect to a destination path.
@@ -1188,7 +1188,7 @@ defmodule Phoenix.LiveView do
   the session but it may include other keys, such as `:peer_data`.
   See `Phoenix.Endpoint.socket/3`:
 
-      socket "/live", Phoenix.LiveView.Socket,
+      socket "/live", LiveElement.Socket,
         websocket: [connect_info: [:peer_data, session: @session_options]]
 
   Those values can now be accessed on the connected mount as
@@ -1353,7 +1353,7 @@ defmodule Phoenix.LiveView do
       assigns[:id] ||
         raise ArgumentError, "missing required :id in send_update. Got: #{inspect(assigns)}"
 
-    Phoenix.LiveView.Channel.send_update(pid, module, id, assigns)
+    LiveElement.Channel.send_update(pid, module, id, assigns)
   end
 
   @doc """
@@ -1387,7 +1387,7 @@ defmodule Phoenix.LiveView do
       assigns[:id] ||
         raise ArgumentError, "missing required :id in send_update_after. Got: #{inspect(assigns)}"
 
-    Phoenix.LiveView.Channel.send_update_after(pid, module, id, assigns, time_in_milliseconds)
+    LiveElement.Channel.send_update_after(pid, module, id, assigns, time_in_milliseconds)
   end
 
   @doc """
@@ -1466,7 +1466,7 @@ defmodule Phoenix.LiveView do
         {:ok, socket}
       end
   """
-  defdelegate attach_hook(socket, name, stage, fun), to: Phoenix.LiveView.Lifecycle
+  defdelegate attach_hook(socket, name, stage, fun), to: LiveElement.Lifecycle
 
   @doc """
   Detaches a hook with the given `name` from the lifecycle `stage`.
@@ -1483,5 +1483,5 @@ defmodule Phoenix.LiveView do
         {:noreply, detach_hook(socket, :hook_that_was_attached, :handle_event)}
       end
   """
-  defdelegate detach_hook(socket, name, stage), to: Phoenix.LiveView.Lifecycle
+  defdelegate detach_hook(socket, name, stage), to: LiveElement.Lifecycle
 end

@@ -1,9 +1,9 @@
-defmodule Phoenix.LiveView.UploadEntry do
+defmodule LiveElement.UploadEntry do
   @moduledoc """
   The struct representing an upload entry.
   """
 
-  alias Phoenix.LiveView.UploadEntry
+  alias LiveElement.UploadEntry
 
   defstruct progress: 0,
             preflighted?: false,
@@ -44,13 +44,13 @@ defmodule Phoenix.LiveView.UploadEntry do
   end
 end
 
-defmodule Phoenix.LiveView.UploadConfig do
+defmodule LiveElement.UploadConfig do
   @moduledoc """
   The struct representing an upload.
   """
 
-  alias Phoenix.LiveView.UploadConfig
-  alias Phoenix.LiveView.UploadEntry
+  alias LiveElement.UploadConfig
+  alias LiveElement.UploadEntry
 
   @default_max_entries 1
   @default_max_file_size 8_000_000
@@ -111,16 +111,16 @@ defmodule Phoenix.LiveView.UploadConfig do
           acceptable_types: MapSet.t(),
           acceptable_exts: MapSet.t(),
           external:
-            (UploadEntry.t(), Phoenix.LiveView.Socket.t() ->
-               {:ok | :error, meta :: %{uploader: String.t()}, Phoenix.LiveView.Socket.t()})
+            (UploadEntry.t(), LiveElement.Socket.t() ->
+               {:ok | :error, meta :: %{uploader: String.t()}, LiveElement.Socket.t()})
             | false,
           allowed?: boolean,
           errors: list(),
           ref: String.t(),
           auto_upload?: boolean(),
           progress_event:
-            (name :: atom() | String.t(), UploadEntry.t(), Phoenix.LiveView.Socket.t() ->
-               {:noreply, Phoenix.LiveView.Socket.t()})
+            (name :: atom() | String.t(), UploadEntry.t(), LiveElement.Socket.t() ->
+               {:noreply, LiveElement.Socket.t()})
             | nil
         }
 
@@ -633,7 +633,7 @@ defmodule Phoenix.LiveView.UploadConfig do
   def cancel_entry(%UploadConfig{} = conf, %UploadEntry{} = entry) do
     case entry_pid(conf, entry) do
       channel_pid when is_pid(channel_pid) ->
-        Phoenix.LiveView.UploadChannel.cancel(channel_pid)
+        LiveElement.UploadChannel.cancel(channel_pid)
 
         update_entry(conf, entry.ref, fn entry -> %UploadEntry{entry | cancelled?: true} end)
 

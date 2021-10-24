@@ -1,7 +1,7 @@
-defmodule Phoenix.LiveView.LEEXTest do
+defmodule LiveElement.LEEXTest do
   use ExUnit.Case, async: true
 
-  alias Phoenix.LiveView.{Engine, Rendered, Component}
+  alias LiveElement.{Engine, Rendered, Component}
 
   defmodule View do
     use Phoenix.View, root: "test/support/templates/leex", path: ""
@@ -20,7 +20,7 @@ defmodule Phoenix.LiveView.LEEXTest do
     pre: "pre",
     inner_content: "inner",
     post: "post",
-    socket: %Phoenix.LiveView.Socket{}
+    socket: %LiveElement.Socket{}
   }
 
   test "renders live engine to string" do
