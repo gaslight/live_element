@@ -764,10 +764,10 @@ defmodule LiveElement.Channel do
 
   ## Mount
 
-  defp mount(%{"session" => session_token} = params, from, phx_socket) do
+  defp mount(%{"session" => session_token, "params" => %{"module" => module_name}} = params, from, phx_socket) do
     %Phoenix.Socket{endpoint: endpoint, topic: topic} = phx_socket
 
-    case build_session() do
+    case build_session(module_name) do
       {:ok, %Session{} = verified} ->
         %Phoenix.Socket{private: %{connect_info: connect_info}} = phx_socket
 
@@ -799,7 +799,8 @@ defmodule LiveElement.Channel do
     {:stop, :shutdown, :no_session}
   end
 
-  defp build_session() do
+  defp build_session(module_name) do
+    module = String.to_existing_atom("Elixir.#{module_name}")
     {:ok,
      %LiveElement.Session{
        assign_new: [],
@@ -810,10 +811,9 @@ defmodule LiveElement.Channel do
        parent_pid: nil,
        redirected?: false,
        root_pid: nil,
-       root_view: TodoListDemoWeb.TodosLive.TodoList,
-       router: TodoListDemoWeb.Router,
+       root_view: module,
        session: %{},
-       view: TodoListDemoWeb.TodosLive.TodoList
+       view: module
      }}
   end
 
