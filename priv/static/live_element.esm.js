@@ -23,711 +23,711 @@ var __toModule = (module) => {
 // node_modules/phoenix/priv/static/phoenix.js
 var require_phoenix = __commonJS({
   "node_modules/phoenix/priv/static/phoenix.js"(exports, module) {
-    !function(e4, t3) {
-      typeof exports == "object" && typeof module == "object" ? module.exports = t3() : typeof define == "function" && define.amd ? define([], t3) : typeof exports == "object" ? exports.Phoenix = t3() : e4.Phoenix = t3();
+    !function(e, t) {
+      typeof exports == "object" && typeof module == "object" ? module.exports = t() : typeof define == "function" && define.amd ? define([], t) : typeof exports == "object" ? exports.Phoenix = t() : e.Phoenix = t();
     }(exports, function() {
-      return function(e4) {
-        var t3 = {};
-        function n5(i3) {
-          if (t3[i3])
-            return t3[i3].exports;
-          var o5 = t3[i3] = { i: i3, l: false, exports: {} };
-          return e4[i3].call(o5.exports, o5, o5.exports, n5), o5.l = true, o5.exports;
+      return function(e) {
+        var t = {};
+        function n(i) {
+          if (t[i])
+            return t[i].exports;
+          var o = t[i] = { i, l: false, exports: {} };
+          return e[i].call(o.exports, o, o.exports, n), o.l = true, o.exports;
         }
-        return n5.m = e4, n5.c = t3, n5.d = function(e5, t4, i3) {
-          n5.o(e5, t4) || Object.defineProperty(e5, t4, { enumerable: true, get: i3 });
-        }, n5.r = function(e5) {
-          typeof Symbol != "undefined" && Symbol.toStringTag && Object.defineProperty(e5, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e5, "__esModule", { value: true });
-        }, n5.t = function(e5, t4) {
-          if (1 & t4 && (e5 = n5(e5)), 8 & t4)
-            return e5;
-          if (4 & t4 && typeof e5 == "object" && e5 && e5.__esModule)
-            return e5;
-          var i3 = Object.create(null);
-          if (n5.r(i3), Object.defineProperty(i3, "default", { enumerable: true, value: e5 }), 2 & t4 && typeof e5 != "string")
-            for (var o5 in e5)
-              n5.d(i3, o5, function(t5) {
-                return e5[t5];
-              }.bind(null, o5));
-          return i3;
-        }, n5.n = function(e5) {
-          var t4 = e5 && e5.__esModule ? function() {
-            return e5.default;
+        return n.m = e, n.c = t, n.d = function(e2, t2, i) {
+          n.o(e2, t2) || Object.defineProperty(e2, t2, { enumerable: true, get: i });
+        }, n.r = function(e2) {
+          typeof Symbol != "undefined" && Symbol.toStringTag && Object.defineProperty(e2, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e2, "__esModule", { value: true });
+        }, n.t = function(e2, t2) {
+          if (1 & t2 && (e2 = n(e2)), 8 & t2)
+            return e2;
+          if (4 & t2 && typeof e2 == "object" && e2 && e2.__esModule)
+            return e2;
+          var i = Object.create(null);
+          if (n.r(i), Object.defineProperty(i, "default", { enumerable: true, value: e2 }), 2 & t2 && typeof e2 != "string")
+            for (var o in e2)
+              n.d(i, o, function(t3) {
+                return e2[t3];
+              }.bind(null, o));
+          return i;
+        }, n.n = function(e2) {
+          var t2 = e2 && e2.__esModule ? function() {
+            return e2.default;
           } : function() {
-            return e5;
+            return e2;
           };
-          return n5.d(t4, "a", t4), t4;
-        }, n5.o = function(e5, t4) {
-          return Object.prototype.hasOwnProperty.call(e5, t4);
-        }, n5.p = "", n5(n5.s = 0);
-      }([function(e4, t3, n5) {
-        (function(t4) {
-          e4.exports = t4.Phoenix = n5(2);
-        }).call(this, n5(1));
-      }, function(e4, t3) {
-        var n5;
-        n5 = function() {
+          return n.d(t2, "a", t2), t2;
+        }, n.o = function(e2, t2) {
+          return Object.prototype.hasOwnProperty.call(e2, t2);
+        }, n.p = "", n(n.s = 0);
+      }([function(e, t, n) {
+        (function(t2) {
+          e.exports = t2.Phoenix = n(2);
+        }).call(this, n(1));
+      }, function(e, t) {
+        var n;
+        n = function() {
           return this;
         }();
         try {
-          n5 = n5 || new Function("return this")();
-        } catch (e5) {
-          typeof window == "object" && (n5 = window);
+          n = n || new Function("return this")();
+        } catch (e2) {
+          typeof window == "object" && (n = window);
         }
-        e4.exports = n5;
-      }, function(e4, t3, n5) {
+        e.exports = n;
+      }, function(e, t, n) {
         "use strict";
-        function i3(e5) {
-          return function(e6) {
-            if (Array.isArray(e6))
-              return a2(e6);
-          }(e5) || function(e6) {
-            if (typeof Symbol != "undefined" && Symbol.iterator in Object(e6))
-              return Array.from(e6);
-          }(e5) || s5(e5) || function() {
+        function i(e2) {
+          return function(e3) {
+            if (Array.isArray(e3))
+              return a(e3);
+          }(e2) || function(e3) {
+            if (typeof Symbol != "undefined" && Symbol.iterator in Object(e3))
+              return Array.from(e3);
+          }(e2) || s(e2) || function() {
             throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
           }();
         }
-        function o5(e5) {
-          return (o5 = typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? function(e6) {
-            return typeof e6;
-          } : function(e6) {
-            return e6 && typeof Symbol == "function" && e6.constructor === Symbol && e6 !== Symbol.prototype ? "symbol" : typeof e6;
-          })(e5);
+        function o(e2) {
+          return (o = typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? function(e3) {
+            return typeof e3;
+          } : function(e3) {
+            return e3 && typeof Symbol == "function" && e3.constructor === Symbol && e3 !== Symbol.prototype ? "symbol" : typeof e3;
+          })(e2);
         }
-        function r4(e5, t4) {
-          return function(e6) {
-            if (Array.isArray(e6))
-              return e6;
-          }(e5) || function(e6, t5) {
-            if (typeof Symbol == "undefined" || !(Symbol.iterator in Object(e6)))
+        function r(e2, t2) {
+          return function(e3) {
+            if (Array.isArray(e3))
+              return e3;
+          }(e2) || function(e3, t3) {
+            if (typeof Symbol == "undefined" || !(Symbol.iterator in Object(e3)))
               return;
-            var n6 = [], i4 = true, o6 = false, r5 = void 0;
+            var n2 = [], i2 = true, o2 = false, r2 = void 0;
             try {
-              for (var s6, a3 = e6[Symbol.iterator](); !(i4 = (s6 = a3.next()).done) && (n6.push(s6.value), !t5 || n6.length !== t5); i4 = true)
+              for (var s2, a2 = e3[Symbol.iterator](); !(i2 = (s2 = a2.next()).done) && (n2.push(s2.value), !t3 || n2.length !== t3); i2 = true)
                 ;
-            } catch (e7) {
-              o6 = true, r5 = e7;
+            } catch (e4) {
+              o2 = true, r2 = e4;
             } finally {
               try {
-                i4 || a3.return == null || a3.return();
+                i2 || a2.return == null || a2.return();
               } finally {
-                if (o6)
-                  throw r5;
+                if (o2)
+                  throw r2;
               }
             }
-            return n6;
-          }(e5, t4) || s5(e5, t4) || function() {
+            return n2;
+          }(e2, t2) || s(e2, t2) || function() {
             throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
           }();
         }
-        function s5(e5, t4) {
-          if (e5) {
-            if (typeof e5 == "string")
-              return a2(e5, t4);
-            var n6 = Object.prototype.toString.call(e5).slice(8, -1);
-            return n6 === "Object" && e5.constructor && (n6 = e5.constructor.name), n6 === "Map" || n6 === "Set" ? Array.from(n6) : n6 === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n6) ? a2(e5, t4) : void 0;
+        function s(e2, t2) {
+          if (e2) {
+            if (typeof e2 == "string")
+              return a(e2, t2);
+            var n2 = Object.prototype.toString.call(e2).slice(8, -1);
+            return n2 === "Object" && e2.constructor && (n2 = e2.constructor.name), n2 === "Map" || n2 === "Set" ? Array.from(n2) : n2 === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n2) ? a(e2, t2) : void 0;
           }
         }
-        function a2(e5, t4) {
-          (t4 == null || t4 > e5.length) && (t4 = e5.length);
-          for (var n6 = 0, i4 = new Array(t4); n6 < t4; n6++)
-            i4[n6] = e5[n6];
-          return i4;
+        function a(e2, t2) {
+          (t2 == null || t2 > e2.length) && (t2 = e2.length);
+          for (var n2 = 0, i2 = new Array(t2); n2 < t2; n2++)
+            i2[n2] = e2[n2];
+          return i2;
         }
-        function c2(e5, t4) {
-          if (!(e5 instanceof t4))
+        function c(e2, t2) {
+          if (!(e2 instanceof t2))
             throw new TypeError("Cannot call a class as a function");
         }
-        function u2(e5, t4) {
-          for (var n6 = 0; n6 < t4.length; n6++) {
-            var i4 = t4[n6];
-            i4.enumerable = i4.enumerable || false, i4.configurable = true, "value" in i4 && (i4.writable = true), Object.defineProperty(e5, i4.key, i4);
+        function u(e2, t2) {
+          for (var n2 = 0; n2 < t2.length; n2++) {
+            var i2 = t2[n2];
+            i2.enumerable = i2.enumerable || false, i2.configurable = true, "value" in i2 && (i2.writable = true), Object.defineProperty(e2, i2.key, i2);
           }
         }
-        function h3(e5, t4, n6) {
-          return t4 && u2(e5.prototype, t4), n6 && u2(e5, n6), e5;
+        function h(e2, t2, n2) {
+          return t2 && u(e2.prototype, t2), n2 && u(e2, n2), e2;
         }
-        n5.r(t3), n5.d(t3, "Channel", function() {
-          return _2;
-        }), n5.d(t3, "Serializer", function() {
-          return H2;
-        }), n5.d(t3, "Socket", function() {
+        n.r(t), n.d(t, "Channel", function() {
+          return _;
+        }), n.d(t, "Serializer", function() {
+          return H;
+        }), n.d(t, "Socket", function() {
           return U;
-        }), n5.d(t3, "LongPoll", function() {
+        }), n.d(t, "LongPoll", function() {
           return D;
-        }), n5.d(t3, "Ajax", function() {
-          return M2;
-        }), n5.d(t3, "Presence", function() {
-          return N2;
+        }), n.d(t, "Ajax", function() {
+          return M;
+        }), n.d(t, "Presence", function() {
+          return N;
         });
-        var l3 = typeof self != "undefined" ? self : null, f2 = typeof window != "undefined" ? window : null, d2 = l3 || f2 || void 0, p2 = 0, v2 = 1, y2 = 2, m2 = 3, g2 = "closed", k2 = "errored", b2 = "joined", j = "joining", C2 = "leaving", E2 = "phx_close", R2 = "phx_error", T2 = "phx_join", S3 = "phx_reply", w2 = "phx_leave", A2 = [E2, R2, T2, S3, w2], L = "longpoll", x2 = "websocket", O = function(e5) {
-          if (typeof e5 == "function")
-            return e5;
+        var l = typeof self != "undefined" ? self : null, f = typeof window != "undefined" ? window : null, d = l || f || void 0, p = 0, v = 1, y = 2, m = 3, g = "closed", k = "errored", b = "joined", j = "joining", C = "leaving", E = "phx_close", R = "phx_error", T = "phx_join", S = "phx_reply", w = "phx_leave", A = [E, R, T, S, w], L = "longpoll", x = "websocket", O = function(e2) {
+          if (typeof e2 == "function")
+            return e2;
           return function() {
-            return e5;
+            return e2;
           };
-        }, P2 = function() {
-          function e5(t4, n6, i4, o6) {
-            c2(this, e5), this.channel = t4, this.event = n6, this.payload = i4 || function() {
+        }, P = function() {
+          function e2(t2, n2, i2, o2) {
+            c(this, e2), this.channel = t2, this.event = n2, this.payload = i2 || function() {
               return {};
-            }, this.receivedResp = null, this.timeout = o6, this.timeoutTimer = null, this.recHooks = [], this.sent = false;
+            }, this.receivedResp = null, this.timeout = o2, this.timeoutTimer = null, this.recHooks = [], this.sent = false;
           }
-          return h3(e5, [{ key: "resend", value: function(e6) {
-            this.timeout = e6, this.reset(), this.send();
+          return h(e2, [{ key: "resend", value: function(e3) {
+            this.timeout = e3, this.reset(), this.send();
           } }, { key: "send", value: function() {
             this.hasReceived("timeout") || (this.startTimeout(), this.sent = true, this.channel.socket.push({ topic: this.channel.topic, event: this.event, payload: this.payload(), ref: this.ref, join_ref: this.channel.joinRef() }));
-          } }, { key: "receive", value: function(e6, t4) {
-            return this.hasReceived(e6) && t4(this.receivedResp.response), this.recHooks.push({ status: e6, callback: t4 }), this;
+          } }, { key: "receive", value: function(e3, t2) {
+            return this.hasReceived(e3) && t2(this.receivedResp.response), this.recHooks.push({ status: e3, callback: t2 }), this;
           } }, { key: "reset", value: function() {
             this.cancelRefEvent(), this.ref = null, this.refEvent = null, this.receivedResp = null, this.sent = false;
-          } }, { key: "matchReceive", value: function(e6) {
-            var t4 = e6.status, n6 = e6.response;
-            e6.ref;
-            this.recHooks.filter(function(e7) {
-              return e7.status === t4;
-            }).forEach(function(e7) {
-              return e7.callback(n6);
+          } }, { key: "matchReceive", value: function(e3) {
+            var t2 = e3.status, n2 = e3.response;
+            e3.ref;
+            this.recHooks.filter(function(e4) {
+              return e4.status === t2;
+            }).forEach(function(e4) {
+              return e4.callback(n2);
             });
           } }, { key: "cancelRefEvent", value: function() {
             this.refEvent && this.channel.off(this.refEvent);
           } }, { key: "cancelTimeout", value: function() {
             clearTimeout(this.timeoutTimer), this.timeoutTimer = null;
           } }, { key: "startTimeout", value: function() {
-            var e6 = this;
-            this.timeoutTimer && this.cancelTimeout(), this.ref = this.channel.socket.makeRef(), this.refEvent = this.channel.replyEventName(this.ref), this.channel.on(this.refEvent, function(t4) {
-              e6.cancelRefEvent(), e6.cancelTimeout(), e6.receivedResp = t4, e6.matchReceive(t4);
+            var e3 = this;
+            this.timeoutTimer && this.cancelTimeout(), this.ref = this.channel.socket.makeRef(), this.refEvent = this.channel.replyEventName(this.ref), this.channel.on(this.refEvent, function(t2) {
+              e3.cancelRefEvent(), e3.cancelTimeout(), e3.receivedResp = t2, e3.matchReceive(t2);
             }), this.timeoutTimer = setTimeout(function() {
-              e6.trigger("timeout", {});
+              e3.trigger("timeout", {});
             }, this.timeout);
-          } }, { key: "hasReceived", value: function(e6) {
-            return this.receivedResp && this.receivedResp.status === e6;
-          } }, { key: "trigger", value: function(e6, t4) {
-            this.channel.trigger(this.refEvent, { status: e6, response: t4 });
-          } }]), e5;
-        }(), _2 = function() {
-          function e5(t4, n6, i4) {
-            var o6 = this;
-            c2(this, e5), this.state = g2, this.topic = t4, this.params = O(n6 || {}), this.socket = i4, this.bindings = [], this.bindingRef = 0, this.timeout = this.socket.timeout, this.joinedOnce = false, this.joinPush = new P2(this, T2, this.params, this.timeout), this.pushBuffer = [], this.stateChangeRefs = [], this.rejoinTimer = new J(function() {
-              o6.socket.isConnected() && o6.rejoin();
+          } }, { key: "hasReceived", value: function(e3) {
+            return this.receivedResp && this.receivedResp.status === e3;
+          } }, { key: "trigger", value: function(e3, t2) {
+            this.channel.trigger(this.refEvent, { status: e3, response: t2 });
+          } }]), e2;
+        }(), _ = function() {
+          function e2(t2, n2, i2) {
+            var o2 = this;
+            c(this, e2), this.state = g, this.topic = t2, this.params = O(n2 || {}), this.socket = i2, this.bindings = [], this.bindingRef = 0, this.timeout = this.socket.timeout, this.joinedOnce = false, this.joinPush = new P(this, T, this.params, this.timeout), this.pushBuffer = [], this.stateChangeRefs = [], this.rejoinTimer = new J(function() {
+              o2.socket.isConnected() && o2.rejoin();
             }, this.socket.rejoinAfterMs), this.stateChangeRefs.push(this.socket.onError(function() {
-              return o6.rejoinTimer.reset();
+              return o2.rejoinTimer.reset();
             })), this.stateChangeRefs.push(this.socket.onOpen(function() {
-              o6.rejoinTimer.reset(), o6.isErrored() && o6.rejoin();
+              o2.rejoinTimer.reset(), o2.isErrored() && o2.rejoin();
             })), this.joinPush.receive("ok", function() {
-              o6.state = b2, o6.rejoinTimer.reset(), o6.pushBuffer.forEach(function(e6) {
-                return e6.send();
-              }), o6.pushBuffer = [];
+              o2.state = b, o2.rejoinTimer.reset(), o2.pushBuffer.forEach(function(e3) {
+                return e3.send();
+              }), o2.pushBuffer = [];
             }), this.joinPush.receive("error", function() {
-              o6.state = k2, o6.socket.isConnected() && o6.rejoinTimer.scheduleTimeout();
+              o2.state = k, o2.socket.isConnected() && o2.rejoinTimer.scheduleTimeout();
             }), this.onClose(function() {
-              o6.rejoinTimer.reset(), o6.socket.hasLogger() && o6.socket.log("channel", "close ".concat(o6.topic, " ").concat(o6.joinRef())), o6.state = g2, o6.socket.remove(o6);
-            }), this.onError(function(e6) {
-              o6.socket.hasLogger() && o6.socket.log("channel", "error ".concat(o6.topic), e6), o6.isJoining() && o6.joinPush.reset(), o6.state = k2, o6.socket.isConnected() && o6.rejoinTimer.scheduleTimeout();
+              o2.rejoinTimer.reset(), o2.socket.hasLogger() && o2.socket.log("channel", "close ".concat(o2.topic, " ").concat(o2.joinRef())), o2.state = g, o2.socket.remove(o2);
+            }), this.onError(function(e3) {
+              o2.socket.hasLogger() && o2.socket.log("channel", "error ".concat(o2.topic), e3), o2.isJoining() && o2.joinPush.reset(), o2.state = k, o2.socket.isConnected() && o2.rejoinTimer.scheduleTimeout();
             }), this.joinPush.receive("timeout", function() {
-              o6.socket.hasLogger() && o6.socket.log("channel", "timeout ".concat(o6.topic, " (").concat(o6.joinRef(), ")"), o6.joinPush.timeout), new P2(o6, w2, O({}), o6.timeout).send(), o6.state = k2, o6.joinPush.reset(), o6.socket.isConnected() && o6.rejoinTimer.scheduleTimeout();
-            }), this.on(S3, function(e6, t5) {
-              o6.trigger(o6.replyEventName(t5), e6);
+              o2.socket.hasLogger() && o2.socket.log("channel", "timeout ".concat(o2.topic, " (").concat(o2.joinRef(), ")"), o2.joinPush.timeout), new P(o2, w, O({}), o2.timeout).send(), o2.state = k, o2.joinPush.reset(), o2.socket.isConnected() && o2.rejoinTimer.scheduleTimeout();
+            }), this.on(S, function(e3, t3) {
+              o2.trigger(o2.replyEventName(t3), e3);
             });
           }
-          return h3(e5, [{ key: "join", value: function() {
-            var e6 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : this.timeout;
+          return h(e2, [{ key: "join", value: function() {
+            var e3 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : this.timeout;
             if (this.joinedOnce)
               throw new Error("tried to join multiple times. 'join' can only be called a single time per channel instance");
-            return this.timeout = e6, this.joinedOnce = true, this.rejoin(), this.joinPush;
-          } }, { key: "onClose", value: function(e6) {
-            this.on(E2, e6);
-          } }, { key: "onError", value: function(e6) {
-            return this.on(R2, function(t4) {
-              return e6(t4);
+            return this.timeout = e3, this.joinedOnce = true, this.rejoin(), this.joinPush;
+          } }, { key: "onClose", value: function(e3) {
+            this.on(E, e3);
+          } }, { key: "onError", value: function(e3) {
+            return this.on(R, function(t2) {
+              return e3(t2);
             });
-          } }, { key: "on", value: function(e6, t4) {
-            var n6 = this.bindingRef++;
-            return this.bindings.push({ event: e6, ref: n6, callback: t4 }), n6;
-          } }, { key: "off", value: function(e6, t4) {
-            this.bindings = this.bindings.filter(function(n6) {
-              return !(n6.event === e6 && (t4 === void 0 || t4 === n6.ref));
+          } }, { key: "on", value: function(e3, t2) {
+            var n2 = this.bindingRef++;
+            return this.bindings.push({ event: e3, ref: n2, callback: t2 }), n2;
+          } }, { key: "off", value: function(e3, t2) {
+            this.bindings = this.bindings.filter(function(n2) {
+              return !(n2.event === e3 && (t2 === void 0 || t2 === n2.ref));
             });
           } }, { key: "canPush", value: function() {
             return this.socket.isConnected() && this.isJoined();
-          } }, { key: "push", value: function(e6, t4) {
-            var n6 = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : this.timeout;
-            if (t4 = t4 || {}, !this.joinedOnce)
-              throw new Error("tried to push '".concat(e6, "' to '").concat(this.topic, "' before joining. Use channel.join() before pushing events"));
-            var i4 = new P2(this, e6, function() {
-              return t4;
-            }, n6);
-            return this.canPush() ? i4.send() : (i4.startTimeout(), this.pushBuffer.push(i4)), i4;
+          } }, { key: "push", value: function(e3, t2) {
+            var n2 = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : this.timeout;
+            if (t2 = t2 || {}, !this.joinedOnce)
+              throw new Error("tried to push '".concat(e3, "' to '").concat(this.topic, "' before joining. Use channel.join() before pushing events"));
+            var i2 = new P(this, e3, function() {
+              return t2;
+            }, n2);
+            return this.canPush() ? i2.send() : (i2.startTimeout(), this.pushBuffer.push(i2)), i2;
           } }, { key: "leave", value: function() {
-            var e6 = this, t4 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : this.timeout;
-            this.rejoinTimer.reset(), this.joinPush.cancelTimeout(), this.state = C2;
-            var n6 = function() {
-              e6.socket.hasLogger() && e6.socket.log("channel", "leave ".concat(e6.topic)), e6.trigger(E2, "leave");
-            }, i4 = new P2(this, w2, O({}), t4);
-            return i4.receive("ok", function() {
-              return n6();
+            var e3 = this, t2 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : this.timeout;
+            this.rejoinTimer.reset(), this.joinPush.cancelTimeout(), this.state = C;
+            var n2 = function() {
+              e3.socket.hasLogger() && e3.socket.log("channel", "leave ".concat(e3.topic)), e3.trigger(E, "leave");
+            }, i2 = new P(this, w, O({}), t2);
+            return i2.receive("ok", function() {
+              return n2();
             }).receive("timeout", function() {
-              return n6();
-            }), i4.send(), this.canPush() || i4.trigger("ok", {}), i4;
-          } }, { key: "onMessage", value: function(e6, t4, n6) {
-            return t4;
-          } }, { key: "isLifecycleEvent", value: function(e6) {
-            return A2.indexOf(e6) >= 0;
-          } }, { key: "isMember", value: function(e6, t4, n6, i4) {
-            return this.topic === e6 && (!i4 || i4 === this.joinRef() || !this.isLifecycleEvent(t4) || (this.socket.hasLogger() && this.socket.log("channel", "dropping outdated message", { topic: e6, event: t4, payload: n6, joinRef: i4 }), false));
+              return n2();
+            }), i2.send(), this.canPush() || i2.trigger("ok", {}), i2;
+          } }, { key: "onMessage", value: function(e3, t2, n2) {
+            return t2;
+          } }, { key: "isLifecycleEvent", value: function(e3) {
+            return A.indexOf(e3) >= 0;
+          } }, { key: "isMember", value: function(e3, t2, n2, i2) {
+            return this.topic === e3 && (!i2 || i2 === this.joinRef() || !this.isLifecycleEvent(t2) || (this.socket.hasLogger() && this.socket.log("channel", "dropping outdated message", { topic: e3, event: t2, payload: n2, joinRef: i2 }), false));
           } }, { key: "joinRef", value: function() {
             return this.joinPush.ref;
           } }, { key: "rejoin", value: function() {
-            var e6 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : this.timeout;
-            this.isLeaving() || (this.socket.leaveOpenTopic(this.topic), this.state = j, this.joinPush.resend(e6));
-          } }, { key: "trigger", value: function(e6, t4, n6, i4) {
-            var o6 = this.onMessage(e6, t4, n6, i4);
-            if (t4 && !o6)
+            var e3 = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : this.timeout;
+            this.isLeaving() || (this.socket.leaveOpenTopic(this.topic), this.state = j, this.joinPush.resend(e3));
+          } }, { key: "trigger", value: function(e3, t2, n2, i2) {
+            var o2 = this.onMessage(e3, t2, n2, i2);
+            if (t2 && !o2)
               throw new Error("channel onMessage callbacks must return the payload, modified or unmodified");
-            for (var r5 = this.bindings.filter(function(t5) {
-              return t5.event === e6;
-            }), s6 = 0; s6 < r5.length; s6++) {
-              r5[s6].callback(o6, n6, i4 || this.joinRef());
+            for (var r2 = this.bindings.filter(function(t3) {
+              return t3.event === e3;
+            }), s2 = 0; s2 < r2.length; s2++) {
+              r2[s2].callback(o2, n2, i2 || this.joinRef());
             }
-          } }, { key: "replyEventName", value: function(e6) {
-            return "chan_reply_".concat(e6);
+          } }, { key: "replyEventName", value: function(e3) {
+            return "chan_reply_".concat(e3);
           } }, { key: "isClosed", value: function() {
-            return this.state === g2;
+            return this.state === g;
           } }, { key: "isErrored", value: function() {
-            return this.state === k2;
+            return this.state === k;
           } }, { key: "isJoined", value: function() {
-            return this.state === b2;
+            return this.state === b;
           } }, { key: "isJoining", value: function() {
             return this.state === j;
           } }, { key: "isLeaving", value: function() {
-            return this.state === C2;
-          } }]), e5;
-        }(), H2 = { HEADER_LENGTH: 1, META_LENGTH: 4, KINDS: { push: 0, reply: 1, broadcast: 2 }, encode: function(e5, t4) {
-          if (e5.payload.constructor === ArrayBuffer)
-            return t4(this.binaryEncode(e5));
-          var n6 = [e5.join_ref, e5.ref, e5.topic, e5.event, e5.payload];
-          return t4(JSON.stringify(n6));
-        }, decode: function(e5, t4) {
-          if (e5.constructor === ArrayBuffer)
-            return t4(this.binaryDecode(e5));
-          var n6 = r4(JSON.parse(e5), 5);
-          return t4({ join_ref: n6[0], ref: n6[1], topic: n6[2], event: n6[3], payload: n6[4] });
-        }, binaryEncode: function(e5) {
-          var t4 = e5.join_ref, n6 = e5.ref, i4 = e5.event, o6 = e5.topic, r5 = e5.payload, s6 = this.META_LENGTH + t4.length + n6.length + o6.length + i4.length, a3 = new ArrayBuffer(this.HEADER_LENGTH + s6), c3 = new DataView(a3), u3 = 0;
-          c3.setUint8(u3++, this.KINDS.push), c3.setUint8(u3++, t4.length), c3.setUint8(u3++, n6.length), c3.setUint8(u3++, o6.length), c3.setUint8(u3++, i4.length), Array.from(t4, function(e6) {
-            return c3.setUint8(u3++, e6.charCodeAt(0));
-          }), Array.from(n6, function(e6) {
-            return c3.setUint8(u3++, e6.charCodeAt(0));
-          }), Array.from(o6, function(e6) {
-            return c3.setUint8(u3++, e6.charCodeAt(0));
-          }), Array.from(i4, function(e6) {
-            return c3.setUint8(u3++, e6.charCodeAt(0));
+            return this.state === C;
+          } }]), e2;
+        }(), H = { HEADER_LENGTH: 1, META_LENGTH: 4, KINDS: { push: 0, reply: 1, broadcast: 2 }, encode: function(e2, t2) {
+          if (e2.payload.constructor === ArrayBuffer)
+            return t2(this.binaryEncode(e2));
+          var n2 = [e2.join_ref, e2.ref, e2.topic, e2.event, e2.payload];
+          return t2(JSON.stringify(n2));
+        }, decode: function(e2, t2) {
+          if (e2.constructor === ArrayBuffer)
+            return t2(this.binaryDecode(e2));
+          var n2 = r(JSON.parse(e2), 5);
+          return t2({ join_ref: n2[0], ref: n2[1], topic: n2[2], event: n2[3], payload: n2[4] });
+        }, binaryEncode: function(e2) {
+          var t2 = e2.join_ref, n2 = e2.ref, i2 = e2.event, o2 = e2.topic, r2 = e2.payload, s2 = this.META_LENGTH + t2.length + n2.length + o2.length + i2.length, a2 = new ArrayBuffer(this.HEADER_LENGTH + s2), c2 = new DataView(a2), u2 = 0;
+          c2.setUint8(u2++, this.KINDS.push), c2.setUint8(u2++, t2.length), c2.setUint8(u2++, n2.length), c2.setUint8(u2++, o2.length), c2.setUint8(u2++, i2.length), Array.from(t2, function(e3) {
+            return c2.setUint8(u2++, e3.charCodeAt(0));
+          }), Array.from(n2, function(e3) {
+            return c2.setUint8(u2++, e3.charCodeAt(0));
+          }), Array.from(o2, function(e3) {
+            return c2.setUint8(u2++, e3.charCodeAt(0));
+          }), Array.from(i2, function(e3) {
+            return c2.setUint8(u2++, e3.charCodeAt(0));
           });
-          var h4 = new Uint8Array(a3.byteLength + r5.byteLength);
-          return h4.set(new Uint8Array(a3), 0), h4.set(new Uint8Array(r5), a3.byteLength), h4.buffer;
-        }, binaryDecode: function(e5) {
-          var t4 = new DataView(e5), n6 = t4.getUint8(0), i4 = new TextDecoder();
-          switch (n6) {
+          var h2 = new Uint8Array(a2.byteLength + r2.byteLength);
+          return h2.set(new Uint8Array(a2), 0), h2.set(new Uint8Array(r2), a2.byteLength), h2.buffer;
+        }, binaryDecode: function(e2) {
+          var t2 = new DataView(e2), n2 = t2.getUint8(0), i2 = new TextDecoder();
+          switch (n2) {
             case this.KINDS.push:
-              return this.decodePush(e5, t4, i4);
+              return this.decodePush(e2, t2, i2);
             case this.KINDS.reply:
-              return this.decodeReply(e5, t4, i4);
+              return this.decodeReply(e2, t2, i2);
             case this.KINDS.broadcast:
-              return this.decodeBroadcast(e5, t4, i4);
+              return this.decodeBroadcast(e2, t2, i2);
           }
-        }, decodePush: function(e5, t4, n6) {
-          var i4 = t4.getUint8(1), o6 = t4.getUint8(2), r5 = t4.getUint8(3), s6 = this.HEADER_LENGTH + this.META_LENGTH - 1, a3 = n6.decode(e5.slice(s6, s6 + i4));
-          s6 += i4;
-          var c3 = n6.decode(e5.slice(s6, s6 + o6));
-          s6 += o6;
-          var u3 = n6.decode(e5.slice(s6, s6 + r5));
-          return s6 += r5, { join_ref: a3, ref: null, topic: c3, event: u3, payload: e5.slice(s6, e5.byteLength) };
-        }, decodeReply: function(e5, t4, n6) {
-          var i4 = t4.getUint8(1), o6 = t4.getUint8(2), r5 = t4.getUint8(3), s6 = t4.getUint8(4), a3 = this.HEADER_LENGTH + this.META_LENGTH, c3 = n6.decode(e5.slice(a3, a3 + i4));
-          a3 += i4;
-          var u3 = n6.decode(e5.slice(a3, a3 + o6));
-          a3 += o6;
-          var h4 = n6.decode(e5.slice(a3, a3 + r5));
-          a3 += r5;
-          var l4 = n6.decode(e5.slice(a3, a3 + s6));
-          a3 += s6;
-          var f3 = e5.slice(a3, e5.byteLength);
-          return { join_ref: c3, ref: u3, topic: h4, event: S3, payload: { status: l4, response: f3 } };
-        }, decodeBroadcast: function(e5, t4, n6) {
-          var i4 = t4.getUint8(1), o6 = t4.getUint8(2), r5 = this.HEADER_LENGTH + 2, s6 = n6.decode(e5.slice(r5, r5 + i4));
-          r5 += i4;
-          var a3 = n6.decode(e5.slice(r5, r5 + o6));
-          return r5 += o6, { join_ref: null, ref: null, topic: s6, event: a3, payload: e5.slice(r5, e5.byteLength) };
+        }, decodePush: function(e2, t2, n2) {
+          var i2 = t2.getUint8(1), o2 = t2.getUint8(2), r2 = t2.getUint8(3), s2 = this.HEADER_LENGTH + this.META_LENGTH - 1, a2 = n2.decode(e2.slice(s2, s2 + i2));
+          s2 += i2;
+          var c2 = n2.decode(e2.slice(s2, s2 + o2));
+          s2 += o2;
+          var u2 = n2.decode(e2.slice(s2, s2 + r2));
+          return s2 += r2, { join_ref: a2, ref: null, topic: c2, event: u2, payload: e2.slice(s2, e2.byteLength) };
+        }, decodeReply: function(e2, t2, n2) {
+          var i2 = t2.getUint8(1), o2 = t2.getUint8(2), r2 = t2.getUint8(3), s2 = t2.getUint8(4), a2 = this.HEADER_LENGTH + this.META_LENGTH, c2 = n2.decode(e2.slice(a2, a2 + i2));
+          a2 += i2;
+          var u2 = n2.decode(e2.slice(a2, a2 + o2));
+          a2 += o2;
+          var h2 = n2.decode(e2.slice(a2, a2 + r2));
+          a2 += r2;
+          var l2 = n2.decode(e2.slice(a2, a2 + s2));
+          a2 += s2;
+          var f2 = e2.slice(a2, e2.byteLength);
+          return { join_ref: c2, ref: u2, topic: h2, event: S, payload: { status: l2, response: f2 } };
+        }, decodeBroadcast: function(e2, t2, n2) {
+          var i2 = t2.getUint8(1), o2 = t2.getUint8(2), r2 = this.HEADER_LENGTH + 2, s2 = n2.decode(e2.slice(r2, r2 + i2));
+          r2 += i2;
+          var a2 = n2.decode(e2.slice(r2, r2 + o2));
+          return r2 += o2, { join_ref: null, ref: null, topic: s2, event: a2, payload: e2.slice(r2, e2.byteLength) };
         } }, U = function() {
-          function e5(t4) {
-            var n6 = this, i4 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-            c2(this, e5), this.stateChangeCallbacks = { open: [], close: [], error: [], message: [] }, this.channels = [], this.sendBuffer = [], this.ref = 0, this.timeout = i4.timeout || 1e4, this.transport = i4.transport || d2.WebSocket || D, this.defaultEncoder = H2.encode.bind(H2), this.defaultDecoder = H2.decode.bind(H2), this.closeWasClean = false, this.unloaded = false, this.binaryType = i4.binaryType || "arraybuffer", this.transport !== D ? (this.encode = i4.encode || this.defaultEncoder, this.decode = i4.decode || this.defaultDecoder) : (this.encode = this.defaultEncoder, this.decode = this.defaultDecoder), f2 && f2.addEventListener && f2.addEventListener("beforeunload", function(e6) {
-              n6.conn && (n6.unloaded = true, n6.abnormalClose("unloaded"));
-            }), this.heartbeatIntervalMs = i4.heartbeatIntervalMs || 3e4, this.rejoinAfterMs = function(e6) {
-              return i4.rejoinAfterMs ? i4.rejoinAfterMs(e6) : [1e3, 2e3, 5e3][e6 - 1] || 1e4;
-            }, this.reconnectAfterMs = function(e6) {
-              return n6.unloaded ? 100 : i4.reconnectAfterMs ? i4.reconnectAfterMs(e6) : [10, 50, 100, 150, 200, 250, 500, 1e3, 2e3][e6 - 1] || 5e3;
-            }, this.logger = i4.logger || null, this.longpollerTimeout = i4.longpollerTimeout || 2e4, this.params = O(i4.params || {}), this.endPoint = "".concat(t4, "/").concat(x2), this.vsn = i4.vsn || "2.0.0", this.heartbeatTimer = null, this.pendingHeartbeatRef = null, this.reconnectTimer = new J(function() {
-              n6.teardown(function() {
-                return n6.connect();
+          function e2(t2) {
+            var n2 = this, i2 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+            c(this, e2), this.stateChangeCallbacks = { open: [], close: [], error: [], message: [] }, this.channels = [], this.sendBuffer = [], this.ref = 0, this.timeout = i2.timeout || 1e4, this.transport = i2.transport || d.WebSocket || D, this.defaultEncoder = H.encode.bind(H), this.defaultDecoder = H.decode.bind(H), this.closeWasClean = false, this.unloaded = false, this.binaryType = i2.binaryType || "arraybuffer", this.transport !== D ? (this.encode = i2.encode || this.defaultEncoder, this.decode = i2.decode || this.defaultDecoder) : (this.encode = this.defaultEncoder, this.decode = this.defaultDecoder), f && f.addEventListener && f.addEventListener("beforeunload", function(e3) {
+              n2.conn && (n2.unloaded = true, n2.abnormalClose("unloaded"));
+            }), this.heartbeatIntervalMs = i2.heartbeatIntervalMs || 3e4, this.rejoinAfterMs = function(e3) {
+              return i2.rejoinAfterMs ? i2.rejoinAfterMs(e3) : [1e3, 2e3, 5e3][e3 - 1] || 1e4;
+            }, this.reconnectAfterMs = function(e3) {
+              return n2.unloaded ? 100 : i2.reconnectAfterMs ? i2.reconnectAfterMs(e3) : [10, 50, 100, 150, 200, 250, 500, 1e3, 2e3][e3 - 1] || 5e3;
+            }, this.logger = i2.logger || null, this.longpollerTimeout = i2.longpollerTimeout || 2e4, this.params = O(i2.params || {}), this.endPoint = "".concat(t2, "/").concat(x), this.vsn = i2.vsn || "2.0.0", this.heartbeatTimer = null, this.pendingHeartbeatRef = null, this.reconnectTimer = new J(function() {
+              n2.teardown(function() {
+                return n2.connect();
               });
             }, this.reconnectAfterMs);
           }
-          return h3(e5, [{ key: "protocol", value: function() {
+          return h(e2, [{ key: "protocol", value: function() {
             return location.protocol.match(/^https/) ? "wss" : "ws";
           } }, { key: "endPointURL", value: function() {
-            var e6 = M2.appendParams(M2.appendParams(this.endPoint, this.params()), { vsn: this.vsn });
-            return e6.charAt(0) !== "/" ? e6 : e6.charAt(1) === "/" ? "".concat(this.protocol(), ":").concat(e6) : "".concat(this.protocol(), "://").concat(location.host).concat(e6);
-          } }, { key: "disconnect", value: function(e6, t4, n6) {
-            this.closeWasClean = true, this.reconnectTimer.reset(), this.teardown(e6, t4, n6);
-          } }, { key: "connect", value: function(e6) {
-            var t4 = this;
-            e6 && (console && console.log("passing params to connect is deprecated. Instead pass :params to the Socket constructor"), this.params = O(e6)), this.conn || (this.closeWasClean = false, this.conn = new this.transport(this.endPointURL()), this.conn.binaryType = this.binaryType, this.conn.timeout = this.longpollerTimeout, this.conn.onopen = function() {
-              return t4.onConnOpen();
-            }, this.conn.onerror = function(e7) {
-              return t4.onConnError(e7);
-            }, this.conn.onmessage = function(e7) {
-              return t4.onConnMessage(e7);
-            }, this.conn.onclose = function(e7) {
-              return t4.onConnClose(e7);
+            var e3 = M.appendParams(M.appendParams(this.endPoint, this.params()), { vsn: this.vsn });
+            return e3.charAt(0) !== "/" ? e3 : e3.charAt(1) === "/" ? "".concat(this.protocol(), ":").concat(e3) : "".concat(this.protocol(), "://").concat(location.host).concat(e3);
+          } }, { key: "disconnect", value: function(e3, t2, n2) {
+            this.closeWasClean = true, this.reconnectTimer.reset(), this.teardown(e3, t2, n2);
+          } }, { key: "connect", value: function(e3) {
+            var t2 = this;
+            e3 && (console && console.log("passing params to connect is deprecated. Instead pass :params to the Socket constructor"), this.params = O(e3)), this.conn || (this.closeWasClean = false, this.conn = new this.transport(this.endPointURL()), this.conn.binaryType = this.binaryType, this.conn.timeout = this.longpollerTimeout, this.conn.onopen = function() {
+              return t2.onConnOpen();
+            }, this.conn.onerror = function(e4) {
+              return t2.onConnError(e4);
+            }, this.conn.onmessage = function(e4) {
+              return t2.onConnMessage(e4);
+            }, this.conn.onclose = function(e4) {
+              return t2.onConnClose(e4);
             });
-          } }, { key: "log", value: function(e6, t4, n6) {
-            this.logger(e6, t4, n6);
+          } }, { key: "log", value: function(e3, t2, n2) {
+            this.logger(e3, t2, n2);
           } }, { key: "hasLogger", value: function() {
             return this.logger !== null;
-          } }, { key: "onOpen", value: function(e6) {
-            var t4 = this.makeRef();
-            return this.stateChangeCallbacks.open.push([t4, e6]), t4;
-          } }, { key: "onClose", value: function(e6) {
-            var t4 = this.makeRef();
-            return this.stateChangeCallbacks.close.push([t4, e6]), t4;
-          } }, { key: "onError", value: function(e6) {
-            var t4 = this.makeRef();
-            return this.stateChangeCallbacks.error.push([t4, e6]), t4;
-          } }, { key: "onMessage", value: function(e6) {
-            var t4 = this.makeRef();
-            return this.stateChangeCallbacks.message.push([t4, e6]), t4;
+          } }, { key: "onOpen", value: function(e3) {
+            var t2 = this.makeRef();
+            return this.stateChangeCallbacks.open.push([t2, e3]), t2;
+          } }, { key: "onClose", value: function(e3) {
+            var t2 = this.makeRef();
+            return this.stateChangeCallbacks.close.push([t2, e3]), t2;
+          } }, { key: "onError", value: function(e3) {
+            var t2 = this.makeRef();
+            return this.stateChangeCallbacks.error.push([t2, e3]), t2;
+          } }, { key: "onMessage", value: function(e3) {
+            var t2 = this.makeRef();
+            return this.stateChangeCallbacks.message.push([t2, e3]), t2;
           } }, { key: "onConnOpen", value: function() {
-            this.hasLogger() && this.log("transport", "connected to ".concat(this.endPointURL())), this.unloaded = false, this.closeWasClean = false, this.flushSendBuffer(), this.reconnectTimer.reset(), this.resetHeartbeat(), this.stateChangeCallbacks.open.forEach(function(e6) {
-              return (0, r4(e6, 2)[1])();
+            this.hasLogger() && this.log("transport", "connected to ".concat(this.endPointURL())), this.unloaded = false, this.closeWasClean = false, this.flushSendBuffer(), this.reconnectTimer.reset(), this.resetHeartbeat(), this.stateChangeCallbacks.open.forEach(function(e3) {
+              return (0, r(e3, 2)[1])();
             });
           } }, { key: "resetHeartbeat", value: function() {
-            var e6 = this;
+            var e3 = this;
             this.conn && this.conn.skipHeartbeat || (this.pendingHeartbeatRef = null, clearInterval(this.heartbeatTimer), this.heartbeatTimer = setInterval(function() {
-              return e6.sendHeartbeat();
+              return e3.sendHeartbeat();
             }, this.heartbeatIntervalMs));
-          } }, { key: "teardown", value: function(e6, t4, n6) {
-            var i4 = this;
+          } }, { key: "teardown", value: function(e3, t2, n2) {
+            var i2 = this;
             if (!this.conn)
-              return e6 && e6();
+              return e3 && e3();
             this.waitForBufferDone(function() {
-              i4.conn && (t4 ? i4.conn.close(t4, n6 || "") : i4.conn.close()), i4.waitForSocketClosed(function() {
-                i4.conn && (i4.conn.onclose = function() {
-                }, i4.conn = null), e6 && e6();
+              i2.conn && (t2 ? i2.conn.close(t2, n2 || "") : i2.conn.close()), i2.waitForSocketClosed(function() {
+                i2.conn && (i2.conn.onclose = function() {
+                }, i2.conn = null), e3 && e3();
               });
             });
-          } }, { key: "waitForBufferDone", value: function(e6) {
-            var t4 = this, n6 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1;
-            n6 !== 5 && this.conn && this.conn.bufferedAmount ? setTimeout(function() {
-              t4.waitForBufferDone(e6, n6 + 1);
-            }, 150 * n6) : e6();
-          } }, { key: "waitForSocketClosed", value: function(e6) {
-            var t4 = this, n6 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1;
-            n6 !== 5 && this.conn && this.conn.readyState !== m2 ? setTimeout(function() {
-              t4.waitForSocketClosed(e6, n6 + 1);
-            }, 150 * n6) : e6();
-          } }, { key: "onConnClose", value: function(e6) {
-            this.hasLogger() && this.log("transport", "close", e6), this.triggerChanError(), clearInterval(this.heartbeatTimer), this.closeWasClean || this.reconnectTimer.scheduleTimeout(), this.stateChangeCallbacks.close.forEach(function(t4) {
-              return (0, r4(t4, 2)[1])(e6);
+          } }, { key: "waitForBufferDone", value: function(e3) {
+            var t2 = this, n2 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1;
+            n2 !== 5 && this.conn && this.conn.bufferedAmount ? setTimeout(function() {
+              t2.waitForBufferDone(e3, n2 + 1);
+            }, 150 * n2) : e3();
+          } }, { key: "waitForSocketClosed", value: function(e3) {
+            var t2 = this, n2 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1;
+            n2 !== 5 && this.conn && this.conn.readyState !== m ? setTimeout(function() {
+              t2.waitForSocketClosed(e3, n2 + 1);
+            }, 150 * n2) : e3();
+          } }, { key: "onConnClose", value: function(e3) {
+            this.hasLogger() && this.log("transport", "close", e3), this.triggerChanError(), clearInterval(this.heartbeatTimer), this.closeWasClean || this.reconnectTimer.scheduleTimeout(), this.stateChangeCallbacks.close.forEach(function(t2) {
+              return (0, r(t2, 2)[1])(e3);
             });
-          } }, { key: "onConnError", value: function(e6) {
-            this.hasLogger() && this.log("transport", e6), this.triggerChanError(), this.stateChangeCallbacks.error.forEach(function(t4) {
-              return (0, r4(t4, 2)[1])(e6);
+          } }, { key: "onConnError", value: function(e3) {
+            this.hasLogger() && this.log("transport", e3), this.triggerChanError(), this.stateChangeCallbacks.error.forEach(function(t2) {
+              return (0, r(t2, 2)[1])(e3);
             });
           } }, { key: "triggerChanError", value: function() {
-            this.channels.forEach(function(e6) {
-              e6.isErrored() || e6.isLeaving() || e6.isClosed() || e6.trigger(R2);
+            this.channels.forEach(function(e3) {
+              e3.isErrored() || e3.isLeaving() || e3.isClosed() || e3.trigger(R);
             });
           } }, { key: "connectionState", value: function() {
             switch (this.conn && this.conn.readyState) {
-              case p2:
+              case p:
                 return "connecting";
-              case v2:
+              case v:
                 return "open";
-              case y2:
+              case y:
                 return "closing";
               default:
                 return "closed";
             }
           } }, { key: "isConnected", value: function() {
             return this.connectionState() === "open";
-          } }, { key: "remove", value: function(e6) {
-            this.off(e6.stateChangeRefs), this.channels = this.channels.filter(function(t4) {
-              return t4.joinRef() !== e6.joinRef();
+          } }, { key: "remove", value: function(e3) {
+            this.off(e3.stateChangeRefs), this.channels = this.channels.filter(function(t2) {
+              return t2.joinRef() !== e3.joinRef();
             });
-          } }, { key: "off", value: function(e6) {
-            for (var t4 in this.stateChangeCallbacks)
-              this.stateChangeCallbacks[t4] = this.stateChangeCallbacks[t4].filter(function(t5) {
-                var n6 = r4(t5, 1)[0];
-                return e6.indexOf(n6) === -1;
+          } }, { key: "off", value: function(e3) {
+            for (var t2 in this.stateChangeCallbacks)
+              this.stateChangeCallbacks[t2] = this.stateChangeCallbacks[t2].filter(function(t3) {
+                var n2 = r(t3, 1)[0];
+                return e3.indexOf(n2) === -1;
               });
-          } }, { key: "channel", value: function(e6) {
-            var t4 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, n6 = new _2(e6, t4, this);
-            return this.channels.push(n6), n6;
-          } }, { key: "push", value: function(e6) {
-            var t4 = this;
+          } }, { key: "channel", value: function(e3) {
+            var t2 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, n2 = new _(e3, t2, this);
+            return this.channels.push(n2), n2;
+          } }, { key: "push", value: function(e3) {
+            var t2 = this;
             if (this.hasLogger()) {
-              var n6 = e6.topic, i4 = e6.event, o6 = e6.payload, r5 = e6.ref, s6 = e6.join_ref;
-              this.log("push", "".concat(n6, " ").concat(i4, " (").concat(s6, ", ").concat(r5, ")"), o6);
+              var n2 = e3.topic, i2 = e3.event, o2 = e3.payload, r2 = e3.ref, s2 = e3.join_ref;
+              this.log("push", "".concat(n2, " ").concat(i2, " (").concat(s2, ", ").concat(r2, ")"), o2);
             }
-            this.isConnected() ? this.encode(e6, function(e7) {
-              return t4.conn.send(e7);
+            this.isConnected() ? this.encode(e3, function(e4) {
+              return t2.conn.send(e4);
             }) : this.sendBuffer.push(function() {
-              return t4.encode(e6, function(e7) {
-                return t4.conn.send(e7);
+              return t2.encode(e3, function(e4) {
+                return t2.conn.send(e4);
               });
             });
           } }, { key: "makeRef", value: function() {
-            var e6 = this.ref + 1;
-            return e6 === this.ref ? this.ref = 0 : this.ref = e6, this.ref.toString();
+            var e3 = this.ref + 1;
+            return e3 === this.ref ? this.ref = 0 : this.ref = e3, this.ref.toString();
           } }, { key: "sendHeartbeat", value: function() {
             if (this.isConnected()) {
               if (this.pendingHeartbeatRef)
                 return this.pendingHeartbeatRef = null, this.hasLogger() && this.log("transport", "heartbeat timeout. Attempting to re-establish connection"), void this.abnormalClose("heartbeat timeout");
               this.pendingHeartbeatRef = this.makeRef(), this.push({ topic: "phoenix", event: "heartbeat", payload: {}, ref: this.pendingHeartbeatRef });
             }
-          } }, { key: "abnormalClose", value: function(e6) {
-            this.closeWasClean = false, this.conn.readyState === v2 && this.conn.close(1e3, e6);
+          } }, { key: "abnormalClose", value: function(e3) {
+            this.closeWasClean = false, this.conn.readyState === v && this.conn.close(1e3, e3);
           } }, { key: "flushSendBuffer", value: function() {
-            this.isConnected() && this.sendBuffer.length > 0 && (this.sendBuffer.forEach(function(e6) {
-              return e6();
+            this.isConnected() && this.sendBuffer.length > 0 && (this.sendBuffer.forEach(function(e3) {
+              return e3();
             }), this.sendBuffer = []);
-          } }, { key: "onConnMessage", value: function(e6) {
-            var t4 = this;
-            this.decode(e6.data, function(e7) {
-              var n6 = e7.topic, i4 = e7.event, o6 = e7.payload, s6 = e7.ref, a3 = e7.join_ref;
-              s6 && s6 === t4.pendingHeartbeatRef && (t4.pendingHeartbeatRef = null), t4.hasLogger() && t4.log("receive", "".concat(o6.status || "", " ").concat(n6, " ").concat(i4, " ").concat(s6 && "(" + s6 + ")" || ""), o6);
-              for (var c3 = 0; c3 < t4.channels.length; c3++) {
-                var u3 = t4.channels[c3];
-                u3.isMember(n6, i4, o6, a3) && u3.trigger(i4, o6, s6, a3);
+          } }, { key: "onConnMessage", value: function(e3) {
+            var t2 = this;
+            this.decode(e3.data, function(e4) {
+              var n2 = e4.topic, i2 = e4.event, o2 = e4.payload, s2 = e4.ref, a2 = e4.join_ref;
+              s2 && s2 === t2.pendingHeartbeatRef && (t2.pendingHeartbeatRef = null), t2.hasLogger() && t2.log("receive", "".concat(o2.status || "", " ").concat(n2, " ").concat(i2, " ").concat(s2 && "(" + s2 + ")" || ""), o2);
+              for (var c2 = 0; c2 < t2.channels.length; c2++) {
+                var u2 = t2.channels[c2];
+                u2.isMember(n2, i2, o2, a2) && u2.trigger(i2, o2, s2, a2);
               }
-              for (var h4 = 0; h4 < t4.stateChangeCallbacks.message.length; h4++) {
-                (0, r4(t4.stateChangeCallbacks.message[h4], 2)[1])(e7);
+              for (var h2 = 0; h2 < t2.stateChangeCallbacks.message.length; h2++) {
+                (0, r(t2.stateChangeCallbacks.message[h2], 2)[1])(e4);
               }
             });
-          } }, { key: "leaveOpenTopic", value: function(e6) {
-            var t4 = this.channels.find(function(t5) {
-              return t5.topic === e6 && (t5.isJoined() || t5.isJoining());
+          } }, { key: "leaveOpenTopic", value: function(e3) {
+            var t2 = this.channels.find(function(t3) {
+              return t3.topic === e3 && (t3.isJoined() || t3.isJoining());
             });
-            t4 && (this.hasLogger() && this.log("transport", 'leaving duplicate topic "'.concat(e6, '"')), t4.leave());
-          } }]), e5;
+            t2 && (this.hasLogger() && this.log("transport", 'leaving duplicate topic "'.concat(e3, '"')), t2.leave());
+          } }]), e2;
         }(), D = function() {
-          function e5(t4) {
-            c2(this, e5), this.endPoint = null, this.token = null, this.skipHeartbeat = true, this.onopen = function() {
+          function e2(t2) {
+            c(this, e2), this.endPoint = null, this.token = null, this.skipHeartbeat = true, this.onopen = function() {
             }, this.onerror = function() {
             }, this.onmessage = function() {
             }, this.onclose = function() {
-            }, this.pollEndpoint = this.normalizeEndpoint(t4), this.readyState = p2, this.poll();
+            }, this.pollEndpoint = this.normalizeEndpoint(t2), this.readyState = p, this.poll();
           }
-          return h3(e5, [{ key: "normalizeEndpoint", value: function(e6) {
-            return e6.replace("ws://", "http://").replace("wss://", "https://").replace(new RegExp("(.*)/" + x2), "$1/" + L);
+          return h(e2, [{ key: "normalizeEndpoint", value: function(e3) {
+            return e3.replace("ws://", "http://").replace("wss://", "https://").replace(new RegExp("(.*)/" + x), "$1/" + L);
           } }, { key: "endpointURL", value: function() {
-            return M2.appendParams(this.pollEndpoint, { token: this.token });
+            return M.appendParams(this.pollEndpoint, { token: this.token });
           } }, { key: "closeAndRetry", value: function() {
-            this.close(), this.readyState = p2;
+            this.close(), this.readyState = p;
           } }, { key: "ontimeout", value: function() {
             this.onerror("timeout"), this.closeAndRetry();
           } }, { key: "poll", value: function() {
-            var e6 = this;
-            this.readyState !== v2 && this.readyState !== p2 || M2.request("GET", this.endpointURL(), "application/json", null, this.timeout, this.ontimeout.bind(this), function(t4) {
-              if (t4) {
-                var n6 = t4.status, i4 = t4.token, o6 = t4.messages;
-                e6.token = i4;
+            var e3 = this;
+            this.readyState !== v && this.readyState !== p || M.request("GET", this.endpointURL(), "application/json", null, this.timeout, this.ontimeout.bind(this), function(t2) {
+              if (t2) {
+                var n2 = t2.status, i2 = t2.token, o2 = t2.messages;
+                e3.token = i2;
               } else
-                n6 = 0;
-              switch (n6) {
+                n2 = 0;
+              switch (n2) {
                 case 200:
-                  o6.forEach(function(t5) {
-                    return e6.onmessage({ data: t5 });
-                  }), e6.poll();
+                  o2.forEach(function(t3) {
+                    return e3.onmessage({ data: t3 });
+                  }), e3.poll();
                   break;
                 case 204:
-                  e6.poll();
+                  e3.poll();
                   break;
                 case 410:
-                  e6.readyState = v2, e6.onopen(), e6.poll();
+                  e3.readyState = v, e3.onopen(), e3.poll();
                   break;
                 case 403:
-                  e6.onerror(), e6.close();
+                  e3.onerror(), e3.close();
                   break;
                 case 0:
                 case 500:
-                  e6.onerror(), e6.closeAndRetry();
+                  e3.onerror(), e3.closeAndRetry();
                   break;
                 default:
-                  throw new Error("unhandled poll status ".concat(n6));
+                  throw new Error("unhandled poll status ".concat(n2));
               }
             });
-          } }, { key: "send", value: function(e6) {
-            var t4 = this;
-            M2.request("POST", this.endpointURL(), "application/json", e6, this.timeout, this.onerror.bind(this, "timeout"), function(e7) {
-              e7 && e7.status === 200 || (t4.onerror(e7 && e7.status), t4.closeAndRetry());
+          } }, { key: "send", value: function(e3) {
+            var t2 = this;
+            M.request("POST", this.endpointURL(), "application/json", e3, this.timeout, this.onerror.bind(this, "timeout"), function(e4) {
+              e4 && e4.status === 200 || (t2.onerror(e4 && e4.status), t2.closeAndRetry());
             });
-          } }, { key: "close", value: function(e6, t4) {
-            this.readyState = m2, this.onclose();
-          } }]), e5;
-        }(), M2 = function() {
-          function e5() {
-            c2(this, e5);
+          } }, { key: "close", value: function(e3, t2) {
+            this.readyState = m, this.onclose();
+          } }]), e2;
+        }(), M = function() {
+          function e2() {
+            c(this, e2);
           }
-          return h3(e5, null, [{ key: "request", value: function(e6, t4, n6, i4, o6, r5, s6) {
-            if (d2.XDomainRequest) {
-              var a3 = new XDomainRequest();
-              this.xdomainRequest(a3, e6, t4, i4, o6, r5, s6);
+          return h(e2, null, [{ key: "request", value: function(e3, t2, n2, i2, o2, r2, s2) {
+            if (d.XDomainRequest) {
+              var a2 = new XDomainRequest();
+              this.xdomainRequest(a2, e3, t2, i2, o2, r2, s2);
             } else {
-              var c3 = new d2.XMLHttpRequest();
-              this.xhrRequest(c3, e6, t4, n6, i4, o6, r5, s6);
+              var c2 = new d.XMLHttpRequest();
+              this.xhrRequest(c2, e3, t2, n2, i2, o2, r2, s2);
             }
-          } }, { key: "xdomainRequest", value: function(e6, t4, n6, i4, o6, r5, s6) {
-            var a3 = this;
-            e6.timeout = o6, e6.open(t4, n6), e6.onload = function() {
-              var t5 = a3.parseJSON(e6.responseText);
-              s6 && s6(t5);
-            }, r5 && (e6.ontimeout = r5), e6.onprogress = function() {
-            }, e6.send(i4);
-          } }, { key: "xhrRequest", value: function(e6, t4, n6, i4, o6, r5, s6, a3) {
-            var c3 = this;
-            e6.open(t4, n6, true), e6.timeout = r5, e6.setRequestHeader("Content-Type", i4), e6.onerror = function() {
-              a3 && a3(null);
-            }, e6.onreadystatechange = function() {
-              if (e6.readyState === c3.states.complete && a3) {
-                var t5 = c3.parseJSON(e6.responseText);
-                a3(t5);
+          } }, { key: "xdomainRequest", value: function(e3, t2, n2, i2, o2, r2, s2) {
+            var a2 = this;
+            e3.timeout = o2, e3.open(t2, n2), e3.onload = function() {
+              var t3 = a2.parseJSON(e3.responseText);
+              s2 && s2(t3);
+            }, r2 && (e3.ontimeout = r2), e3.onprogress = function() {
+            }, e3.send(i2);
+          } }, { key: "xhrRequest", value: function(e3, t2, n2, i2, o2, r2, s2, a2) {
+            var c2 = this;
+            e3.open(t2, n2, true), e3.timeout = r2, e3.setRequestHeader("Content-Type", i2), e3.onerror = function() {
+              a2 && a2(null);
+            }, e3.onreadystatechange = function() {
+              if (e3.readyState === c2.states.complete && a2) {
+                var t3 = c2.parseJSON(e3.responseText);
+                a2(t3);
               }
-            }, s6 && (e6.ontimeout = s6), e6.send(o6);
-          } }, { key: "parseJSON", value: function(e6) {
-            if (!e6 || e6 === "")
+            }, s2 && (e3.ontimeout = s2), e3.send(o2);
+          } }, { key: "parseJSON", value: function(e3) {
+            if (!e3 || e3 === "")
               return null;
             try {
-              return JSON.parse(e6);
-            } catch (t4) {
-              return console && console.log("failed to parse JSON response", e6), null;
+              return JSON.parse(e3);
+            } catch (t2) {
+              return console && console.log("failed to parse JSON response", e3), null;
             }
-          } }, { key: "serialize", value: function(e6, t4) {
-            var n6 = [];
-            for (var i4 in e6)
-              if (e6.hasOwnProperty(i4)) {
-                var r5 = t4 ? "".concat(t4, "[").concat(i4, "]") : i4, s6 = e6[i4];
-                o5(s6) === "object" ? n6.push(this.serialize(s6, r5)) : n6.push(encodeURIComponent(r5) + "=" + encodeURIComponent(s6));
+          } }, { key: "serialize", value: function(e3, t2) {
+            var n2 = [];
+            for (var i2 in e3)
+              if (e3.hasOwnProperty(i2)) {
+                var r2 = t2 ? "".concat(t2, "[").concat(i2, "]") : i2, s2 = e3[i2];
+                o(s2) === "object" ? n2.push(this.serialize(s2, r2)) : n2.push(encodeURIComponent(r2) + "=" + encodeURIComponent(s2));
               }
-            return n6.join("&");
-          } }, { key: "appendParams", value: function(e6, t4) {
-            if (Object.keys(t4).length === 0)
-              return e6;
-            var n6 = e6.match(/\?/) ? "&" : "?";
-            return "".concat(e6).concat(n6).concat(this.serialize(t4));
-          } }]), e5;
+            return n2.join("&");
+          } }, { key: "appendParams", value: function(e3, t2) {
+            if (Object.keys(t2).length === 0)
+              return e3;
+            var n2 = e3.match(/\?/) ? "&" : "?";
+            return "".concat(e3).concat(n2).concat(this.serialize(t2));
+          } }]), e2;
         }();
-        M2.states = { complete: 4 };
-        var N2 = function() {
-          function e5(t4) {
-            var n6 = this, i4 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-            c2(this, e5);
-            var o6 = i4.events || { state: "presence_state", diff: "presence_diff" };
-            this.state = {}, this.pendingDiffs = [], this.channel = t4, this.joinRef = null, this.caller = { onJoin: function() {
+        M.states = { complete: 4 };
+        var N = function() {
+          function e2(t2) {
+            var n2 = this, i2 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+            c(this, e2);
+            var o2 = i2.events || { state: "presence_state", diff: "presence_diff" };
+            this.state = {}, this.pendingDiffs = [], this.channel = t2, this.joinRef = null, this.caller = { onJoin: function() {
             }, onLeave: function() {
             }, onSync: function() {
-            } }, this.channel.on(o6.state, function(t5) {
-              var i5 = n6.caller, o7 = i5.onJoin, r5 = i5.onLeave, s6 = i5.onSync;
-              n6.joinRef = n6.channel.joinRef(), n6.state = e5.syncState(n6.state, t5, o7, r5), n6.pendingDiffs.forEach(function(t6) {
-                n6.state = e5.syncDiff(n6.state, t6, o7, r5);
-              }), n6.pendingDiffs = [], s6();
-            }), this.channel.on(o6.diff, function(t5) {
-              var i5 = n6.caller, o7 = i5.onJoin, r5 = i5.onLeave, s6 = i5.onSync;
-              n6.inPendingSyncState() ? n6.pendingDiffs.push(t5) : (n6.state = e5.syncDiff(n6.state, t5, o7, r5), s6());
+            } }, this.channel.on(o2.state, function(t3) {
+              var i3 = n2.caller, o3 = i3.onJoin, r2 = i3.onLeave, s2 = i3.onSync;
+              n2.joinRef = n2.channel.joinRef(), n2.state = e2.syncState(n2.state, t3, o3, r2), n2.pendingDiffs.forEach(function(t4) {
+                n2.state = e2.syncDiff(n2.state, t4, o3, r2);
+              }), n2.pendingDiffs = [], s2();
+            }), this.channel.on(o2.diff, function(t3) {
+              var i3 = n2.caller, o3 = i3.onJoin, r2 = i3.onLeave, s2 = i3.onSync;
+              n2.inPendingSyncState() ? n2.pendingDiffs.push(t3) : (n2.state = e2.syncDiff(n2.state, t3, o3, r2), s2());
             });
           }
-          return h3(e5, [{ key: "onJoin", value: function(e6) {
-            this.caller.onJoin = e6;
-          } }, { key: "onLeave", value: function(e6) {
-            this.caller.onLeave = e6;
-          } }, { key: "onSync", value: function(e6) {
-            this.caller.onSync = e6;
-          } }, { key: "list", value: function(t4) {
-            return e5.list(this.state, t4);
+          return h(e2, [{ key: "onJoin", value: function(e3) {
+            this.caller.onJoin = e3;
+          } }, { key: "onLeave", value: function(e3) {
+            this.caller.onLeave = e3;
+          } }, { key: "onSync", value: function(e3) {
+            this.caller.onSync = e3;
+          } }, { key: "list", value: function(t2) {
+            return e2.list(this.state, t2);
           } }, { key: "inPendingSyncState", value: function() {
             return !this.joinRef || this.joinRef !== this.channel.joinRef();
-          } }], [{ key: "syncState", value: function(e6, t4, n6, i4) {
-            var o6 = this, r5 = this.clone(e6), s6 = {}, a3 = {};
-            return this.map(r5, function(e7, n7) {
-              t4[e7] || (a3[e7] = n7);
-            }), this.map(t4, function(e7, t5) {
-              var n7 = r5[e7];
-              if (n7) {
-                var i5 = t5.metas.map(function(e8) {
-                  return e8.phx_ref;
-                }), c3 = n7.metas.map(function(e8) {
-                  return e8.phx_ref;
-                }), u3 = t5.metas.filter(function(e8) {
-                  return c3.indexOf(e8.phx_ref) < 0;
-                }), h4 = n7.metas.filter(function(e8) {
-                  return i5.indexOf(e8.phx_ref) < 0;
+          } }], [{ key: "syncState", value: function(e3, t2, n2, i2) {
+            var o2 = this, r2 = this.clone(e3), s2 = {}, a2 = {};
+            return this.map(r2, function(e4, n3) {
+              t2[e4] || (a2[e4] = n3);
+            }), this.map(t2, function(e4, t3) {
+              var n3 = r2[e4];
+              if (n3) {
+                var i3 = t3.metas.map(function(e5) {
+                  return e5.phx_ref;
+                }), c2 = n3.metas.map(function(e5) {
+                  return e5.phx_ref;
+                }), u2 = t3.metas.filter(function(e5) {
+                  return c2.indexOf(e5.phx_ref) < 0;
+                }), h2 = n3.metas.filter(function(e5) {
+                  return i3.indexOf(e5.phx_ref) < 0;
                 });
-                u3.length > 0 && (s6[e7] = t5, s6[e7].metas = u3), h4.length > 0 && (a3[e7] = o6.clone(n7), a3[e7].metas = h4);
+                u2.length > 0 && (s2[e4] = t3, s2[e4].metas = u2), h2.length > 0 && (a2[e4] = o2.clone(n3), a2[e4].metas = h2);
               } else
-                s6[e7] = t5;
-            }), this.syncDiff(r5, { joins: s6, leaves: a3 }, n6, i4);
-          } }, { key: "syncDiff", value: function(e6, t4, n6, o6) {
-            var r5 = t4.joins, s6 = t4.leaves, a3 = this.clone(e6);
-            return n6 || (n6 = function() {
-            }), o6 || (o6 = function() {
-            }), this.map(r5, function(e7, t5) {
-              var o7 = a3[e7];
-              if (a3[e7] = t5, o7) {
-                var r6, s7 = a3[e7].metas.map(function(e8) {
-                  return e8.phx_ref;
-                }), c3 = o7.metas.filter(function(e8) {
-                  return s7.indexOf(e8.phx_ref) < 0;
+                s2[e4] = t3;
+            }), this.syncDiff(r2, { joins: s2, leaves: a2 }, n2, i2);
+          } }, { key: "syncDiff", value: function(e3, t2, n2, o2) {
+            var r2 = t2.joins, s2 = t2.leaves, a2 = this.clone(e3);
+            return n2 || (n2 = function() {
+            }), o2 || (o2 = function() {
+            }), this.map(r2, function(e4, t3) {
+              var o3 = a2[e4];
+              if (a2[e4] = t3, o3) {
+                var r3, s3 = a2[e4].metas.map(function(e5) {
+                  return e5.phx_ref;
+                }), c2 = o3.metas.filter(function(e5) {
+                  return s3.indexOf(e5.phx_ref) < 0;
                 });
-                (r6 = a3[e7].metas).unshift.apply(r6, i3(c3));
+                (r3 = a2[e4].metas).unshift.apply(r3, i(c2));
               }
-              n6(e7, o7, t5);
-            }), this.map(s6, function(e7, t5) {
-              var n7 = a3[e7];
-              if (n7) {
-                var i4 = t5.metas.map(function(e8) {
-                  return e8.phx_ref;
+              n2(e4, o3, t3);
+            }), this.map(s2, function(e4, t3) {
+              var n3 = a2[e4];
+              if (n3) {
+                var i2 = t3.metas.map(function(e5) {
+                  return e5.phx_ref;
                 });
-                n7.metas = n7.metas.filter(function(e8) {
-                  return i4.indexOf(e8.phx_ref) < 0;
-                }), o6(e7, n7, t5), n7.metas.length === 0 && delete a3[e7];
+                n3.metas = n3.metas.filter(function(e5) {
+                  return i2.indexOf(e5.phx_ref) < 0;
+                }), o2(e4, n3, t3), n3.metas.length === 0 && delete a2[e4];
               }
-            }), a3;
-          } }, { key: "list", value: function(e6, t4) {
-            return t4 || (t4 = function(e7, t5) {
-              return t5;
-            }), this.map(e6, function(e7, n6) {
-              return t4(e7, n6);
+            }), a2;
+          } }, { key: "list", value: function(e3, t2) {
+            return t2 || (t2 = function(e4, t3) {
+              return t3;
+            }), this.map(e3, function(e4, n2) {
+              return t2(e4, n2);
             });
-          } }, { key: "map", value: function(e6, t4) {
-            return Object.getOwnPropertyNames(e6).map(function(n6) {
-              return t4(n6, e6[n6]);
+          } }, { key: "map", value: function(e3, t2) {
+            return Object.getOwnPropertyNames(e3).map(function(n2) {
+              return t2(n2, e3[n2]);
             });
-          } }, { key: "clone", value: function(e6) {
-            return JSON.parse(JSON.stringify(e6));
-          } }]), e5;
+          } }, { key: "clone", value: function(e3) {
+            return JSON.parse(JSON.stringify(e3));
+          } }]), e2;
         }(), J = function() {
-          function e5(t4, n6) {
-            c2(this, e5), this.callback = t4, this.timerCalc = n6, this.timer = null, this.tries = 0;
+          function e2(t2, n2) {
+            c(this, e2), this.callback = t2, this.timerCalc = n2, this.timer = null, this.tries = 0;
           }
-          return h3(e5, [{ key: "reset", value: function() {
+          return h(e2, [{ key: "reset", value: function() {
             this.tries = 0, clearTimeout(this.timer);
           } }, { key: "scheduleTimeout", value: function() {
-            var e6 = this;
+            var e3 = this;
             clearTimeout(this.timer), this.timer = setTimeout(function() {
-              e6.tries = e6.tries + 1, e6.callback();
+              e3.tries = e3.tries + 1, e3.callback();
             }, this.timerCalc(this.tries + 1));
-          } }]), e5;
+          } }]), e2;
         }();
       }]);
     });
@@ -838,12 +838,12 @@ var EntryUploader = class {
   readNextChunk() {
     let reader = new window.FileReader();
     let blob = this.entry.file.slice(this.offset, this.chunkSize + this.offset);
-    reader.onload = (e4) => {
-      if (e4.target.error === null) {
-        this.offset += e4.target.result.byteLength;
-        this.pushChunk(e4.target.result);
+    reader.onload = (e) => {
+      if (e.target.error === null) {
+        this.offset += e.target.result.byteLength;
+        this.pushChunk(e.target.result);
       } else {
-        return logError("Read error: " + e4.target.error);
+        return logError("Read error: " + e.target.error);
       }
     };
     reader.readAsArrayBuffer(blob);
@@ -867,11 +867,11 @@ var isCid = (cid) => typeof cid === "number";
 function detectDuplicateIds() {
   let ids = new Set();
   let elems = document.querySelectorAll("*[id]");
-  for (let i3 = 0, len = elems.length; i3 < len; i3++) {
-    if (ids.has(elems[i3].id)) {
-      console.error(`Multiple IDs detected: ${elems[i3].id}. Ensure unique element ids.`);
+  for (let i = 0, len = elems.length; i < len; i++) {
+    if (ids.has(elems[i].id)) {
+      console.error(`Multiple IDs detected: ${elems[i].id}. Ensure unique element ids.`);
     } else {
-      ids.add(elems[i3].id);
+      ids.add(elems[i].id);
     }
   }
 }
@@ -900,7 +900,7 @@ var isObject = (obj) => {
 };
 var isEqualObj = (obj1, obj2) => JSON.stringify(obj1) === JSON.stringify(obj2);
 var isEmpty = (obj) => {
-  for (let x2 in obj) {
+  for (let x in obj) {
     return false;
   }
   return true;
@@ -1211,15 +1211,15 @@ var DOM = {
     let exclude = opts.exclude || [];
     let isIgnored = opts.isIgnored;
     let sourceAttrs = source.attributes;
-    for (let i3 = sourceAttrs.length - 1; i3 >= 0; i3--) {
-      let name = sourceAttrs[i3].name;
+    for (let i = sourceAttrs.length - 1; i >= 0; i--) {
+      let name = sourceAttrs[i].name;
       if (exclude.indexOf(name) < 0) {
         target.setAttribute(name, source.getAttribute(name));
       }
     }
     let targetAttrs = target.attributes;
-    for (let i3 = targetAttrs.length - 1; i3 >= 0; i3--) {
-      let name = targetAttrs[i3].name;
+    for (let i = targetAttrs.length - 1; i >= 0; i--) {
+      let name = targetAttrs[i].name;
       if (isIgnored) {
         if (name.startsWith("data-") && !source.hasAttribute(name)) {
           target.removeAttribute(name);
@@ -1337,7 +1337,7 @@ removing illegal node: "${(childNode.outerHTML || childNode.nodeValue).trim()}"
   },
   deleteSticky(el, name) {
     this.updatePrivate(el, "sticky", [], (ops) => {
-      return ops.filter(([existingName, _2]) => existingName !== name);
+      return ops.filter(([existingName, _]) => existingName !== name);
     });
   },
   putSticky(el, name, op) {
@@ -1505,11 +1505,11 @@ var LiveUploader = class {
     dom_default.putPrivate(inputEl, "files", []);
   }
   static untrackFile(inputEl, file) {
-    dom_default.putPrivate(inputEl, "files", dom_default.private(inputEl, "files").filter((f2) => !Object.is(f2, file)));
+    dom_default.putPrivate(inputEl, "files", dom_default.private(inputEl, "files").filter((f) => !Object.is(f, file)));
   }
   static trackFiles(inputEl, files) {
     if (inputEl.getAttribute("multiple") !== null) {
-      let newFiles = files.filter((file) => !this.activeFiles(inputEl).find((f2) => Object.is(f2, file)));
+      let newFiles = files.filter((file) => !this.activeFiles(inputEl).find((f) => Object.is(f, file)));
       dom_default.putPrivate(inputEl, "files", this.activeFiles(inputEl).concat(newFiles));
       inputEl.value = null;
     } else {
@@ -1521,14 +1521,14 @@ var LiveUploader = class {
     return Array.from(fileInputs).filter((el) => el.files && this.activeFiles(el).length > 0);
   }
   static activeFiles(input) {
-    return (dom_default.private(input, "files") || []).filter((f2) => UploadEntry.isActive(input, f2));
+    return (dom_default.private(input, "files") || []).filter((f) => UploadEntry.isActive(input, f));
   }
   static inputsAwaitingPreflight(formEl) {
     let fileInputs = dom_default.findUploadInputs(formEl);
     return Array.from(fileInputs).filter((input) => this.filesAwaitingPreflight(input).length > 0);
   }
   static filesAwaitingPreflight(input) {
-    return this.activeFiles(input).filter((f2) => !UploadEntry.isPreflighted(input, f2));
+    return this.activeFiles(input).filter((f) => !UploadEntry.isPreflighted(input, f));
   }
   constructor(inputEl, view, onComplete) {
     this.view = view;
@@ -1666,8 +1666,8 @@ function morphAttrs(fromNode, toNode) {
   if (toNode.nodeType === DOCUMENT_FRAGMENT_NODE || fromNode.nodeType === DOCUMENT_FRAGMENT_NODE) {
     return;
   }
-  for (var i3 = toNodeAttrs.length - 1; i3 >= 0; i3--) {
-    attr = toNodeAttrs[i3];
+  for (var i = toNodeAttrs.length - 1; i >= 0; i--) {
+    attr = toNodeAttrs[i];
     attrName = attr.name;
     attrNamespaceURI = attr.namespaceURI;
     attrValue = attr.value;
@@ -1688,8 +1688,8 @@ function morphAttrs(fromNode, toNode) {
     }
   }
   var fromNodeAttrs = fromNode.attributes;
-  for (var d2 = fromNodeAttrs.length - 1; d2 >= 0; d2--) {
-    attr = fromNodeAttrs[d2];
+  for (var d = fromNodeAttrs.length - 1; d >= 0; d--) {
+    attr = fromNodeAttrs[d];
     attrName = attr.name;
     attrNamespaceURI = attr.namespaceURI;
     if (attrNamespaceURI) {
@@ -1821,7 +1821,7 @@ var specialElHandlers = {
   SELECT: function(fromEl, toEl) {
     if (!toEl.hasAttribute("multiple")) {
       var selectedIndex = -1;
-      var i3 = 0;
+      var i = 0;
       var curChild = fromEl.firstChild;
       var optgroup;
       var nodeName;
@@ -1833,10 +1833,10 @@ var specialElHandlers = {
         } else {
           if (nodeName === "OPTION") {
             if (curChild.hasAttribute("selected")) {
-              selectedIndex = i3;
+              selectedIndex = i;
               break;
             }
-            i3++;
+            i++;
           }
           curChild = curChild.nextSibling;
           if (!curChild && optgroup) {
@@ -2106,8 +2106,8 @@ function morphdomFactory(morphAttrs2) {
       }
       morphEl(morphedNode, toNode, childrenOnly);
       if (keyedRemovalList) {
-        for (var i3 = 0, len = keyedRemovalList.length; i3 < len; i3++) {
-          var elToRemove = fromNodesLookup[keyedRemovalList[i3]];
+        for (var i = 0, len = keyedRemovalList.length; i < len; i++) {
+          var elToRemove = fromNodesLookup[keyedRemovalList[i]];
           if (elToRemove) {
             removeNode(elToRemove, elToRemove.parentNode, false);
           }
@@ -2401,7 +2401,7 @@ var Rendered = class {
     return output.buffer;
   }
   componentCIDs(diff) {
-    return Object.keys(diff[COMPONENTS] || {}).map((i3) => parseInt(i3));
+    return Object.keys(diff[COMPONENTS] || {}).map((i) => parseInt(i));
   }
   isComponentOnlyDiff(diff) {
     if (!diff[COMPONENTS]) {
@@ -2507,21 +2507,21 @@ var Rendered = class {
     let { [STATIC]: statics } = rendered;
     statics = this.templateStatic(statics, templates);
     output.buffer += statics[0];
-    for (let i3 = 1; i3 < statics.length; i3++) {
-      this.dynamicToBuffer(rendered[i3 - 1], templates, output);
-      output.buffer += statics[i3];
+    for (let i = 1; i < statics.length; i++) {
+      this.dynamicToBuffer(rendered[i - 1], templates, output);
+      output.buffer += statics[i];
     }
   }
   comprehensionToBuffer(rendered, templates, output) {
     let { [DYNAMICS]: dynamics, [STATIC]: statics } = rendered;
     statics = this.templateStatic(statics, templates);
     let compTemplates = rendered[TEMPLATES];
-    for (let d2 = 0; d2 < dynamics.length; d2++) {
-      let dynamic = dynamics[d2];
+    for (let d = 0; d < dynamics.length; d++) {
+      let dynamic = dynamics[d];
       output.buffer += statics[0];
-      for (let i3 = 1; i3 < statics.length; i3++) {
-        this.dynamicToBuffer(dynamic[i3 - 1], compTemplates, output);
-        output.buffer += statics[i3];
+      for (let i = 1; i < statics.length; i++) {
+        this.dynamicToBuffer(dynamic[i - 1], compTemplates, output);
+        output.buffer += statics[i];
       }
     }
   }
@@ -2540,14 +2540,14 @@ var Rendered = class {
     template.innerHTML = this.recursiveToString(component, components, onlyCids);
     let container = template.content;
     let skip = onlyCids && !onlyCids.has(cid);
-    let [hasChildNodes, hasChildComponents] = Array.from(container.childNodes).reduce(([hasNodes, hasComponents], child, i3) => {
+    let [hasChildNodes, hasChildComponents] = Array.from(container.childNodes).reduce(([hasNodes, hasComponents], child, i) => {
       if (child.nodeType === Node.ELEMENT_NODE) {
         if (child.getAttribute(PHX_COMPONENT)) {
           return [hasNodes, true];
         }
         child.setAttribute(PHX_COMPONENT, cid);
         if (!child.id) {
-          child.id = `${this.parentViewId()}-${cid}-${i3}`;
+          child.id = `${this.parentViewId()}-${cid}-${i}`;
         }
         if (skip) {
           child.setAttribute(PHX_SKIP, "");
@@ -2849,9 +2849,9 @@ var View = class {
       console.log(forms);
       this.joinCount++;
       if (forms.length > 0) {
-        forms.forEach(([form, newForm, newCid], i3) => {
+        forms.forEach(([form, newForm, newCid], i) => {
           this.pushFormRecovery(form, newCid, (resp2) => {
-            if (i3 === forms.length - 1) {
+            if (i === forms.length - 1) {
               this.onJoinComplete(resp2, html, events);
             }
           });
@@ -3317,8 +3317,8 @@ var View = class {
   }
   extractMeta(el, meta) {
     let prefix = this.binding("value-");
-    for (let i3 = 0; i3 < el.attributes.length; i3++) {
-      let name = el.attributes[i3].name;
+    for (let i = 0; i < el.attributes.length; i++) {
+      let name = el.attributes[i].name;
       if (name.startsWith(prefix)) {
         meta[name.replace(prefix, "")] = el.getAttribute(name);
       }
@@ -4076,8 +4076,8 @@ var LiveSocket = class {
     this.boundTopLevelEvents = true;
     document.body.addEventListener("click", function() {
     });
-    window.addEventListener("pageshow", (e4) => {
-      if (e4.persisted) {
+    window.addEventListener("pageshow", (e) => {
+      if (e.persisted) {
         this.getSocket().disconnect();
         this.withPageLoading({ to: window.location.href, kind: "redirect" });
         window.location.reload();
@@ -4086,54 +4086,54 @@ var LiveSocket = class {
     this.bindNav();
     this.bindClicks();
     this.bindForms();
-    this.bind({ keyup: "keyup", keydown: "keydown" }, (e4, type, view, targetEl, phxEvent, eventTarget) => {
+    this.bind({ keyup: "keyup", keydown: "keydown" }, (e, type, view, targetEl, phxEvent, eventTarget) => {
       let matchKey = targetEl.getAttribute(this.binding(PHX_KEY));
-      let pressedKey = e4.key && e4.key.toLowerCase();
+      let pressedKey = e.key && e.key.toLowerCase();
       if (matchKey && matchKey.toLowerCase() !== pressedKey) {
         return;
       }
-      let data = { key: e4.key, ...this.eventMeta(type, e4, targetEl) };
+      let data = { key: e.key, ...this.eventMeta(type, e, targetEl) };
       js_default.exec(type, phxEvent, view, targetEl, ["push", { data }]);
     });
-    this.bind({ blur: "focusout", focus: "focusin" }, (e4, type, view, targetEl, phxEvent, eventTarget) => {
+    this.bind({ blur: "focusout", focus: "focusin" }, (e, type, view, targetEl, phxEvent, eventTarget) => {
       if (!eventTarget) {
-        let data = { key: e4.key, ...this.eventMeta(type, e4, targetEl) };
+        let data = { key: e.key, ...this.eventMeta(type, e, targetEl) };
         js_default.exec(type, phxEvent, view, targetEl, ["push", { data }]);
       }
     });
-    this.bind({ blur: "blur", focus: "focus" }, (e4, type, view, targetEl, targetCtx, phxEvent, phxTarget) => {
+    this.bind({ blur: "blur", focus: "focus" }, (e, type, view, targetEl, targetCtx, phxEvent, phxTarget) => {
       if (phxTarget === "window") {
-        let data = this.eventMeta(type, e4, targetEl);
+        let data = this.eventMeta(type, e, targetEl);
         js_default.exec(type, phxEvent, view, targetEl, ["push", { data }]);
       }
     });
-    window.addEventListener("dragover", (e4) => e4.preventDefault());
-    window.addEventListener("drop", (e4) => {
-      e4.preventDefault();
-      let dropTargetId = maybe(closestPhxBinding(e4.target, this.binding(PHX_DROP_TARGET)), (trueTarget) => {
+    window.addEventListener("dragover", (e) => e.preventDefault());
+    window.addEventListener("drop", (e) => {
+      e.preventDefault();
+      let dropTargetId = maybe(closestPhxBinding(e.target, this.binding(PHX_DROP_TARGET)), (trueTarget) => {
         return trueTarget.getAttribute(this.binding(PHX_DROP_TARGET));
       });
       let dropTarget = dropTargetId && document.getElementById(dropTargetId);
-      let files = Array.from(e4.dataTransfer.files || []);
+      let files = Array.from(e.dataTransfer.files || []);
       if (!dropTarget || dropTarget.disabled || files.length === 0 || !(dropTarget.files instanceof FileList)) {
         return;
       }
       LiveUploader.trackFiles(dropTarget, files);
       dropTarget.dispatchEvent(new Event("input", { bubbles: true }));
     });
-    this.on(PHX_TRACK_UPLOADS, (e4) => {
-      let uploadTarget = e4.target;
+    this.on(PHX_TRACK_UPLOADS, (e) => {
+      let uploadTarget = e.target;
       if (!dom_default.isUploadInput(uploadTarget)) {
         return;
       }
-      let files = Array.from(e4.detail.files || []).filter((f2) => f2 instanceof File || f2 instanceof Blob);
+      let files = Array.from(e.detail.files || []).filter((f) => f instanceof File || f instanceof Blob);
       LiveUploader.trackFiles(uploadTarget, files);
       uploadTarget.dispatchEvent(new Event("input", { bubbles: true }));
     });
   }
-  eventMeta(eventName, e4, targetEl) {
+  eventMeta(eventName, e, targetEl) {
     let callback = this.metadataCallbacks[eventName];
-    return callback ? callback(e4, targetEl) : {};
+    return callback ? callback(e, targetEl) : {};
   }
   setPendingLink(href) {
     this.linkRef++;
@@ -4158,22 +4158,22 @@ var LiveSocket = class {
   bind(events, callback) {
     for (let event in events) {
       let browserEventName = events[event];
-      this.on(browserEventName, (e4) => {
+      this.on(browserEventName, (e) => {
         let binding = this.binding(event);
         let windowBinding = this.binding(`window-${event}`);
-        let targetPhxEvent = e4.target.getAttribute && e4.target.getAttribute(binding);
+        let targetPhxEvent = e.target.getAttribute && e.target.getAttribute(binding);
         if (targetPhxEvent) {
-          this.debounce(e4.target, e4, () => {
-            this.withinOwners(e4.target, (view) => {
-              callback(e4, event, view, e4.target, targetPhxEvent, null);
+          this.debounce(e.target, e, () => {
+            this.withinOwners(e.target, (view) => {
+              callback(e, event, view, e.target, targetPhxEvent, null);
             });
           });
         } else {
           dom_default.all(document, `[${windowBinding}]`, (el) => {
             let phxEvent = el.getAttribute(windowBinding);
-            this.debounce(el, e4, () => {
+            this.debounce(el, e, () => {
               this.withinOwners(el, (view) => {
-                callback(e4, event, view, el, phxEvent, "window");
+                callback(e, event, view, el, phxEvent, "window");
               });
             });
           });
@@ -4187,38 +4187,38 @@ var LiveSocket = class {
   }
   bindClick(eventName, bindingName, capture) {
     let click = this.binding(bindingName);
-    window.addEventListener(eventName, (e4) => {
+    window.addEventListener(eventName, (e) => {
       if (!this.isConnected()) {
         return;
       }
       let target = null;
       if (capture) {
-        target = e4.target.matches(`[${click}]`) ? e4.target : e4.target.querySelector(`[${click}]`);
+        target = e.target.matches(`[${click}]`) ? e.target : e.target.querySelector(`[${click}]`);
       } else {
-        target = closestPhxBinding(e4.target, click);
-        this.dispatchClickAway(e4);
+        target = closestPhxBinding(e.target, click);
+        this.dispatchClickAway(e);
       }
       let phxEvent = target && target.getAttribute(click);
       if (!phxEvent) {
         return;
       }
       if (target.getAttribute("href") === "#") {
-        e4.preventDefault();
+        e.preventDefault();
       }
-      this.debounce(target, e4, () => {
+      this.debounce(target, e, () => {
         this.withinOwners(target, (view) => {
-          js_default.exec("click", phxEvent, view, target, ["push", { data: this.eventMeta("click", e4, target) }]);
+          js_default.exec("click", phxEvent, view, target, ["push", { data: this.eventMeta("click", e, target) }]);
         });
       });
     }, capture);
   }
-  dispatchClickAway(e4) {
+  dispatchClickAway(e) {
     let binding = this.binding("click-away");
     dom_default.all(document, `[${binding}]`, (el) => {
-      if (!(el.isSameNode(e4.target) || el.contains(e4.target))) {
-        this.withinOwners(e4.target, (view) => {
+      if (!(el.isSameNode(e.target) || el.contains(e.target))) {
+        this.withinOwners(e.target, (view) => {
           let phxEvent = el.getAttribute(binding);
-          js_default.exec("click", phxEvent, view, e4.target, ["push", { data: this.eventMeta("click", e4, e4.target) }]);
+          js_default.exec("click", phxEvent, view, e.target, ["push", { data: this.eventMeta("click", e, e.target) }]);
         });
       }
     });
@@ -4260,16 +4260,16 @@ var LiveSocket = class {
         }
       });
     }, false);
-    window.addEventListener("click", (e4) => {
-      let target = closestPhxBinding(e4.target, PHX_LIVE_LINK);
+    window.addEventListener("click", (e) => {
+      let target = closestPhxBinding(e.target, PHX_LIVE_LINK);
       let type = target && target.getAttribute(PHX_LIVE_LINK);
-      let wantsNewTab = e4.metaKey || e4.ctrlKey || e4.button === 1;
+      let wantsNewTab = e.metaKey || e.ctrlKey || e.button === 1;
       if (!type || !this.isConnected() || !this.main || wantsNewTab) {
         return;
       }
       let href = target.href;
       let linkState = target.getAttribute(PHX_LINK_STATE);
-      e4.preventDefault();
+      e.preventDefault();
       if (this.pendingLink === href) {
         return;
       }
@@ -4334,20 +4334,20 @@ var LiveSocket = class {
   }
   bindForms() {
     let iterations = 0;
-    this.on("submit", (e4) => {
-      let phxEvent = e4.target.getAttribute(this.binding("submit"));
+    this.on("submit", (e) => {
+      let phxEvent = e.target.getAttribute(this.binding("submit"));
       if (!phxEvent) {
         return;
       }
-      e4.preventDefault();
-      e4.target.disabled = true;
-      this.withinOwners(e4.target, (view) => {
-        js_default.exec("submit", phxEvent, view, e4.target, ["push", {}]);
+      e.preventDefault();
+      e.target.disabled = true;
+      this.withinOwners(e.target, (view) => {
+        js_default.exec("submit", phxEvent, view, e.target, ["push", {}]);
       });
     }, false);
     for (let type of ["change", "input"]) {
-      this.on(type, (e4) => {
-        let input = e4.target;
+      this.on(type, (e) => {
+        let input = e.target;
         let phxEvent = input.form && input.form.getAttribute(this.binding("change"));
         if (!phxEvent) {
           return;
@@ -4362,13 +4362,13 @@ var LiveSocket = class {
           return;
         }
         dom_default.putPrivate(input, "prev-iteration", { at: currentIterations, type });
-        this.debounce(input, e4, () => {
+        this.debounce(input, e, () => {
           this.withinOwners(input.form, (view) => {
             dom_default.putPrivate(input, PHX_HAS_FOCUSED, true);
             if (!dom_default.isTextualInput(input)) {
               this.setActiveElement(input);
             }
-            js_default.exec("change", phxEvent, view, input, ["push", { _target: e4.target.name }]);
+            js_default.exec("change", phxEvent, view, input, ["push", { _target: e.target.name }]);
           });
         });
       }, false);
@@ -4387,9 +4387,9 @@ var LiveSocket = class {
     this.silenced = false;
   }
   on(event, callback) {
-    window.addEventListener(event, (e4) => {
+    window.addEventListener(event, (e) => {
       if (!this.silenced) {
-        callback(e4);
+        callback(e);
       }
     });
   }
@@ -4436,599 +4436,10 @@ var TransitionSet = class {
   }
 };
 
-// node_modules/@lit/reactive-element/css-tag.js
-var t = window.ShadowRoot && (window.ShadyCSS === void 0 || window.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype;
-var e = Symbol();
-var n = new Map();
-var s = class {
-  constructor(t3, n5) {
-    if (this._$cssResult$ = true, n5 !== e)
-      throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
-    this.cssText = t3;
-  }
-  get styleSheet() {
-    let e4 = n.get(this.cssText);
-    return t && e4 === void 0 && (n.set(this.cssText, e4 = new CSSStyleSheet()), e4.replaceSync(this.cssText)), e4;
-  }
-  toString() {
-    return this.cssText;
-  }
-};
-var o = (t3) => new s(typeof t3 == "string" ? t3 : t3 + "", e);
-var r = (t3, ...n5) => {
-  const o5 = t3.length === 1 ? t3[0] : n5.reduce((e4, n6, s5) => e4 + ((t4) => {
-    if (t4._$cssResult$ === true)
-      return t4.cssText;
-    if (typeof t4 == "number")
-      return t4;
-    throw Error("Value passed to 'css' function must be a 'css' function result: " + t4 + ". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.");
-  })(n6) + t3[s5 + 1], t3[0]);
-  return new s(o5, e);
-};
-var i = (e4, n5) => {
-  t ? e4.adoptedStyleSheets = n5.map((t3) => t3 instanceof CSSStyleSheet ? t3 : t3.styleSheet) : n5.forEach((t3) => {
-    const n6 = document.createElement("style"), s5 = window.litNonce;
-    s5 !== void 0 && n6.setAttribute("nonce", s5), n6.textContent = t3.cssText, e4.appendChild(n6);
-  });
-};
-var S = t ? (t3) => t3 : (t3) => t3 instanceof CSSStyleSheet ? ((t4) => {
-  let e4 = "";
-  for (const n5 of t4.cssRules)
-    e4 += n5.cssText;
-  return o(e4);
-})(t3) : t3;
-
-// node_modules/@lit/reactive-element/reactive-element.js
-var s2;
-var e2 = window.reactiveElementPolyfillSupport;
-var r2 = { toAttribute(t3, i3) {
-  switch (i3) {
-    case Boolean:
-      t3 = t3 ? "" : null;
-      break;
-    case Object:
-    case Array:
-      t3 = t3 == null ? t3 : JSON.stringify(t3);
-  }
-  return t3;
-}, fromAttribute(t3, i3) {
-  let s5 = t3;
-  switch (i3) {
-    case Boolean:
-      s5 = t3 !== null;
-      break;
-    case Number:
-      s5 = t3 === null ? null : Number(t3);
-      break;
-    case Object:
-    case Array:
-      try {
-        s5 = JSON.parse(t3);
-      } catch (t4) {
-        s5 = null;
-      }
-  }
-  return s5;
-} };
-var h = (t3, i3) => i3 !== t3 && (i3 == i3 || t3 == t3);
-var o2 = { attribute: true, type: String, converter: r2, reflect: false, hasChanged: h };
-var n2 = class extends HTMLElement {
-  constructor() {
-    super(), this._$Et = new Map(), this.isUpdatePending = false, this.hasUpdated = false, this._$Ei = null, this.o();
-  }
-  static addInitializer(t3) {
-    var i3;
-    (i3 = this.l) !== null && i3 !== void 0 || (this.l = []), this.l.push(t3);
-  }
-  static get observedAttributes() {
-    this.finalize();
-    const t3 = [];
-    return this.elementProperties.forEach((i3, s5) => {
-      const e4 = this._$Eh(s5, i3);
-      e4 !== void 0 && (this._$Eu.set(e4, s5), t3.push(e4));
-    }), t3;
-  }
-  static createProperty(t3, i3 = o2) {
-    if (i3.state && (i3.attribute = false), this.finalize(), this.elementProperties.set(t3, i3), !i3.noAccessor && !this.prototype.hasOwnProperty(t3)) {
-      const s5 = typeof t3 == "symbol" ? Symbol() : "__" + t3, e4 = this.getPropertyDescriptor(t3, s5, i3);
-      e4 !== void 0 && Object.defineProperty(this.prototype, t3, e4);
-    }
-  }
-  static getPropertyDescriptor(t3, i3, s5) {
-    return { get() {
-      return this[i3];
-    }, set(e4) {
-      const r4 = this[t3];
-      this[i3] = e4, this.requestUpdate(t3, r4, s5);
-    }, configurable: true, enumerable: true };
-  }
-  static getPropertyOptions(t3) {
-    return this.elementProperties.get(t3) || o2;
-  }
-  static finalize() {
-    if (this.hasOwnProperty("finalized"))
-      return false;
-    this.finalized = true;
-    const t3 = Object.getPrototypeOf(this);
-    if (t3.finalize(), this.elementProperties = new Map(t3.elementProperties), this._$Eu = new Map(), this.hasOwnProperty("properties")) {
-      const t4 = this.properties, i3 = [...Object.getOwnPropertyNames(t4), ...Object.getOwnPropertySymbols(t4)];
-      for (const s5 of i3)
-        this.createProperty(s5, t4[s5]);
-    }
-    return this.elementStyles = this.finalizeStyles(this.styles), true;
-  }
-  static finalizeStyles(i3) {
-    const s5 = [];
-    if (Array.isArray(i3)) {
-      const e4 = new Set(i3.flat(1 / 0).reverse());
-      for (const i4 of e4)
-        s5.unshift(S(i4));
-    } else
-      i3 !== void 0 && s5.push(S(i3));
-    return s5;
-  }
-  static _$Eh(t3, i3) {
-    const s5 = i3.attribute;
-    return s5 === false ? void 0 : typeof s5 == "string" ? s5 : typeof t3 == "string" ? t3.toLowerCase() : void 0;
-  }
-  o() {
-    var t3;
-    this._$Ev = new Promise((t4) => this.enableUpdating = t4), this._$AL = new Map(), this._$Ep(), this.requestUpdate(), (t3 = this.constructor.l) === null || t3 === void 0 || t3.forEach((t4) => t4(this));
-  }
-  addController(t3) {
-    var i3, s5;
-    ((i3 = this._$Em) !== null && i3 !== void 0 ? i3 : this._$Em = []).push(t3), this.renderRoot !== void 0 && this.isConnected && ((s5 = t3.hostConnected) === null || s5 === void 0 || s5.call(t3));
-  }
-  removeController(t3) {
-    var i3;
-    (i3 = this._$Em) === null || i3 === void 0 || i3.splice(this._$Em.indexOf(t3) >>> 0, 1);
-  }
-  _$Ep() {
-    this.constructor.elementProperties.forEach((t3, i3) => {
-      this.hasOwnProperty(i3) && (this._$Et.set(i3, this[i3]), delete this[i3]);
-    });
-  }
-  createRenderRoot() {
-    var t3;
-    const s5 = (t3 = this.shadowRoot) !== null && t3 !== void 0 ? t3 : this.attachShadow(this.constructor.shadowRootOptions);
-    return i(s5, this.constructor.elementStyles), s5;
-  }
-  connectedCallback() {
-    var t3;
-    this.renderRoot === void 0 && (this.renderRoot = this.createRenderRoot()), this.enableUpdating(true), (t3 = this._$Em) === null || t3 === void 0 || t3.forEach((t4) => {
-      var i3;
-      return (i3 = t4.hostConnected) === null || i3 === void 0 ? void 0 : i3.call(t4);
-    });
-  }
-  enableUpdating(t3) {
-  }
-  disconnectedCallback() {
-    var t3;
-    (t3 = this._$Em) === null || t3 === void 0 || t3.forEach((t4) => {
-      var i3;
-      return (i3 = t4.hostDisconnected) === null || i3 === void 0 ? void 0 : i3.call(t4);
-    });
-  }
-  attributeChangedCallback(t3, i3, s5) {
-    this._$AK(t3, s5);
-  }
-  _$Eg(t3, i3, s5 = o2) {
-    var e4, h3;
-    const n5 = this.constructor._$Eh(t3, s5);
-    if (n5 !== void 0 && s5.reflect === true) {
-      const o5 = ((h3 = (e4 = s5.converter) === null || e4 === void 0 ? void 0 : e4.toAttribute) !== null && h3 !== void 0 ? h3 : r2.toAttribute)(i3, s5.type);
-      this._$Ei = t3, o5 == null ? this.removeAttribute(n5) : this.setAttribute(n5, o5), this._$Ei = null;
-    }
-  }
-  _$AK(t3, i3) {
-    var s5, e4, h3;
-    const o5 = this.constructor, n5 = o5._$Eu.get(t3);
-    if (n5 !== void 0 && this._$Ei !== n5) {
-      const t4 = o5.getPropertyOptions(n5), l3 = t4.converter, a2 = (h3 = (e4 = (s5 = l3) === null || s5 === void 0 ? void 0 : s5.fromAttribute) !== null && e4 !== void 0 ? e4 : typeof l3 == "function" ? l3 : null) !== null && h3 !== void 0 ? h3 : r2.fromAttribute;
-      this._$Ei = n5, this[n5] = a2(i3, t4.type), this._$Ei = null;
-    }
-  }
-  requestUpdate(t3, i3, s5) {
-    let e4 = true;
-    t3 !== void 0 && (((s5 = s5 || this.constructor.getPropertyOptions(t3)).hasChanged || h)(this[t3], i3) ? (this._$AL.has(t3) || this._$AL.set(t3, i3), s5.reflect === true && this._$Ei !== t3 && (this._$ES === void 0 && (this._$ES = new Map()), this._$ES.set(t3, s5))) : e4 = false), !this.isUpdatePending && e4 && (this._$Ev = this._$EC());
-  }
-  async _$EC() {
-    this.isUpdatePending = true;
-    try {
-      await this._$Ev;
-    } catch (t4) {
-      Promise.reject(t4);
-    }
-    const t3 = this.scheduleUpdate();
-    return t3 != null && await t3, !this.isUpdatePending;
-  }
-  scheduleUpdate() {
-    return this.performUpdate();
-  }
-  performUpdate() {
-    var t3;
-    if (!this.isUpdatePending)
-      return;
-    this.hasUpdated, this._$Et && (this._$Et.forEach((t4, i4) => this[i4] = t4), this._$Et = void 0);
-    let i3 = false;
-    const s5 = this._$AL;
-    try {
-      i3 = this.shouldUpdate(s5), i3 ? (this.willUpdate(s5), (t3 = this._$Em) === null || t3 === void 0 || t3.forEach((t4) => {
-        var i4;
-        return (i4 = t4.hostUpdate) === null || i4 === void 0 ? void 0 : i4.call(t4);
-      }), this.update(s5)) : this._$EU();
-    } catch (t4) {
-      throw i3 = false, this._$EU(), t4;
-    }
-    i3 && this._$AE(s5);
-  }
-  willUpdate(t3) {
-  }
-  _$AE(t3) {
-    var i3;
-    (i3 = this._$Em) === null || i3 === void 0 || i3.forEach((t4) => {
-      var i4;
-      return (i4 = t4.hostUpdated) === null || i4 === void 0 ? void 0 : i4.call(t4);
-    }), this.hasUpdated || (this.hasUpdated = true, this.firstUpdated(t3)), this.updated(t3);
-  }
-  _$EU() {
-    this._$AL = new Map(), this.isUpdatePending = false;
-  }
-  get updateComplete() {
-    return this.getUpdateComplete();
-  }
-  getUpdateComplete() {
-    return this._$Ev;
-  }
-  shouldUpdate(t3) {
-    return true;
-  }
-  update(t3) {
-    this._$ES !== void 0 && (this._$ES.forEach((t4, i3) => this._$Eg(i3, this[i3], t4)), this._$ES = void 0), this._$EU();
-  }
-  updated(t3) {
-  }
-  firstUpdated(t3) {
-  }
-};
-n2.finalized = true, n2.elementProperties = new Map(), n2.elementStyles = [], n2.shadowRootOptions = { mode: "open" }, e2 == null || e2({ ReactiveElement: n2 }), ((s2 = globalThis.reactiveElementVersions) !== null && s2 !== void 0 ? s2 : globalThis.reactiveElementVersions = []).push("1.0.1");
-
-// node_modules/lit-html/lit-html.js
-var t2;
-var i2 = globalThis.trustedTypes;
-var s3 = i2 ? i2.createPolicy("lit-html", { createHTML: (t3) => t3 }) : void 0;
-var e3 = `lit$${(Math.random() + "").slice(9)}$`;
-var o3 = "?" + e3;
-var n3 = `<${o3}>`;
-var l = document;
-var h2 = (t3 = "") => l.createComment(t3);
-var r3 = (t3) => t3 === null || typeof t3 != "object" && typeof t3 != "function";
-var d = Array.isArray;
-var u = (t3) => {
-  var i3;
-  return d(t3) || typeof ((i3 = t3) === null || i3 === void 0 ? void 0 : i3[Symbol.iterator]) == "function";
-};
-var c = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g;
-var v = /-->/g;
-var a = />/g;
-var f = />|[ 	\n\r](?:([^\s"'>=/]+)([ 	\n\r]*=[ 	\n\r]*(?:[^ 	\n\r"'`<>=]|("|')|))|$)/g;
-var _ = /'/g;
-var m = /"/g;
-var g = /^(?:script|style|textarea)$/i;
-var $ = (t3) => (i3, ...s5) => ({ _$litType$: t3, strings: i3, values: s5 });
-var p = $(1);
-var y = $(2);
-var b = Symbol.for("lit-noChange");
-var T = Symbol.for("lit-nothing");
-var x = new WeakMap();
-var w = (t3, i3, s5) => {
-  var e4, o5;
-  const n5 = (e4 = s5 == null ? void 0 : s5.renderBefore) !== null && e4 !== void 0 ? e4 : i3;
-  let l3 = n5._$litPart$;
-  if (l3 === void 0) {
-    const t4 = (o5 = s5 == null ? void 0 : s5.renderBefore) !== null && o5 !== void 0 ? o5 : null;
-    n5._$litPart$ = l3 = new N(i3.insertBefore(h2(), t4), t4, void 0, s5 != null ? s5 : {});
-  }
-  return l3._$AI(t3), l3;
-};
-var A = l.createTreeWalker(l, 129, null, false);
-var C = (t3, i3) => {
-  const o5 = t3.length - 1, l3 = [];
-  let h3, r4 = i3 === 2 ? "<svg>" : "", d2 = c;
-  for (let i4 = 0; i4 < o5; i4++) {
-    const s5 = t3[i4];
-    let o6, u3, $2 = -1, p2 = 0;
-    for (; p2 < s5.length && (d2.lastIndex = p2, u3 = d2.exec(s5), u3 !== null); )
-      p2 = d2.lastIndex, d2 === c ? u3[1] === "!--" ? d2 = v : u3[1] !== void 0 ? d2 = a : u3[2] !== void 0 ? (g.test(u3[2]) && (h3 = RegExp("</" + u3[2], "g")), d2 = f) : u3[3] !== void 0 && (d2 = f) : d2 === f ? u3[0] === ">" ? (d2 = h3 != null ? h3 : c, $2 = -1) : u3[1] === void 0 ? $2 = -2 : ($2 = d2.lastIndex - u3[2].length, o6 = u3[1], d2 = u3[3] === void 0 ? f : u3[3] === '"' ? m : _) : d2 === m || d2 === _ ? d2 = f : d2 === v || d2 === a ? d2 = c : (d2 = f, h3 = void 0);
-    const y2 = d2 === f && t3[i4 + 1].startsWith("/>") ? " " : "";
-    r4 += d2 === c ? s5 + n3 : $2 >= 0 ? (l3.push(o6), s5.slice(0, $2) + "$lit$" + s5.slice($2) + e3 + y2) : s5 + e3 + ($2 === -2 ? (l3.push(void 0), i4) : y2);
-  }
-  const u2 = r4 + (t3[o5] || "<?>") + (i3 === 2 ? "</svg>" : "");
-  return [s3 !== void 0 ? s3.createHTML(u2) : u2, l3];
-};
-var P = class {
-  constructor({ strings: t3, _$litType$: s5 }, n5) {
-    let l3;
-    this.parts = [];
-    let r4 = 0, d2 = 0;
-    const u2 = t3.length - 1, c2 = this.parts, [v2, a2] = C(t3, s5);
-    if (this.el = P.createElement(v2, n5), A.currentNode = this.el.content, s5 === 2) {
-      const t4 = this.el.content, i3 = t4.firstChild;
-      i3.remove(), t4.append(...i3.childNodes);
-    }
-    for (; (l3 = A.nextNode()) !== null && c2.length < u2; ) {
-      if (l3.nodeType === 1) {
-        if (l3.hasAttributes()) {
-          const t4 = [];
-          for (const i3 of l3.getAttributeNames())
-            if (i3.endsWith("$lit$") || i3.startsWith(e3)) {
-              const s6 = a2[d2++];
-              if (t4.push(i3), s6 !== void 0) {
-                const t5 = l3.getAttribute(s6.toLowerCase() + "$lit$").split(e3), i4 = /([.?@])?(.*)/.exec(s6);
-                c2.push({ type: 1, index: r4, name: i4[2], strings: t5, ctor: i4[1] === "." ? M : i4[1] === "?" ? k : i4[1] === "@" ? H : S2 });
-              } else
-                c2.push({ type: 6, index: r4 });
-            }
-          for (const i3 of t4)
-            l3.removeAttribute(i3);
-        }
-        if (g.test(l3.tagName)) {
-          const t4 = l3.textContent.split(e3), s6 = t4.length - 1;
-          if (s6 > 0) {
-            l3.textContent = i2 ? i2.emptyScript : "";
-            for (let i3 = 0; i3 < s6; i3++)
-              l3.append(t4[i3], h2()), A.nextNode(), c2.push({ type: 2, index: ++r4 });
-            l3.append(t4[s6], h2());
-          }
-        }
-      } else if (l3.nodeType === 8)
-        if (l3.data === o3)
-          c2.push({ type: 2, index: r4 });
-        else {
-          let t4 = -1;
-          for (; (t4 = l3.data.indexOf(e3, t4 + 1)) !== -1; )
-            c2.push({ type: 7, index: r4 }), t4 += e3.length - 1;
-        }
-      r4++;
-    }
-  }
-  static createElement(t3, i3) {
-    const s5 = l.createElement("template");
-    return s5.innerHTML = t3, s5;
-  }
-};
-function V(t3, i3, s5 = t3, e4) {
-  var o5, n5, l3, h3;
-  if (i3 === b)
-    return i3;
-  let d2 = e4 !== void 0 ? (o5 = s5._$Cl) === null || o5 === void 0 ? void 0 : o5[e4] : s5._$Cu;
-  const u2 = r3(i3) ? void 0 : i3._$litDirective$;
-  return (d2 == null ? void 0 : d2.constructor) !== u2 && ((n5 = d2 == null ? void 0 : d2._$AO) === null || n5 === void 0 || n5.call(d2, false), u2 === void 0 ? d2 = void 0 : (d2 = new u2(t3), d2._$AT(t3, s5, e4)), e4 !== void 0 ? ((l3 = (h3 = s5)._$Cl) !== null && l3 !== void 0 ? l3 : h3._$Cl = [])[e4] = d2 : s5._$Cu = d2), d2 !== void 0 && (i3 = V(t3, d2._$AS(t3, i3.values), d2, e4)), i3;
-}
-var E = class {
-  constructor(t3, i3) {
-    this.v = [], this._$AN = void 0, this._$AD = t3, this._$AM = i3;
-  }
-  get parentNode() {
-    return this._$AM.parentNode;
-  }
-  get _$AU() {
-    return this._$AM._$AU;
-  }
-  p(t3) {
-    var i3;
-    const { el: { content: s5 }, parts: e4 } = this._$AD, o5 = ((i3 = t3 == null ? void 0 : t3.creationScope) !== null && i3 !== void 0 ? i3 : l).importNode(s5, true);
-    A.currentNode = o5;
-    let n5 = A.nextNode(), h3 = 0, r4 = 0, d2 = e4[0];
-    for (; d2 !== void 0; ) {
-      if (h3 === d2.index) {
-        let i4;
-        d2.type === 2 ? i4 = new N(n5, n5.nextSibling, this, t3) : d2.type === 1 ? i4 = new d2.ctor(n5, d2.name, d2.strings, this, t3) : d2.type === 6 && (i4 = new I(n5, this, t3)), this.v.push(i4), d2 = e4[++r4];
-      }
-      h3 !== (d2 == null ? void 0 : d2.index) && (n5 = A.nextNode(), h3++);
-    }
-    return o5;
-  }
-  m(t3) {
-    let i3 = 0;
-    for (const s5 of this.v)
-      s5 !== void 0 && (s5.strings !== void 0 ? (s5._$AI(t3, s5, i3), i3 += s5.strings.length - 2) : s5._$AI(t3[i3])), i3++;
-  }
-};
-var N = class {
-  constructor(t3, i3, s5, e4) {
-    var o5;
-    this.type = 2, this._$AH = T, this._$AN = void 0, this._$AA = t3, this._$AB = i3, this._$AM = s5, this.options = e4, this._$Cg = (o5 = e4 == null ? void 0 : e4.isConnected) === null || o5 === void 0 || o5;
-  }
-  get _$AU() {
-    var t3, i3;
-    return (i3 = (t3 = this._$AM) === null || t3 === void 0 ? void 0 : t3._$AU) !== null && i3 !== void 0 ? i3 : this._$Cg;
-  }
-  get parentNode() {
-    let t3 = this._$AA.parentNode;
-    const i3 = this._$AM;
-    return i3 !== void 0 && t3.nodeType === 11 && (t3 = i3.parentNode), t3;
-  }
-  get startNode() {
-    return this._$AA;
-  }
-  get endNode() {
-    return this._$AB;
-  }
-  _$AI(t3, i3 = this) {
-    t3 = V(this, t3, i3), r3(t3) ? t3 === T || t3 == null || t3 === "" ? (this._$AH !== T && this._$AR(), this._$AH = T) : t3 !== this._$AH && t3 !== b && this.$(t3) : t3._$litType$ !== void 0 ? this.T(t3) : t3.nodeType !== void 0 ? this.S(t3) : u(t3) ? this.M(t3) : this.$(t3);
-  }
-  A(t3, i3 = this._$AB) {
-    return this._$AA.parentNode.insertBefore(t3, i3);
-  }
-  S(t3) {
-    this._$AH !== t3 && (this._$AR(), this._$AH = this.A(t3));
-  }
-  $(t3) {
-    this._$AH !== T && r3(this._$AH) ? this._$AA.nextSibling.data = t3 : this.S(l.createTextNode(t3)), this._$AH = t3;
-  }
-  T(t3) {
-    var i3;
-    const { values: s5, _$litType$: e4 } = t3, o5 = typeof e4 == "number" ? this._$AC(t3) : (e4.el === void 0 && (e4.el = P.createElement(e4.h, this.options)), e4);
-    if (((i3 = this._$AH) === null || i3 === void 0 ? void 0 : i3._$AD) === o5)
-      this._$AH.m(s5);
-    else {
-      const t4 = new E(o5, this), i4 = t4.p(this.options);
-      t4.m(s5), this.S(i4), this._$AH = t4;
-    }
-  }
-  _$AC(t3) {
-    let i3 = x.get(t3.strings);
-    return i3 === void 0 && x.set(t3.strings, i3 = new P(t3)), i3;
-  }
-  M(t3) {
-    d(this._$AH) || (this._$AH = [], this._$AR());
-    const i3 = this._$AH;
-    let s5, e4 = 0;
-    for (const o5 of t3)
-      e4 === i3.length ? i3.push(s5 = new N(this.A(h2()), this.A(h2()), this, this.options)) : s5 = i3[e4], s5._$AI(o5), e4++;
-    e4 < i3.length && (this._$AR(s5 && s5._$AB.nextSibling, e4), i3.length = e4);
-  }
-  _$AR(t3 = this._$AA.nextSibling, i3) {
-    var s5;
-    for ((s5 = this._$AP) === null || s5 === void 0 || s5.call(this, false, true, i3); t3 && t3 !== this._$AB; ) {
-      const i4 = t3.nextSibling;
-      t3.remove(), t3 = i4;
-    }
-  }
-  setConnected(t3) {
-    var i3;
-    this._$AM === void 0 && (this._$Cg = t3, (i3 = this._$AP) === null || i3 === void 0 || i3.call(this, t3));
-  }
-};
-var S2 = class {
-  constructor(t3, i3, s5, e4, o5) {
-    this.type = 1, this._$AH = T, this._$AN = void 0, this.element = t3, this.name = i3, this._$AM = e4, this.options = o5, s5.length > 2 || s5[0] !== "" || s5[1] !== "" ? (this._$AH = Array(s5.length - 1).fill(new String()), this.strings = s5) : this._$AH = T;
-  }
-  get tagName() {
-    return this.element.tagName;
-  }
-  get _$AU() {
-    return this._$AM._$AU;
-  }
-  _$AI(t3, i3 = this, s5, e4) {
-    const o5 = this.strings;
-    let n5 = false;
-    if (o5 === void 0)
-      t3 = V(this, t3, i3, 0), n5 = !r3(t3) || t3 !== this._$AH && t3 !== b, n5 && (this._$AH = t3);
-    else {
-      const e5 = t3;
-      let l3, h3;
-      for (t3 = o5[0], l3 = 0; l3 < o5.length - 1; l3++)
-        h3 = V(this, e5[s5 + l3], i3, l3), h3 === b && (h3 = this._$AH[l3]), n5 || (n5 = !r3(h3) || h3 !== this._$AH[l3]), h3 === T ? t3 = T : t3 !== T && (t3 += (h3 != null ? h3 : "") + o5[l3 + 1]), this._$AH[l3] = h3;
-    }
-    n5 && !e4 && this.k(t3);
-  }
-  k(t3) {
-    t3 === T ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, t3 != null ? t3 : "");
-  }
-};
-var M = class extends S2 {
-  constructor() {
-    super(...arguments), this.type = 3;
-  }
-  k(t3) {
-    this.element[this.name] = t3 === T ? void 0 : t3;
-  }
-};
-var k = class extends S2 {
-  constructor() {
-    super(...arguments), this.type = 4;
-  }
-  k(t3) {
-    t3 && t3 !== T ? this.element.setAttribute(this.name, "") : this.element.removeAttribute(this.name);
-  }
-};
-var H = class extends S2 {
-  constructor(t3, i3, s5, e4, o5) {
-    super(t3, i3, s5, e4, o5), this.type = 5;
-  }
-  _$AI(t3, i3 = this) {
-    var s5;
-    if ((t3 = (s5 = V(this, t3, i3, 0)) !== null && s5 !== void 0 ? s5 : T) === b)
-      return;
-    const e4 = this._$AH, o5 = t3 === T && e4 !== T || t3.capture !== e4.capture || t3.once !== e4.once || t3.passive !== e4.passive, n5 = t3 !== T && (e4 === T || o5);
-    o5 && this.element.removeEventListener(this.name, this, e4), n5 && this.element.addEventListener(this.name, this, t3), this._$AH = t3;
-  }
-  handleEvent(t3) {
-    var i3, s5;
-    typeof this._$AH == "function" ? this._$AH.call((s5 = (i3 = this.options) === null || i3 === void 0 ? void 0 : i3.host) !== null && s5 !== void 0 ? s5 : this.element, t3) : this._$AH.handleEvent(t3);
-  }
-};
-var I = class {
-  constructor(t3, i3, s5) {
-    this.element = t3, this.type = 6, this._$AN = void 0, this._$AM = i3, this.options = s5;
-  }
-  get _$AU() {
-    return this._$AM._$AU;
-  }
-  _$AI(t3) {
-    V(this, t3);
-  }
-};
-var R = window.litHtmlPolyfillSupport;
-R == null || R(P, N), ((t2 = globalThis.litHtmlVersions) !== null && t2 !== void 0 ? t2 : globalThis.litHtmlVersions = []).push("2.0.1");
-
-// node_modules/lit-element/lit-element.js
-var l2;
-var o4;
-var s4 = class extends n2 {
-  constructor() {
-    super(...arguments), this.renderOptions = { host: this }, this._$Dt = void 0;
-  }
-  createRenderRoot() {
-    var t3, e4;
-    const i3 = super.createRenderRoot();
-    return (t3 = (e4 = this.renderOptions).renderBefore) !== null && t3 !== void 0 || (e4.renderBefore = i3.firstChild), i3;
-  }
-  update(t3) {
-    const i3 = this.render();
-    this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(t3), this._$Dt = w(i3, this.renderRoot, this.renderOptions);
-  }
-  connectedCallback() {
-    var t3;
-    super.connectedCallback(), (t3 = this._$Dt) === null || t3 === void 0 || t3.setConnected(true);
-  }
-  disconnectedCallback() {
-    var t3;
-    super.disconnectedCallback(), (t3 = this._$Dt) === null || t3 === void 0 || t3.setConnected(false);
-  }
-  render() {
-    return b;
-  }
-};
-s4.finalized = true, s4._$litElement$ = true, (l2 = globalThis.litElementHydrateSupport) === null || l2 === void 0 || l2.call(globalThis, { LitElement: s4 });
-var n4 = globalThis.litElementPolyfillSupport;
-n4 == null || n4({ LitElement: s4 });
-((o4 = globalThis.litElementVersions) !== null && o4 !== void 0 ? o4 : globalThis.litElementVersions = []).push("3.0.1");
-
 // js/live_element/LiveElement.js
 var import_phoenix = __toModule(require_phoenix());
-var LiveElement = class extends s4 {
-  static get styles() {
-    return r`
-      :host {
-        display: block;
-        padding: 25px;
-        color: var(--live-element-text-color, #000);
-      }
-    `;
-  }
-  static get properties() {
-    return {
-      title: { type: String },
-      counter: { type: Number },
-      module: { type: String },
-      url: { type: String }
-    };
-  }
+var LiveElement = class extends HTMLElement {
   connectedCallback() {
-    super.connectedCallback();
     this.liveSocket = new LiveSocket(this.url, import_phoenix.Socket, {});
     this.liveSocket.enableDebug();
     this.liveSocket.socket.connect();
@@ -5042,11 +4453,11 @@ var LiveElement = class extends s4 {
     });
     this.view.setHref(this.liveSocket.getHref());
     this.view.join();
+    this.attachShadow({ mode: "open" });
+    this.renderRoot = this.shadowRoot;
+    this.bindEvents();
   }
-  constructor() {
-    super();
-  }
-  firstUpdated() {
+  bindEvents() {
     this.renderRoot.addEventListener("click", (event) => {
       console.log(event);
       const { target } = event;
@@ -5067,26 +4478,10 @@ var LiveElement = class extends s4 {
       this.view.submitForm(event.target, this.renderRoot, phxEvent);
     }, true);
   }
-  viewUpdated() {
-    console.log("view updated");
-  }
-  __increment() {
-    this.counter += 1;
-  }
 };
 var LiveElement_default = LiveElement;
 export {
   LiveElement_default as LiveElement,
   LiveSocket
 };
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */
-/**
- * @license
- * Copyright 2019 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */
 //# sourceMappingURL=live_element.esm.js.map
