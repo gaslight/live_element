@@ -156,15 +156,11 @@ defmodule LiveElement.Channel do
     %{"value" => raw_val, "event" => event, "type" => type} = msg.payload
     val = decode_event_type(type, raw_val)
 
-    if cid = msg.payload["cid"] do
-      component_handle_event(state, cid, event, val, msg.ref, msg.payload)
-    else
-      new_state = %{state | socket: maybe_update_uploads(state.socket, msg.payload)}
+    new_state = %{state | socket: maybe_update_uploads(state.socket, msg.payload)}
 
-      new_state.socket
-      |> view_handle_event(event, val)
-      |> handle_result({:handle_event, 3, msg.ref}, new_state)
-    end
+    new_state.socket
+    |> view_handle_event(event, val)
+    |> handle_result({:handle_event, 3, msg.ref}, new_state)
   end
 
   def handle_info({@prefix, :drop_upload_entries, info}, state) do
@@ -426,34 +422,6 @@ defmodule LiveElement.Channel do
     """
   end
 
-  defp component_handle_event(state, cid, event, val, ref, payload) do
-    %{socket: socket, components: components} = state
-
-    result =
-      Diff.write_component(socket, cid, components, fn component_socket, component ->
-        component_socket
-        |> maybe_update_uploads(payload)
-        |> inner_component_handle_event(component, event, val)
-      end)
-
-    # Due to race conditions, the browser can send a request for a
-    # component ID that no longer exists. So we need to check for
-    # the :error case accordingly.
-    case result do
-      {diff, new_components, {redirected, flash}} ->
-        new_state = %{state | components: new_components}
-
-        if redirected do
-          handle_redirect(new_state, redirected, flash, nil, {diff, ref})
-        else
-          {:noreply, push_diff(new_state, diff, ref)}
-        end
-
-      :error ->
-        {:noreply, push_noop(state, ref)}
-    end
-  end
-
   defp unregister_upload(state, ref, entry_ref, cid) do
     write_socket(state, cid, nil, fn socket, _ ->
       conf = Upload.get_upload_by_ref!(socket, ref)
@@ -474,58 +442,6 @@ defmodule LiveElement.Channel do
   defp drop_upload_name(state, name) do
     {_, new_state} = pop_in(state.upload_names[name])
     new_state
-  end
-
-  defp inner_component_handle_event(component_socket, _component, "lv:clear-flash", val) do
-    component_socket =
-      case val do
-        %{"key" => key} -> Utils.clear_flash(component_socket, key)
-        _ -> Utils.clear_flash(component_socket)
-      end
-
-    {component_socket, {nil, %{}}}
-  end
-
-  defp inner_component_handle_event(_component_socket, _component, "lv:" <> _ = bad_event, _val) do
-    raise ArgumentError, """
-    received unknown LiveView event #{inspect(bad_event)}.
-    The following LiveView events are supported: lv:clear-flash.
-    """
-  end
-
-  defp inner_component_handle_event(component_socket, component, event, val) do
-    :telemetry.span(
-      [:phoenix, :live_component, :handle_event],
-      %{socket: component_socket, component: component, event: event, params: val},
-      fn ->
-        component_socket =
-          %Socket{redirected: redirected, assigns: assigns} =
-          case component.handle_event(event, val, component_socket) do
-            {:noreply, component_socket} ->
-              component_socket
-
-            {:reply, %{} = reply, component_socket} ->
-              Utils.put_reply(component_socket, reply)
-
-            other ->
-              raise ArgumentError, """
-              invalid return from #{inspect(component)}.handle_event/3 callback.
-
-              Expected one of:
-
-                  {:noreply, %Socket{}}
-                  {:reply, map, %Socket}
-
-              Got: #{inspect(other)}
-              """
-          end
-
-        {
-          {component_socket, {redirected, assigns.flash}},
-          %{socket: component_socket, component: component, event: event, params: val}
-        }
-      end
-    )
   end
 
   defp decode_event_type("form", url_encoded) do
@@ -565,7 +481,8 @@ defmodule LiveElement.Channel do
          new_state
          |> push_diff(diff, ref)}
 
-      _ -> {:noreply, new_state}
+      _ ->
+        {:noreply, new_state}
     end
   end
 
@@ -704,14 +621,24 @@ defmodule LiveElement.Channel do
   end
 
   defp push(state, event, payload) do
-    message = %Message{topic: state.topic, event: event, payload: payload, join_ref: state.join_ref}
+    message = %Message{
+      topic: state.topic,
+      event: event,
+      payload: payload,
+      join_ref: state.join_ref
+    }
+
     send(state.socket.transport_pid, state.serializer.encode!(message))
     state
   end
 
   ## Mount
 
-  defp mount(%{"session" => session_token, "params" => %{"module" => module_name}} = params, from, phx_socket) do
+  defp mount(
+         %{"session" => session_token, "params" => %{"module" => module_name}} = params,
+         from,
+         phx_socket
+       ) do
     %Phoenix.Socket{endpoint: endpoint, topic: topic} = phx_socket
 
     case build_session(module_name) do
@@ -748,6 +675,7 @@ defmodule LiveElement.Channel do
 
   defp build_session(module_name) do
     module = String.to_existing_atom("Elixir.#{module_name}")
+
     {:ok,
      %LiveElement.Session{
        assign_new: [],
