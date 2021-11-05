@@ -93,7 +93,7 @@ export default class DOMPatch {
 
     liveSocket.time("morphdom", () => {
       morphdom(targetContainer, diffHTML, {
-        childrenOnly: targetContainer.getAttribute(PHX_COMPONENT) === null,
+        childrenOnly: true,
         getNodeKey: (node) => {
           return DOM.isPhxDestroyed(node) ? null : node.id
         },

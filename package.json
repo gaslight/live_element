@@ -1,20 +1,16 @@
 {
   "name": "live_element",
-  "version": "0.17.2",
-  "description": "The Phoenix LiveView JavaScript client.",
+  "version": "0.0.1",
+  "description": "An experiment in server side rendered custom elements",
   "license": "MIT",
   "module": "./priv/static/live_element.esm.js",
-  "main": "./priv/static/live_element.cjs.js",
-  "unpkg": "./priv/static/live_element.min.js",
-  "jsdelivr": "./priv/static/live_element.min.js",
+  "main": "./priv/static/live_element.esm.js",
   "exports": {
-    "import": "./priv/static/live_element.esm.js",
-    "require": "./priv/static/live_element.cjs.js"
+    "import": "./priv/static/live_element.esm.js"
   },
-  "author": "Chris McCord <chris@chrismccord.com> (http://www.phoenixframework.org)",
   "repository": {
     "type": "git",
-    "url": "git://github.com/phoenixframework/live_element.git"
+    "url": "git://github.com/gaslight/live_element.git"
   },
   "files": [
     "README.md",

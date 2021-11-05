@@ -10,6 +10,7 @@
     "test.watch": "jest --watch"
   },
   "dependencies": {
+    "lit": "^2.0.2",
     "morphdom": "2.6.1"
   },
   "devDependencies": {
