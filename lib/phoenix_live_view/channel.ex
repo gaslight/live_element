@@ -55,7 +55,6 @@ defmodule LiveElement.Channel do
   @impl true
   def handle_info({Phoenix.Channel, auth_payload, from, phx_socket}, ref) do
     Process.demonitor(ref)
-    IO.inspect(auth_payload, label: "before mount")
     mount(auth_payload, from, phx_socket)
   rescue
     # Normalize exceptions for better client debugging
@@ -103,38 +102,6 @@ defmodule LiveElement.Channel do
     send(state.socket.transport_pid, {:socket_close, self(), {:shutdown, :left}})
     reply(state, msg.ref, :ok, %{})
     {:stop, {:shutdown, :left}, state}
-  end
-
-  def handle_info(%Message{topic: topic, event: "live_patch"} = msg, %{topic: topic} = state) do
-    %{socket: socket} = state
-    %{view: view} = socket
-    %{"url" => url} = msg.payload
-
-    case Route.live_link_info!(socket, view, url) do
-      {:internal, %Route{params: params, action: action}} ->
-        socket = socket |> assign_action(action) |> Utils.clear_flash()
-
-        socket
-        |> Utils.call_handle_params!(view, params, url)
-        |> handle_result({:handle_params, 3, msg.ref}, state)
-
-      {:external, _uri} ->
-        {:noreply, reply(state, msg.ref, :ok, %{link_redirect: true})}
-    end
-  end
-
-  def handle_info(
-        %Message{topic: topic, event: "cids_will_destroy"} = msg,
-        %{topic: topic} = state
-      ) do
-    %{"cids" => cids} = msg.payload
-
-    new_components =
-      Enum.reduce(cids, state.components, fn cid, acc ->
-        Diff.mark_for_deletion_component(cid, acc)
-      end)
-
-    {:noreply, reply(%{state | components: new_components}, msg.ref, :ok, %{})}
   end
 
   def handle_info(%Message{topic: topic, event: "progress"} = msg, %{topic: topic} = state) do
