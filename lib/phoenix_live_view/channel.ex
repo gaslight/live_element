@@ -152,6 +152,15 @@ defmodule LiveElement.Channel do
     {:noreply, new_state}
   end
 
+  def handle_info(
+        %Message{topic: topic, event: "cids_destroyed"} = msg,
+        %{topic: topic} = state
+      ) do
+    %{"cids" => cids} = msg.payload
+    {deleted_cids, new_state} = delete_components(state, cids)
+    {:noreply, reply(new_state, msg.ref, :ok, %{cids: deleted_cids})}
+  end
+
   def handle_info(%Message{topic: topic, event: "event"} = msg, %{topic: topic} = state) do
     %{"value" => raw_val, "event" => event, "type" => type} = msg.payload
     val = decode_event_type(type, raw_val)
@@ -196,6 +205,10 @@ defmodule LiveElement.Channel do
     end
   end
 
+  def handle_info({@prefix, :redirect, command, flash}, state) do
+    handle_redirect(state, command, flash, nil)
+  end
+
   def handle_info(msg, %{socket: socket} = state) do
     msg
     |> view_handle_info(socket)
@@ -216,6 +229,11 @@ defmodule LiveElement.Channel do
 
       {:reply, result, state}
     end)
+  end
+
+  def handle_call({@prefix, :child_mount, _child_pid, assign_new}, _from, state) do
+    assigns = Map.take(state.socket.assigns, assign_new)
+    {:reply, {:ok, assigns}, state}
   end
 
   def handle_call({@prefix, :register_entry_upload, info}, from, state) do
@@ -479,10 +497,11 @@ defmodule LiveElement.Channel do
       {:diff, diff, new_state} ->
         {:noreply,
          new_state
+         |> push_live_patch(pending_live_patch)
          |> push_diff(diff, ref)}
 
-      _ ->
-        {:noreply, new_state}
+      result ->
+        handle_redirect(new_state, result, Utils.changed_flash(new_socket), ref)
     end
   end
 
