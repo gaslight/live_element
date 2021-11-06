@@ -86,6 +86,13 @@ class TodoList extends LiveElement {
 window.customElements.define('todo-list', TodoList);
 ```
 
+Use the element. Note that the web page using the element does not need to be in the same 
+app running the view module. Which is kinda the point of all this :)
+
+```html
+<todo-list id="todo-list" module="LiveElementExampleWeb.TodosLive.TodoList" url="ws://localhost:4000/live_element"></todo-list>
+```
+
 # Supported bindings
 * phx-click
 * phx-form
