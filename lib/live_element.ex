@@ -1,6 +1,8 @@
 defmodule LiveElement do
 
   alias Phoenix.LiveView.Renderer
+  alias Phoenix.LiveView
+
   @moduledoc ~S'''
   LiveView provides rich, real-time user experiences with
   server-rendered HTML.
@@ -379,7 +381,7 @@ defmodule LiveElement do
             ) ::
               {:ok, Socket.t()} | {:ok, Socket.t(), keyword()}
 
-  @callback render(assigns :: Socket.assigns()) :: LiveElement.Rendered.t()
+  @callback render(assigns :: Socket.assigns()) :: LiveView.Rendered.t()
 
   @callback terminate(reason, socket :: Socket.t()) :: term
             when reason: :normal | :shutdown | {:shutdown, :left | :closed | term}
