@@ -2,7 +2,6 @@ defmodule LiveElement.Renderer do
   @moduledoc false
 
   defmacro __before_compile__(env) do
-    IO.inspect("in before compile livelement renderer")
     render? = Module.defines?(env.module, {:render, 1})
     root = Path.dirname(env.file)
     filename = template_filename(env)

@@ -887,7 +887,7 @@ defmodule LiveElement.LiveViewTest do
   describe "transport_pid/1" do
     test "raises when not connected" do
       assert_raise ArgumentError, ~r/may only be called when the socket is connected/, fn ->
-        LiveView.transport_pid(%LiveView.Socket{})
+        LiveElement.transport_pid(%LiveElement.Socket{})
       end
     end
 

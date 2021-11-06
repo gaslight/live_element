@@ -714,7 +714,9 @@ defmodule LiveElement do
     end
   end
 
-  def assign(assigns, _key, _val) do
+  def assign(assigns, key, val) do
+    IO.inspect(key, label: "key")
+    IO.inspect(val, label: "val")
     raise ArgumentError,
           "assign/3 expects a socket or an assigns map from a function component as first argument, got: " <>
             inspect(assigns)

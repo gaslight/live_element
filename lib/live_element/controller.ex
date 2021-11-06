@@ -35,7 +35,7 @@ defmodule LiveElement.Controller do
 
   """
   def live_render(%Plug.Conn{} = conn, view, opts \\ []) do
-    case LiveView.Static.render(conn, view, opts) do
+    case LiveElement.Static.render(conn, view, opts) do
       {:ok, content, socket_assigns} ->
         conn
         |> Phoenix.Controller.put_view(LiveView.Static)

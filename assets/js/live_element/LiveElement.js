@@ -5,6 +5,7 @@ import View from './view';
 class LiveElement extends HTMLElement {
   
   connectedCallback() {
+    this.createRenderRoot();
     this.liveSocket = new LiveSocket(this.url, Socket, {})
     this.liveSocket.enableDebug();
     this.liveSocket.socket.connect();
@@ -12,16 +13,21 @@ class LiveElement extends HTMLElement {
     this.liveSocket.roots[this.view.id] = this.view;
     this.view.channel = this.liveSocket.channel(`lve:${this.id}`, () => {
       return {
-        params: {module: this.module},
+        params: {...this.connectParams(), module: this.module},
         session: {}
       }
     })
     this.view.setHref(this.liveSocket.getHref())
     this.view.join();
-
-    this.attachShadow({mode: 'open'});
-    this.renderRoot = this.shadowRoot;
     this.bindEvents();
+  }
+
+  connectParams() {
+    return { thing: 'wut '};
+  }
+
+  createRenderRoot() {
+    this.renderRoot = this.attachShadow({mode: 'open'});
   }
 
   bindEvents() {

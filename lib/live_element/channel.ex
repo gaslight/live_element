@@ -654,13 +654,13 @@ defmodule LiveElement.Channel do
   ## Mount
 
   defp mount(
-         %{"session" => session_token, "params" => %{"module" => module_name}} = params,
+         %{"session" => session_token, "params" => %{"module" => module_name} = join_params} = params,
          from,
          phx_socket
        ) do
     %Phoenix.Socket{endpoint: endpoint, topic: topic} = phx_socket
 
-    case build_session(module_name) do
+    case build_session(module_name, join_params) do
       {:ok, %Session{} = verified} ->
         %Phoenix.Socket{private: %{connect_info: connect_info}} = phx_socket
 
@@ -692,7 +692,7 @@ defmodule LiveElement.Channel do
     {:stop, :shutdown, :no_session}
   end
 
-  defp build_session(module_name) do
+  defp build_session(module_name, session) do
     module = String.to_existing_atom("Elixir.#{module_name}")
 
     {:ok,
@@ -706,7 +706,7 @@ defmodule LiveElement.Channel do
        redirected?: false,
        root_pid: nil,
        root_view: module,
-       session: %{},
+       session: session,
        view: module
      }}
   end

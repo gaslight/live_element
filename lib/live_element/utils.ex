@@ -134,6 +134,7 @@ defmodule LiveElement.Utils do
     inner_content =
       assigns
       |> view.render()
+      |> IO.inspect()
       |> check_rendered!(view)
 
     case layout(socket, view) do
