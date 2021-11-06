@@ -1,4 +1,6 @@
 defmodule LiveElement do
+
+  alias Phoenix.LiveView.Renderer
   @moduledoc ~S'''
   LiveView provides rich, real-time user experiences with
   server-rendered HTML.
@@ -435,8 +437,8 @@ defmodule LiveElement do
       @behaviour LiveElement
       use Phoenix.Component
 
-      require LiveElement.Renderer
-      @before_compile LiveElement.Renderer
+      require Renderer
+      @before_compile Renderer
 
       @phoenix_live_opts opts
       Module.register_attribute(__MODULE__, :phoenix_live_mount, accumulate: true)
